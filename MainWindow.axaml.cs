@@ -20,17 +20,6 @@ public partial class MainWindow : Window
     private bool playerTurn = true;
     private Random random = new Random();
 
-    public MainWindow()
-    {
-        Title = "⚓ Морской бой";
-        Width = 1000;
-        Height = 700;
-        Background = new SolidColorBrush(Color.FromRgb(20, 30, 50));
-
-        InitializeGame();
-        BuildUI();
-    }
-
     private void InitializeGame()
     {
         playerBoard = new GameBoard();

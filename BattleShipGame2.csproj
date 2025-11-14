@@ -25,4 +25,8 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="MainWindow.axaml.cs" />
+  </ItemGroup>
 </Project>
