@@ -1,6 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace BattleShipGame.Models;
+namespace BattleShipGame2.Models;
 
 public class Ship
 {

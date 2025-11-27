@@ -1,9 +1,10 @@
-namespace BattleShipGame.Models;
+﻿namespace BattleShipGame2.Models;
 public enum CellState
 {
     Empty,
     Ship,
     Miss,
     Hit,
-    Sunk
+    Sunk,
+    Blocked
 }

@@ -11,6 +11,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
+    <Folder Include="Styles\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,5 +29,6 @@
 
   <ItemGroup>
     <Compile Remove="MainWindow.axaml.cs" />
+    <Compile Remove="ServerLogic\Networking.cs" />
   </ItemGroup>
 </Project>

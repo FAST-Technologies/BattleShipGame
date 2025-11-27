@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+// using BattleShipGame2.Models;
 
-namespace BattleShipGame.Models;
+namespace BattleShipGame2.Models;
 public class GameBoard
 {
     public CellState[,] Grid { get; private set; }
@@ -33,7 +34,7 @@ public class GameBoard
         return true;
     }
 
-    private bool CanPlaceShip(int x, int y, int size, bool horizontal)
+    public bool CanPlaceShip(int x, int y, int size, bool horizontal)
     {
         for (int i = 0; i < size; i++)
         {
@@ -86,7 +87,8 @@ public class GameBoard
 
     public (bool hit, bool sunk, bool gameOver) Attack(int x, int y)
     {
-        if (Grid[x, y] == CellState.Hit || Grid[x, y] == CellState.Miss || Grid[x, y] == CellState.Sunk)
+        if (Grid[x, y] == CellState.Hit || Grid[x, y] == CellState.Miss || 
+            Grid[x, y] == CellState.Sunk || Grid[x, y] == CellState.Blocked)
             return (false, false, false);
 
         if (Grid[x, y] == CellState.Ship)
@@ -104,6 +106,7 @@ public class GameBoard
                     {
                         Grid[pos.X, pos.Y] = CellState.Sunk;
                     }
+                    BlockAroundShip(ship);
 
                     bool gameOver = Ships.All(s => s.IsSunk);
                     return (true, true, gameOver);
@@ -117,5 +120,34 @@ public class GameBoard
             Grid[x, y] = CellState.Miss;
             return (false, false, false);
         }
+    }
+
+    private void BlockAroundShip(Ship ship)
+    {
+        foreach (var (x, y) in ship.Positions)
+        {
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    int checkX = x + dx;
+                    int checkY = y + dy;
+
+                    if (checkX >= 0 && checkX < Size && checkY >= 0 && checkY < Size)
+                    {
+                        if (Grid[checkX, checkY] == CellState.Empty)
+                        {
+                            Grid[checkX, checkY] = CellState.Blocked;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void Clear()
+    {
+        Grid = new CellState[Size, Size];
+        Ships.Clear();
     }
 }
