@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ROn93E7odY4=",
+  "dgSpecHash": "6Xh8agAmOmw=",
   "success": true,
-  "projectFilePath": "G:\\Sharp_projects\\ss\\BattleShipGame\\BattleShipGame2.csproj",
+  "projectFilePath": "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\BattleShipGame2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ysm47\\.nuget\\packages\\avalonia\\11.3.8\\avalonia.11.3.8.nupkg.sha512",
     "C:\\Users\\ysm47\\.nuget\\packages\\avalonia.angle.windows.natives\\2.1.25547.20250602\\avalonia.angle.windows.natives.2.1.25547.20250602.nupkg.sha512",

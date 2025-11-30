@@ -4,6 +4,8 @@
     <option name="projectPerEditor">
       <map>
         <entry key="App.axaml" value="BattleShipGame2.csproj" />
+        <entry key="MainWindow.axaml" value="BattleShipGame2.csproj" />
+        <entry key="Styles/GameStyles.axaml" value="BattleShipGame2.csproj" />
         <entry key="Views/MainWindow.axaml" value="BattleShipGame2.csproj" />
       </map>
     </option>

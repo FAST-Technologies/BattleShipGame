@@ -1,0 +1,314 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- ========== КНОПКИ ========== -->
+    
+    <!-- Кнопки меню -->
+    <Style Selector="Button.MenuButton">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="40,20"/>
+        <Setter Property="Background" Value="#3C5A8C"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Width" Value="450"/>
+        <Setter Property="Margin" Value="0,0,0,20"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.MenuButton:pointerover">
+        <Setter Property="Background" Value="#4C6A9C"/>
+    </Style>
+
+    <Style Selector="Button.MenuButton:pressed">
+        <Setter Property="Opacity" Value="0.9"/>
+    </Style>
+    
+    <Style Selector="Button.SubButton">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="40,20"/>
+        <Setter Property="Background" Value="#3C5A8C"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Width" Value="350"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.SubButton:pointerover">
+        <Setter Property="Background" Value="#4C6A9C"/>
+    </Style>
+
+    <Style Selector="Button.SubButton:pressed">
+        <Setter Property="Opacity" Value="0.9"/>
+    </Style>
+
+    <!-- Кнопки сложности -->
+    <Style Selector="Button.DifficultyButton">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Padding" Value="30,15"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Width" Value="350"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.DifficultyEasy">
+        <Setter Property="Background" Value="#50783C"/>
+    </Style>
+
+    <Style Selector="Button.DifficultyEasy:pointerover">
+        <Setter Property="Background" Value="#60884C"/>
+    </Style>
+
+    <Style Selector="Button.DifficultyMedium">
+        <Setter Property="Background" Value="#786428"/>
+    </Style>
+
+    <Style Selector="Button.DifficultyMedium:pointerover">
+        <Setter Property="Background" Value="#887438"/>
+    </Style>
+
+    <Style Selector="Button.DifficultyHard">
+        <Setter Property="Background" Value="#782828"/>
+    </Style>
+
+    <Style Selector="Button.DifficultyHard:pointerover">
+        <Setter Property="Background" Value="#883838"/>
+    </Style>
+
+    <!-- Игровые кнопки -->
+    <Style Selector="Button.GameButton">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="20,10"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.RotateButton">
+        <Setter Property="Background" Value="#3C5A8C"/>
+    </Style>
+
+    <Style Selector="Button.RotateButton:pointerover">
+        <Setter Property="Background" Value="#4C6A9C"/>
+    </Style>
+
+    <Style Selector="Button.RandomButton">
+        <Setter Property="Background" Value="#50783C"/>
+    </Style>
+
+    <Style Selector="Button.RandomButton:pointerover">
+        <Setter Property="Background" Value="#60884C"/>
+    </Style>
+
+    <Style Selector="Button.StartButton">
+        <Setter Property="Background" Value="#783C3C"/>
+    </Style>
+
+    <Style Selector="Button.StartButton:pointerover">
+        <Setter Property="Background" Value="#884C4C"/>
+    </Style>
+
+    <Style Selector="Button.StartButton:disabled">
+        <Setter Property="Background" Value="#505050"/>
+        <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+
+    <Style Selector="Button.ResetButton">
+        <Setter Property="Background" Value="#3C5A8C"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Padding" Value="30,12"/>
+    </Style>
+
+    <Style Selector="Button.ResetButton:pointerover">
+        <Setter Property="Background" Value="#4C6A9C"/>
+    </Style>
+
+    <Style Selector="Button.MenuExitButton">
+        <Setter Property="Background" Value="#503C64"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Padding" Value="30,12"/>
+    </Style>
+
+    <Style Selector="Button.MenuExitButton:pointerover">
+        <Setter Property="Background" Value="#604C74"/>
+    </Style>
+
+    <!-- ========== ТЕКСТ ========== -->
+    
+    <Style Selector="TextBlock.Title">
+        <Setter Property="FontSize" Value="48"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,40"/>
+    </Style>
+
+    <Style Selector="TextBlock.Subtitle">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,40"/>
+    </Style>
+
+    <Style Selector="TextBlock.DifficultyTitle">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="TextBlock.Status">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="TextBlock.Instruction">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="TextBlock.Stats">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,5,0,0"/>
+    </Style>
+
+    <Style Selector="TextBlock.BoardLabel">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="TextBlock.Coordinate">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+    </Style>
+
+    <!-- ========== ПАНЕЛИ И КОНТЕЙНЕРЫ ========== -->
+    
+    <Style Selector="Border.Panel">
+        <Setter Property="Background" Value="#1E3250"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Padding" Value="20,15"/>
+    </Style>
+
+    <Style Selector="Border.BoardHeader">
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="15,8"/>
+    </Style>
+
+    <Style Selector="Border.BoardHeader.Player">
+        <Setter Property="Background" Value="#287850"/>
+    </Style>
+
+    <Style Selector="Border.BoardHeader.Enemy">
+        <Setter Property="Background" Value="#782828"/>
+    </Style>
+
+    <!-- Клетки игрового поля -->
+    <Style Selector="Border.GameCell">
+        <Setter Property="BorderBrush" Value="#3C5A78"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Background" Value="#325078"/>
+    </Style>
+
+    <Style Selector="Border.GameCell.Empty">
+        <Setter Property="Background" Value="#325078"/>
+    </Style>
+
+    <Style Selector="Border.GameCell.Ship">
+        <Setter Property="Background" Value="#46648C"/>
+    </Style>
+
+    <Style Selector="Border.GameCell.Miss">
+        <Setter Property="Background" Value="#3C6496"/>
+    </Style>
+
+    <Style Selector="Border.GameCell.Hit">
+        <Setter Property="Background" Value="#B47828"/>
+    </Style>
+
+    <Style Selector="Border.GameCell.Sunk">
+        <Setter Property="Background" Value="#963232"/>
+    </Style>
+
+    <Style Selector="Border.GameCell.Blocked">
+        <Setter Property="Background" Value="#283C5A"/>
+    </Style>
+
+    <!-- Клетки расстановки -->
+    <Style Selector="Border.PlacementCell">
+        <Setter Property="BorderBrush" Value="#3C5A78"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="#325078"/>
+    </Style>
+
+    <Style Selector="Border.PlacementCell.Empty">
+        <Setter Property="Background" Value="#325078"/>
+    </Style>
+
+    <Style Selector="Border.PlacementCell.Ship">
+        <Setter Property="Background" Value="#46648C"/>
+    </Style>
+
+    <Style Selector="Border.PlacementCell.CanPlace">
+        <Setter Property="Background" Value="#64B464"/>
+    </Style>
+
+    <Style Selector="Border.PlacementCell.CannotPlace">
+        <Setter Property="Background" Value="#B46464"/>
+    </Style>
+
+    <!-- Canvas игрового поля -->
+    <Style Selector="Canvas.GameBoard">
+        <Setter Property="Width" Value="420"/>
+        <Setter Property="Height" Value="420"/>
+        <Setter Property="Background" Value="#1E3250"/>
+    </Style>
+
+    <!-- ========== ОКНА ========== -->
+    
+    <Style Selector="Window">
+        <Setter Property="Background" Value="#141E32"/>
+    </Style>
+
+</Styles>

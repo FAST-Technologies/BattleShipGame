@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Sharp_projects\\ss\\BattleShipGame\\BattleShipGame2.csproj": {}
+    "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\BattleShipGame2.csproj": {}
   },
   "projects": {
-    "G:\\Sharp_projects\\ss\\BattleShipGame\\BattleShipGame2.csproj": {
+    "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\BattleShipGame2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Sharp_projects\\ss\\BattleShipGame\\BattleShipGame2.csproj",
+        "projectUniqueName": "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\BattleShipGame2.csproj",
         "projectName": "BattleShipGame2",
-        "projectPath": "G:\\Sharp_projects\\ss\\BattleShipGame\\BattleShipGame2.csproj",
+        "projectPath": "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\BattleShipGame2.csproj",
         "packagesPath": "C:\\Users\\ysm47\\.nuget\\packages\\",
-        "outputPath": "G:\\Sharp_projects\\ss\\BattleShipGame\\obj\\",
+        "outputPath": "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
