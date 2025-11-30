@@ -809,7 +809,6 @@ public partial class MainWindow : Window
             return;
     
         chatPanel.Children.Clear();
-    
         foreach (var (sender, text, timestamp) in chatMessages)
         {
             // var messageBlock = new TextBlock
@@ -1773,64 +1772,6 @@ public partial class MainWindow : Window
                         ShowNetworkConnectWindow();
                     }
                 );
-                /*var confirmWindow = new Window
-                {
-                    Title = "Подтверждение",
-                    Width = 400,
-                    Height = 200,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                    CanResize = false,
-                    Classes = { "Window" }
-                };
-
-                var confirmPanel = new StackPanel
-                {
-                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                    Spacing = 20,
-                    Margin = new Thickness(20)
-                };
-
-                var confirmText = new TextBlock
-                {
-                    Text = "Начать новую онлайн-игру?\nТекущая игра будет завершена.",
-                    Classes = { "Subtitle" },
-                    TextAlignment = Avalonia.Media.TextAlignment.Center,
-                    TextWrapping = Avalonia.Media.TextWrapping.Wrap
-                };
-
-                var confirmButtonsPanel = new StackPanel
-                {
-                    Orientation = Avalonia.Layout.Orientation.Horizontal,
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                    Spacing = 15
-                };
-
-                var yesButton = new Button
-                {
-                    Content = "Да",
-                    Classes = { "GameButton" }
-                };
-                yesButton.Click += (ss, ee) => 
-                {
-                    confirmWindow.Close();
-                    LeaveNetworkGameAsync(); // Синхронный выход
-                    ShowNetworkConnectWindow();
-                };
-
-                var noButton = new Button
-                {
-                    Content = "Нет",
-                    Classes = { "GameButton" }
-                };
-                noButton.Click += (ss, ee) => confirmWindow.Close();
-
-                confirmButtonsPanel.Children.Add(yesButton);
-                confirmButtonsPanel.Children.Add(noButton);
-                confirmPanel.Children.Add(confirmText);
-                confirmPanel.Children.Add(confirmButtonsPanel);
-                confirmWindow.Content = confirmPanel;
-                confirmWindow.ShowDialog(this);*/
             }
             else
             {
@@ -1856,68 +1797,9 @@ public partial class MainWindow : Window
                         ShowMainMenu();
                     }
                 );
-                /*var confirmWindow = new Window
-                {
-                    Title = "Подтверждение",
-                    Width = 400,
-                    Height = 200,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                    CanResize = false,
-                    Classes = { "Window" }
-                };
-
-                var confirmPanel = new StackPanel
-                {
-                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                    Spacing = 20,
-                    Margin = new Thickness(20)
-                };
-
-                var confirmText = new TextBlock
-                {
-                    Text = "Вернуться в главное меню?\nТекущая игра будет завершена.",
-                    Classes = { "Subtitle" },
-                    TextAlignment = Avalonia.Media.TextAlignment.Center,
-                    TextWrapping = Avalonia.Media.TextWrapping.Wrap
-                };
-
-                var confirmButtonsPanel = new StackPanel
-                {
-                    Orientation = Avalonia.Layout.Orientation.Horizontal,
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                    Spacing = 15
-                };
-
-                var yesButton = new Button
-                {
-                    Content = "Да",
-                    Classes = { "GameButton" }
-                };
-                yesButton.Click += (ss, ee) => 
-                {
-                    confirmWindow.Close();
-                    LeaveNetworkGameAsync(); // Синхронный выход
-                    ShowMainMenu();
-                };
-
-                var noButton = new Button
-                {
-                    Content = "Нет",
-                    Classes = { "GameButton" }
-                };
-                noButton.Click += (ss, ee) => confirmWindow.Close();
-
-                confirmButtonsPanel.Children.Add(yesButton);
-                confirmButtonsPanel.Children.Add(noButton);
-                confirmPanel.Children.Add(confirmText);
-                confirmPanel.Children.Add(confirmButtonsPanel);
-                confirmWindow.Content = confirmPanel;
-                confirmWindow.ShowDialog(this);*/
             }
             else
             {
-                // Локальная игра - просто возвращаемся в меню
                 ShowMainMenu();
             }
         };
@@ -2055,7 +1937,7 @@ public partial class MainWindow : Window
 
         return chatContainer;
     }
-    
+        
     private string FormatTimestamp(DateTime timestamp)
     {
         var now = DateTime.Now;
@@ -2081,7 +1963,7 @@ public partial class MainWindow : Window
             return timestamp.ToString("dd.MM.yyyy HH:mm");
         }
     }
-    
+        
     private void ShowConfirmDialog(string message, Action onConfirm)
     {
         var confirmWindow = new Window

@@ -34,5 +34,15 @@
     "C:\\Users\\ysm47\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
     "C:\\Users\\ysm47\\.nuget\\packages\\tmds.dbus.protocol\\0.21.2\\tmds.dbus.protocol.0.21.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Ошибка чтения файла кэша G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\obj\\project.nuget.cache: '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\BattleShipGame2.csproj",
+      "warningLevel": 1,
+      "filePath": "G:\\BattleShipGame.zip-20251115T124743Z-1-001\\BattleShipGame\\BattleShipGame\\BattleShipGame2.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

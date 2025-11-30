@@ -32,6 +32,8 @@ public static class NetworkProtocol
         public const string ChatMessageReceived = "CHAT_MESSAGE_RECEIVED";
         public const string Error = "ERROR";
         public const string LeaveGame = "LEAVE_GAME";
+        public const string ListReq = "LIST_REQ";
+        public const string ListRes = "LIST_RES";
     }
 
     // --- Ключи данных (Keys) ---

@@ -152,6 +152,9 @@ public class GameServer
             case NetworkProtocol.Commands.ChatMessage:
                 await HandleChatMessageAsync(player, message.Data);
                 break;
+            case NetworkProtocol.Commands.ListReq:
+                await HandleList(player.Id);
+                break;
             // Добавьте другие типы сообщений по мере необходимости
             default:
                 Console.WriteLine($"[SERVER] Неизвестная команда от {player.Name} ({player.Id}): {message.Type}");
@@ -191,6 +194,20 @@ public class GameServer
         });
     }
     
+    private async Task HandleList(string playerID)
+    {
+        Dictionary<string, string> message = new Dictionary<string, string>();
+        foreach (string id in _players.Keys)
+        {
+            if (id == playerID) continue;
+            message.Add(id, _players[playerID].Name);
+        }
+        await SendServerMessageAsync(_players[playerID], new ServerMessage
+        {
+            Type = NetworkProtocol.Commands.ListRes, 
+            Data = message
+        });
+    }
     private async Task HandleJoinAsync(PlayerConnection player, string name)
     {
         player.Name = name;

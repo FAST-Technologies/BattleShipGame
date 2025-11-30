@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Avalonia.Threading;
 
 namespace BattleShipGame2.Networking;
 
