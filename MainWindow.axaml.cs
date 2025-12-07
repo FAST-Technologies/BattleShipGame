@@ -15,8 +15,8 @@ namespace TestAvalonia.Views;
 
 public partial class MainWindow : Window
 {
-    private GameBoard playerBoard;
-    private GameBoard computerBoard;
+    private GameBoard? playerBoard;
+    private GameBoard? computerBoard;
     private TextBlock statusText;
     private TextBlock playerStatsText;
     private TextBlock computerStatsText;
@@ -58,7 +58,6 @@ public partial class MainWindow : Window
             Stretch = Stretch.UniformToFill,
             Opacity = 0.6
         };
-
         ShowMainMenu();
     }
 

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Media;
 using Avalonia.Threading;
 using BattleShipGame2.Networking;
 
@@ -23,7 +21,7 @@ public partial class ChatControl : UserControl
     private void InitializeComponents()
     {
         // Убедимся, что элементы найдены
-        var messagesPanel = this.FindControl<StackPanel>("ChatMessagesPanel");
+        var messagesPanel = ChatMessagesPanel;
         if (messagesPanel == null)
             Console.WriteLine("[ChatControl] WARNING: ChatMessagesPanel not found during initialization!");
         else
@@ -36,8 +34,7 @@ public partial class ChatControl : UserControl
     public void SetChatManager(ChatManager chatManager)
     {
         _chatManager = chatManager;
-        if (_chatManager == null) return;
-        _chatManager.MessageAdded += OnMessageAdded;
+        _chatManager?.MessageAdded += OnMessageAdded;
     }
 
     /// <summary>
@@ -56,7 +53,7 @@ public partial class ChatControl : UserControl
     /// </summary>
     private void AddMessageToUI(string sender, string text, DateTime timestamp)
     {
-        var messagesPanel = this.FindControl<StackPanel>("ChatMessagesPanel");
+        var messagesPanel = ChatMessagesPanel;
         if (messagesPanel == null) return;
 
         // Контейнер сообщения
@@ -101,7 +98,7 @@ public partial class ChatControl : UserControl
         messagesPanel.Children.Add(separator);
 
         // Прокрутка вниз
-        var scrollViewer = this.FindControl<ScrollViewer>("ChatScrollViewer");
+        var scrollViewer = ChatScrollViewer;
         scrollViewer?.ScrollToEnd();
     }
 
@@ -112,7 +109,7 @@ public partial class ChatControl : UserControl
     {
         if (e.Key == Key.Enter && _chatManager != null)
         {
-            var inputBox = this.FindControl<TextBox>("ChatInputBox");
+            var inputBox = ChatInputBox;
             if (inputBox != null && !string.IsNullOrWhiteSpace(inputBox.Text))
             {
                 await _chatManager.SendChatMessageAsync(inputBox.Text);
@@ -128,7 +125,7 @@ public partial class ChatControl : UserControl
     {
         if (_chatManager != null)
         {
-            var inputBox = this.FindControl<TextBox>("ChatInputBox");
+            var inputBox = ChatInputBox;
             if (inputBox != null && !string.IsNullOrWhiteSpace(inputBox.Text))
             {
                 await _chatManager.SendChatMessageAsync(inputBox.Text);
@@ -169,7 +166,7 @@ public partial class ChatControl : UserControl
     public void Clear()
     {
         _messages.Clear();
-        var messagesPanel = this.FindControl<StackPanel>("ChatMessagesPanel");
+        var messagesPanel = ChatMessagesPanel;
         messagesPanel?.Children.Clear();
     }
 }

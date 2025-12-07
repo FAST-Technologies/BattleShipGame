@@ -85,10 +85,7 @@ public class BotLogic
             _lastHits.Add((target.x, target.y));
             if (_lastHits.Count > 5) _lastHits.RemoveAt(0);
             
-            if (_initialHit == null)
-            {
-                _initialHit = (target.x, target.y);
-            }
+            _initialHit ??= (target.x, target.y);
             
             // Определяем направление при втором попадании
             if (_lastHits.Count >= 2)
@@ -127,10 +124,8 @@ public class BotLogic
         var targets = new List<(int x, int y)>();
         for (int x = 0; x < board.Size; x++)
             for (int y = 0; y < board.Size; y++)
-            {
                 if (board.Grid[x, y] == CellState.Empty || board.Grid[x, y] == CellState.Ship)
                     targets.Add((x, y));
-            }
         return targets;
     }
 
@@ -220,9 +215,7 @@ public class BotLogic
         // Собираем всех соседей всех попаданий
         var allNeighbors = new List<(int x, int y)>();
         foreach (var hit in _lastHits)
-        {
             allNeighbors.AddRange(GetNeighbors(hit.x, hit.y, board));
-        }
 
         // Убираем дубликаты и выбираем только доступные цели
         var uniqueNeighbors = allNeighbors

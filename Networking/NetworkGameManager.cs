@@ -12,10 +12,10 @@ public class NetworkGameManager
     #region Поля и свойства
     
     private NetworkClient _networkClient; /// <summary>Инициализация сетевого клиента.</summary>
-    private ChatManager _chatManager; /// <summary>Инициализация чат-менеджера.</summary>
+    private ChatManager? _chatManager; /// <summary>Инициализация чат-менеджера.</summary>
     
-    private GameBoard _playerBoard; /// <summary>Собственная игровая доска игрока.</summary>
-    private GameBoard _opponentBoard; /// <summary>Доска соперника в сетевой игре.</summary>
+    private GameBoard? _playerBoard; /// <summary>Собственная игровая доска игрока.</summary>
+    private GameBoard? _opponentBoard; /// <summary>Доска соперника в сетевой игре.</summary>
     
     private string _playerName = "Player"; /// <summary>Имя текущего игрока.</summary>
     private string _opponentName = "Opponent"; /// <summary>Имя соперника в сетевой игре.</summary>
@@ -52,7 +52,7 @@ public class NetworkGameManager
     public NetworkGameManager(NetworkClient networkClient)
     {
         _networkClient = networkClient;
-        // _chatManager = new ChatManager(networkClient, _playerName);
+        //_chatManager = new ChatManager(networkClient, _playerName);
         _networkClient.OnMessageReceived += OnNetworkMessageReceived;
         _networkClient.OnDisconnected += OnNetworkDisconnected;
     }

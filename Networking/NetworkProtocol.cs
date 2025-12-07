@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BattleShipGame2.Networking;
+﻿namespace BattleShipGame2.Networking;
 
 /// <summary>
 /// Статический класс, определяющий протокол обмена сообщениями между клиентом и сервером.

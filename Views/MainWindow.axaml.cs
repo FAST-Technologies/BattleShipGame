@@ -14,11 +14,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using BattleShipGame2.Models;
@@ -42,11 +39,11 @@ public partial class MainWindow : Window
     private Canvas _ownCanvas;
     private Canvas _enemyCanvas;
 
-    private GameBoard playerBoard;          /// <summary>Собственная игровая доска игрока.</summary>
-    private GameBoard computerBoard;        /// <summary>Доска компьютера (режим против ИИ).</summary>
-    private GameBoard opponentBoard;        /// <summary>Доска соперника в сетевой игре.</summary>
+    private GameBoard? playerBoard;          /// <summary>Собственная игровая доска игрока.</summary>
+    private GameBoard? computerBoard;        /// <summary>Доска компьютера (режим против ИИ).</summary>
+    private GameBoard? opponentBoard;        /// <summary>Доска соперника в сетевой игре.</summary>
 
-    private TextBlock statusText;           /// <summary>Текст текущего статуса игры (чей ход, результат и т.п.).</summary>
+    private TextBlock? statusText;           /// <summary>Текст текущего статуса игры (чей ход, результат и т.п.).</summary>
     private TextBlock playerStatsText;      /// <summary>Статистика выстрелов игрока.</summary>
     private TextBlock computerStatsText;    /// <summary>Статистика выстрелов компьютера (локальный режим).</summary>
     private TextBlock opponentStatsText;    /// <summary>Статистика выстрелов соперника (сетевая игра).</summary>
@@ -85,7 +82,7 @@ public partial class MainWindow : Window
     // Сетевые поля
     // --------------------------------------------------------------------
     
-    private ChatManager _chatManager; /// <summary>Инициализация чат-менеджера.</summary>
+    private ChatManager? _chatManager; /// <summary>Инициализация чат-менеджера.</summary>
     private NetworkGameManager _networkManager; /// <summary>Инициализация сетевого менеджера.</summary>
     private NetworkClient networkClient = new NetworkClient(); /// <summary>Клиент для соединения с сервером.</summary>
     private bool _gameOver = false; /// <summary>Флаг окончания игры.</summary>
@@ -123,7 +120,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        InitializeUIReferences();
         InitializeEventHandlers();
         
 
@@ -131,40 +127,6 @@ public partial class MainWindow : Window
         SubscribeToNetworkEvents();
         
         ShowLoadingScreen();
-    }
-    
-    private void InitializeUIReferences()
-    {
-        // Экран загрузки
-        LoadingScreen = this.FindControl<Grid>("LoadingScreen");
-        LoadingStatusText = this.FindControl<TextBlock>("LoadingStatusText");
-        LoadingProgressBar = this.FindControl<Border>("LoadingProgressBar");
-        
-        // Главное меню
-        MainMenuScreen = this.FindControl<StackPanel>("MainMenuScreen");
-        VsComputerButton = this.FindControl<Button>("VsComputerButton");
-        VsPlayerButton = this.FindControl<Button>("VsPlayerButton");
-        VsOnlineButton = this.FindControl<Button>("VsOnlineButton");
-        
-        // Расстановка
-        PlacementScreen = this.FindControl<StackPanel>("PlacementScreen");
-        PlacementStatusText = this.FindControl<TextBlock>("PlacementStatusText");
-        PlacementInstructionText = this.FindControl<TextBlock>("PlacementInstructionText");
-        PlacementCanvas = this.FindControl<Canvas>("PlacementCanvas");
-        RotateShipButton = this.FindControl<Button>("RotateShipButton");
-        RandomPlacementButton = this.FindControl<Button>("RandomPlacementButton");
-        StartGameButton = this.FindControl<Button>("StartGameButton");
-        
-        // Игровой экран
-        GameScreen = this.FindControl<StackPanel>("GameScreen");
-        GameStatusText = this.FindControl<TextBlock>("GameStatusText");
-        OwnBoardTitle = this.FindControl<TextBlock>("OwnBoardTitle");
-        EnemyBoardTitle = this.FindControl<TextBlock>("EnemyBoardTitle");
-        PlayerStatsText = this.FindControl<TextBlock>("PlayerStatsText");
-        OpponentStatsText = this.FindControl<TextBlock>("OpponentStatsText");
-        ChatContainer = this.FindControl<ContentControl>("ChatContainer");
-        NewGameButton = this.FindControl<Button>("NewGameButton");
-        ToMenuButton = this.FindControl<Button>("ToMenuButton");
     }
 
     private void InitializeEventHandlers()
@@ -269,34 +231,31 @@ public partial class MainWindow : Window
         Console.WriteLine($"[DEBUG] Initializing network game boards...");
     
         // Получаем доски из NetworkManager
-        if (_networkManager != null)
-        {
-            playerBoard = _networkManager.PlayerBoard;
-            opponentBoard = _networkManager.OpponentBoard;
-        
-            Console.WriteLine($"[DEBUG] playerBoard from manager: {playerBoard != null}");
-            Console.WriteLine($"[DEBUG] opponentBoard from manager: {opponentBoard != null}");
-        }
+        playerBoard = _networkManager.PlayerBoard;
+        opponentBoard = _networkManager.OpponentBoard;
+    
+        Console.WriteLine($"[DEBUG] playerBoard from manager: {playerBoard != null}");
+        Console.WriteLine($"[DEBUG] opponentBoard from manager: {opponentBoard != null}");
     
         // Если доски все еще null, создаем новые
+        #if DEBUG
         if (playerBoard == null)
         {
             playerBoard = new GameBoard();
             Console.WriteLine($"[DEBUG] Created new playerBoard");
         }
-    
         if (opponentBoard == null)
         {
             opponentBoard = new GameBoard();
             Console.WriteLine($"[DEBUG] Created new opponentBoard");
         }
-    
+        #else
+        playerBoard ??= new GameBoard();
+        opponentBoard ??= new GameBoard();
+        #endif
         // Убедимся, что NetworkManager знает об этих досках
-        if (_networkManager != null)
-        {
-            _networkManager.PlayerBoard = playerBoard;
-            _networkManager.OpponentBoard = opponentBoard;
-        }
+        _networkManager?.PlayerBoard = playerBoard;
+        _networkManager?.OpponentBoard = opponentBoard;
     
         Console.WriteLine($"[DEBUG] Boards initialized successfully");
     }
@@ -304,7 +263,6 @@ public partial class MainWindow : Window
     private void OnNewGameClick()
     {
         if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-        {
             ShowConfirmDialog(
                 "Начать новую онлайн-игру?\nТекущая игра будет завершена.",
                 () => {
@@ -312,17 +270,13 @@ public partial class MainWindow : Window
                     ShowNetworkConnectWindow();
                 }
             );
-        }
         else
-        {
             StartGame(currentMode);
-        }
     }
 
     private void OnToMenuClick()
     {
         if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-        {
             ShowConfirmDialog(
                 "Вернуться в главное меню?\nТекущая игра будет завершена.",
                 () => {
@@ -330,16 +284,13 @@ public partial class MainWindow : Window
                     ShowMainMenu();
                 }
             );
-        }
         else
-        {
             ShowMainMenu();
-        }
     }
     
     private void OnNetworkStatusChanged(string status)
     {
-        if (GameStatusText != null) GameStatusText.Text = status;
+        GameStatusText?.Text = status;
     }
     
     private void OnPlayerTurnChanged(bool isPlayerTurn)
@@ -402,14 +353,14 @@ public partial class MainWindow : Window
     
         Dispatcher.UIThread.Post(() => 
         {
-            if (GameStatusText != null) GameStatusText.Text = message;
+            GameStatusText?.Text = message;
             ShowMainMenu();
         });
     }
     
     private void OnJoinedReceived(string message)
     {
-        if (GameStatusText != null) GameStatusText.Text = message;
+        GameStatusText?.Text = message;
     }
     
     private void OnMatchFound()
@@ -455,20 +406,17 @@ public partial class MainWindow : Window
     
     private void HideAllScreens()
     {
-        if (LoadingScreen != null) LoadingScreen.IsVisible = false;
-        if (MainMenuScreen != null) MainMenuScreen.IsVisible = false;
-        if (PlacementScreen != null) PlacementScreen.IsVisible = false;
-        if (GameScreen != null) 
-        {
-            GameScreen.IsVisible = false;
-            _isGameScreenVisible = false;
-        }
+        LoadingScreen?.IsVisible = false;
+        MainMenuScreen?.IsVisible = false;
+        PlacementScreen?.IsVisible = false;
+        GameScreen?.IsVisible = false;
+        _isGameScreenVisible = false;
     }
     
     private async void ShowLoadingScreen()
     {
         HideAllScreens();
-        if (LoadingScreen != null) LoadingScreen.IsVisible = true;
+        LoadingScreen?.IsVisible = true;
         await SimulateLoadingAsync();
         ShowMainMenu();
     }
@@ -523,12 +471,9 @@ public partial class MainWindow : Window
         placingPlayer1Ships = true;
     
         // Сброс состояния доски
-        if (playerBoard != null)
-            playerBoard.Clear();
-        if (computerBoard != null)
-            computerBoard.Clear();
-        if (opponentBoard != null)
-            opponentBoard.Clear();
+        playerBoard?.Clear();
+        computerBoard?.Clear();
+        opponentBoard?.Clear();
     }
     
     private void StartNetworkGame()
@@ -557,10 +502,7 @@ public partial class MainWindow : Window
         Dispatcher.UIThread.Post(() => 
         {
             ShowShipPlacementScreen();
-            if (PlacementStatusText != null)
-            {
-                PlacementStatusText.Text = $"Найден соперник: {_networkManager.OpponentName}! Начинаем расстановку...";
-            }
+            PlacementStatusText?.Text = $"Найден соперник: {_networkManager.OpponentName}! Начинаем расстановку...";
         });
     }
     
@@ -595,9 +537,7 @@ public partial class MainWindow : Window
         _gameOver = true;
 
         if (_networkManager != null)
-        {
             await _networkManager.LeaveGameAsync();
-        }
     
         // ВАЖНО: Очищаем доски только если это явный выход,
         // а не завершение игры (когда нужно показать финальное состояние)
@@ -624,10 +564,7 @@ public partial class MainWindow : Window
         Console.WriteLine($"[DEBUG] Showing main menu");
     
         // Отписываемся от событий ChatManager
-        if (_chatManager != null)
-        {
-            _chatManager = null;
-        }
+        _chatManager = null;
     
         // Сбрасываем флаги
         _isNetworkGameActive = false;
@@ -655,22 +592,17 @@ public partial class MainWindow : Window
         if (_networkManager?.NetworkMode == NetworkGameMode.InGame)
         {
             if (networkClient?.IsConnected == true)
-            {
                 // Асинхронно выходим из игры
                 _ = LeaveNetworkGameAsync(true);
-            }
         }
         else if (networkClient?.IsConnected == true)
-        {
             networkClient.Disconnect();
-        }
     
         currentMode = GameMode.Menu;
         HideAllScreens();
-    
-        if (MainMenuScreen != null) 
-            MainMenuScreen.IsVisible = true;
-    
+        
+        MainMenuScreen?.IsVisible = true;
+
         Console.WriteLine($"[DEBUG] Main menu shown");
     }
     
@@ -708,12 +640,7 @@ public partial class MainWindow : Window
                 connectWindow.PlayerName);
         
             if (connectSuccess)
-            {
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = $"Подключение к серверу... Ищу соперника...";
-                }
-            }
+                GameStatusText?.Text = $"Подключение к серверу... Ищу соперника...";
             else
             {
                 var errorWindow = new OpponentDisconnectWindow();
@@ -822,20 +749,15 @@ public partial class MainWindow : Window
     private void ShowShipPlacementScreen()
     {
         HideAllScreens();
-        if (PlacementScreen != null) PlacementScreen.IsVisible = true;
+        PlacementScreen?.IsVisible = true;
         
         string playerName = "Игрок";
         if (currentMode == GameMode.VsPlayer && _networkManager.NetworkMode == NetworkGameMode.None)
-        {
             playerName = placingPlayer1Ships ? "Игрок 1" : "Игрок 2";
-        }
         else if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-        {
             playerName = "Вы";
-        }
 
-        if (PlacementStatusText != null)
-            PlacementStatusText.Text = $"🚢 {playerName}: Расставьте корабли";
+        PlacementStatusText?.Text = $"🚢 {playerName}: Расставьте корабли";
             
         UpdatePlacementInstructions();
         RenderPlacementCanvas();
@@ -907,19 +829,15 @@ public partial class MainWindow : Window
                     border.Classes.Remove("CannotPlace");
                     border.Classes.Remove("Empty");
                     if (highlight)
-                    {
                         border.Classes.Add(canPlace ? "CanPlace" : "CannotPlace");
-                    }
                     else
-                    {
                         border.Classes.Add("Empty");
-                    }
                 }
             }
         }
     }
 
-    private Border FindPlacementCellBorder(int x, int y)
+    private Border? FindPlacementCellBorder(int x, int y)
     {
         if (PlacementCanvas == null) return null;
         
@@ -927,7 +845,6 @@ public partial class MainWindow : Window
         int padding = 10;
 
         foreach (var child in PlacementCanvas.Children)
-        {
             if (child is Border border)
             {
                 double left = Canvas.GetLeft(border);
@@ -935,11 +852,8 @@ public partial class MainWindow : Window
 
                 if (Math.Abs(left - (padding + x * cellSize)) < 1 &&
                     Math.Abs(top - (padding + y * cellSize)) < 1)
-                {
                     return border;
-                }
             }
-        }
         return null;
     }
 
@@ -958,11 +872,8 @@ public partial class MainWindow : Window
 
             if (currentShipIndex >= shipsToPlace.Count)
             {
-                if (PlacementStatusText != null)
-                    PlacementStatusText.Text = "✅ Все корабли размещены! Нажмите 'Начать игру'";
-                    
-                if (StartGameButton != null)
-                    StartGameButton.IsEnabled = true;
+                PlacementStatusText?.Text = "✅ Все корабли размещены! Нажмите 'Начать игру'";
+                StartGameButton?.IsEnabled = true;
             }
         }
     }
@@ -974,25 +885,18 @@ public partial class MainWindow : Window
         currentShipIndex = shipsToPlace.Count;
         RenderPlacementCanvas();
         UpdatePlacementInstructions();
-        if (PlacementStatusText != null)
-        {
-            PlacementStatusText.Text = "✅ Все корабли размещены! Нажмите 'Начать игру'";
-        }
+        PlacementStatusText?.Text = "✅ Все корабли размещены! Нажмите 'Начать игру'";
         EnableStartButton();
     }
     
     private void EnableStartButton()
     {
-        if (StartGameButton != null)
-            StartGameButton.IsEnabled = true;
+        StartGameButton?.IsEnabled = true;
     }
 
     private void OnPlacementKeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Space)
-        {
-            RotateCurrentShip();
-        }
+        if (e.Key == Key.Space) RotateCurrentShip();
     }
 
     private void RotateCurrentShip()
@@ -1012,28 +916,21 @@ public partial class MainWindow : Window
             currentShipHorizontal = true;
             ShowShipPlacementScreen();
         }
-        else
+        else if (currentMode == GameMode.VsComputer)
         {
-            if (currentMode == GameMode.VsComputer)
-            {
-                computerBoard.PlaceShipsRandomly();
-                ShowGameScreen();
-            }
-            else if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-            {
-                await _networkManager.SendShipPlacementAsync(placingBoard);
-            
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = "Корабли расставлены! Ждем соперника...";
-                }
-                return;
-            }
-            else
-            {
-                ShowGameScreen();
-            }
+            computerBoard.PlaceShipsRandomly();
+            ShowGameScreen();
         }
+        else if (_networkManager.NetworkMode == NetworkGameMode.InGame)
+        {
+            await _networkManager.SendShipPlacementAsync(placingBoard);
+        
+            GameStatusText?.Text = "Корабли расставлены! Ждем соперника...";
+            return;
+        }
+        else
+            ShowGameScreen();
+        
     }
     
     #endregion
@@ -1054,17 +951,21 @@ public partial class MainWindow : Window
         // ВАЖНО: Инициализируем доски если они null
         if (_networkManager.NetworkMode == NetworkGameMode.InGame)
         {
+            #if DEBUG
             if (playerBoard == null)
             {
                 playerBoard = _networkManager.PlayerBoard ?? new GameBoard();
                 Console.WriteLine($"[DEBUG] Initialized playerBoard in ShowGameScreen");
             }
-        
             if (opponentBoard == null)
             {
                 opponentBoard = _networkManager.OpponentBoard ?? new GameBoard();
                 Console.WriteLine($"[DEBUG] Initialized opponentBoard in ShowGameScreen");
             }
+            #else
+            playerBoard ??= _networkManager.PlayerBoard ?? new GameBoard();
+            opponentBoard ??= _networkManager.OpponentBoard ?? new GameBoard();
+            #endif
         }
     
         if (_networkManager.NetworkMode == NetworkGameMode.InGame && _chatManager != null)
@@ -1072,14 +973,10 @@ public partial class MainWindow : Window
             _chatManager = new ChatManager(networkClient, _networkManager.PlayerName);
             _networkManager.SetChatManager(_chatManager);
             var chatControl = _chatManager.CreateChatControl();
-            if (ChatContainer != null)
-                ChatContainer.Content = chatControl;
+            ChatContainer?.Content = chatControl;
         }
         else
-        {
-            if (ChatContainer != null)
-                ChatContainer.Content = null;
-        }
+            ChatContainer?.Content = null;
     
         UpdateStatusAndBoards();
     }
@@ -1113,12 +1010,9 @@ public partial class MainWindow : Window
                     {
                         SoundManager.PlaySunk();
                         
-                        if (GameStatusText != null)
-                        {
-                            GameStatusText.Text = gameOver
-                                ? $"🎉🏆️ ПОБЕДА! {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} потопил весь флот!"
-                                : $"💥 {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} потопил корабль!";
-                        }
+                        GameStatusText?.Text = gameOver
+                            ? $"🎉🏆️ ПОБЕДА! {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} потопил весь флот!"
+                            : $"💥 {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} потопил корабль!";
 
                         if (gameOver)
                         {
@@ -1140,12 +1034,7 @@ public partial class MainWindow : Window
                         }
                     }
                     else
-                    {
-                        if (GameStatusText != null)
-                        {
-                            GameStatusText.Text = $"🔥 {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} попал! Стреляет снова!";
-                        }
-                    }
+                        GameStatusText?.Text = $"🔥 {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} попал! Стреляет снова!";
                     
                     UpdateStats();
                     UpdateBoards();
@@ -1157,11 +1046,9 @@ public partial class MainWindow : Window
                     (isPlayer2Turn ? ref computerMisses : ref playerMisses)++;
 
                     SoundManager.PlayMiss();
-                    
-                    if (GameStatusText != null)
-                    {
-                        GameStatusText.Text = $"💧 {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} промахнулся! Ход переходит к {(isPlayer2Turn ? "Игроку 1" : "Игроку 2")}";
-                    }
+
+
+                    GameStatusText?.Text = $"💧 {(isPlayer2Turn ? "Игрок 2" : "Игрок 1")} промахнулся! Ход переходит к {(isPlayer2Turn ? "Игроку 1" : "Игроку 2")}";
                     
                     UpdateStats();
                     UpdateBoards();
@@ -1190,12 +1077,10 @@ public partial class MainWindow : Window
                 {
                     SoundManager.PlaySunk();
                     
-                    if (GameStatusText != null)
-                    {
-                        GameStatusText.Text = gameOver
-                            ? "🎉 ПОБЕДА! Вы потопили весь флот противника!"
-                            : "💥 Корабль потоплен! Продолжайте атаку!";
-                    }
+                    GameStatusText?.Text = gameOver
+                        ? "🎉 ПОБЕДА! Вы потопили весь флот противника!"
+                        : "💥 Корабль потоплен! Продолжайте атаку!";
+
 
                     if (gameOver)
                     {
@@ -1205,30 +1090,19 @@ public partial class MainWindow : Window
                     }
                 }
                 else
-                {
-                    if (GameStatusText != null)
-                    {
-                        GameStatusText.Text = "🔥 ПОПАДАНИЕ! Атакуйте снова!";
-                    }
-                }
+                    GameStatusText?.Text = "🔥 ПОПАДАНИЕ! Атакуйте снова!";
 
                 UpdateStats();
                 UpdateBoards();
 
-                if (!gameOver)
-                {
-                    return;
-                }
+                if (!gameOver) return;
             }
             else if (computerBoard.Grid[x, y] == CellState.Miss)
             {
                 playerMisses++;
                 SoundManager.PlayMiss();
                 
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = "💧 Промах! Ход переходит к противнику...";
-                }
+                GameStatusText?.Text = "💧 Промах! Ход переходит к противнику...";
                 
                 UpdateStats();
                 UpdateBoards();
@@ -1253,8 +1127,8 @@ public partial class MainWindow : Window
         return;
     }
     
-    var ownCanvas = this.FindControl<Canvas>("OwnCanvas");
-    var enemyCanvas = this.FindControl<Canvas>("EnemyCanvas");
+    var ownCanvas = OwnCanvas;
+    var enemyCanvas = EnemyCanvas;
     
     // Если Canvas не найдены, выходим
     if (ownCanvas == null || enemyCanvas == null)
@@ -1263,8 +1137,8 @@ public partial class MainWindow : Window
         return;
     }
     
-    GameBoard ownBoard = null;
-    GameBoard enemyBoard = null;
+    GameBoard? ownBoard = null;
+    GameBoard? enemyBoard = null;
     
     try
     {
@@ -1350,8 +1224,8 @@ public partial class MainWindow : Window
                    UpdateStats();
                 
                    // Принудительная перерисовка
-                   var ownCanvas = this.FindControl<Canvas>("OwnCanvas");
-                   var enemyCanvas = this.FindControl<Canvas>("EnemyCanvas");
+                   var ownCanvas = OwnCanvas;
+                   var enemyCanvas = EnemyCanvas;
                 
                    if (ownCanvas != null)
                    {
@@ -1401,10 +1275,7 @@ public partial class MainWindow : Window
             if (!continueTurn && !_gameOver)
             {
                 playerTurn = true;
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = "⚔️ ВАШ ХОД! Атакуйте поле противника!";
-                }
+                GameStatusText?.Text = "⚔️ ВАШ ХОД! Атакуйте поле противника!";
                 UpdateStatusAndBoards();
             }
             if (_gameOver)
@@ -1430,17 +1301,12 @@ public partial class MainWindow : Window
             _gameOver = result.GameOver;
             
             if (continueTurn && !_gameOver)
-            {
                 await Task.Delay(500);
-            }
             
             if (!continueTurn && !_gameOver)
             {
                 playerTurn = true;
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = "⚔️ ВАШ ХОД! Атакуйте поле противника!";
-                }
+                GameStatusText?.Text = "⚔️ ВАШ ХОД! Атакуйте поле противника!";
                 UpdateStatusAndBoards();
             }
             if (_gameOver)
@@ -1464,12 +1330,9 @@ public partial class MainWindow : Window
             {
                 SoundManager.PlaySunk();
             
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = gameOver
-                        ? "💀 ПОРАЖЕНИЕ! Противник уничтожил ваш флот!"
-                        : "⚠️ Противник потопил ваш корабль!";
-                }
+                GameStatusText?.Text = gameOver
+                    ? "💀 ПОРАЖЕНИЕ! Противник уничтожил ваш флот!"
+                    : "⚠️ Противник потопил ваш корабль!";
 
                 if (gameOver)
                 {
@@ -1483,22 +1346,14 @@ public partial class MainWindow : Window
                 }
             }
             else
-            {
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = "💥 Противник попал в ваш корабль!";
-                }
-            }
+                GameStatusText?.Text = "💥 Противник попал в ваш корабль!";
         }
         else
         {
             computerMisses++;
             SoundManager.PlayMiss();
         
-            if (GameStatusText != null)
-            {
-                GameStatusText.Text = "⚔️ Противник промахнулся! ВАШ ХОД!";
-            }
+            GameStatusText?.Text = "⚔️ Противник промахнулся! ВАШ ХОД!";
         }
 
         UpdateStats();
@@ -1517,9 +1372,7 @@ public partial class MainWindow : Window
         var result = await confirmWindow.ShowDialog<bool?>(this);
     
         if (result.HasValue && result.Value)
-        {
             onConfirm?.Invoke();
-        }
     }
     
     private async void ShowGameOverDialog(bool isWin, string winnerName)
@@ -1531,16 +1384,10 @@ public partial class MainWindow : Window
         await gameOverWindow.ShowDialog(this);
     
         if (gameOverWindow.Result.HasValue)
-        {
             if (gameOverWindow.Result.Value == GameOverResult.NewGame)
-            {
                 StartGame(currentMode);
-            }
             else if (gameOverWindow.Result.Value == GameOverResult.MainMenu)
-            {
                 ShowMainMenu();
-            }
-        }
     }
     
     private async Task ShowNetworkGameOverDialog(string winnerName, bool iWon)
@@ -1571,11 +1418,11 @@ public partial class MainWindow : Window
     UpdateStats();
     
     // Принудительная перерисовка
-    var ownCanvas = this.FindControl<Canvas>("OwnCanvas");
-    var enemyCanvas = this.FindControl<Canvas>("EnemyCanvas");
+    var ownCanvas = OwnCanvas;
+    var enemyCanvas = EnemyCanvas;
     
-    if (ownCanvas != null) ownCanvas.InvalidateVisual();
-    if (enemyCanvas != null) enemyCanvas.InvalidateVisual();
+    ownCanvas?.InvalidateVisual();
+    enemyCanvas?.InvalidateVisual();
     
     await Task.Delay(100); // Даем время для отрисовки
 
@@ -1737,17 +1584,13 @@ public partial class MainWindow : Window
                     if (coords.Length == 2 && 
                         int.TryParse(coords[0], out int bx) && 
                         int.TryParse(coords[1], out int by))
-                    {
                         if (bx >= 0 && bx < targetBoard.Size && by >= 0 && by < targetBoard.Size)
-                        {
                             // Только пустые клетки помечаем как Blocked
                             if (targetBoard.Grid[bx, by] == CellState.Empty)
                             {
                                 targetBoard.Grid[bx, by] = CellState.Blocked;
                                 Console.WriteLine($"[DEBUG] Blocking cell ({bx},{by})");
                             }
-                        }
-                    }
                 }
             }
         }
@@ -1776,13 +1619,9 @@ public partial class MainWindow : Window
         _gameOver = true;
         
         if (isMyAttack)
-        {
             SoundManager.PlayWin();
-        }
         else
-        {
             SoundManager.PlayLose();
-        }
         
         Console.WriteLine($"[DEBUG] Game over! Winner: {(isMyAttack ? "You" : _networkManager.OpponentName)}");
 
@@ -1821,27 +1660,19 @@ public partial class MainWindow : Window
         if (GameStatusText == null) return;
         
         if (gameOver)
-        {
             GameStatusText.Text = isMyAttack ? "🎉 ПОБЕДА!" : "💀 ПОРАЖЕНИЕ!";
-        }
         else if (sunk)
-        {
             GameStatusText.Text = isMyAttack 
                 ? "💥 Корабль потоплен! Стреляйте снова!" 
                 : "⚠️ Противник потопил ваш корабль!";
-        }
         else if (hit)
-        {
             GameStatusText.Text = isMyAttack 
                 ? "🔥 ПОПАДАНИЕ! Стреляйте снова!" 
                 : "💥 Противник попал в ваш корабль!";
-        }
         else
-        {
             GameStatusText.Text = isMyAttack 
                 ? "💧 Промах! Ход переходит к сопернику..." 
                 : "Противник промахнулся! Ваш ход!";
-        }
     }
     
     #endregion
@@ -1856,7 +1687,6 @@ public partial class MainWindow : Window
             OpponentStatsText.Text = $"💣 Выстрелы {_networkManager.OpponentName}: {opponentHits} попаданий, {opponentMisses} промахов";
         }
         else
-        {
             if (currentMode == GameMode.VsPlayer)
             {
                 int ownHits = isPlayer2Turn ? computerHits : playerHits;
@@ -1871,40 +1701,25 @@ public partial class MainWindow : Window
                 PlayerStatsText.Text = $"🎯 Ваши выстрелы: {playerHits} попаданий, {playerMisses} промахов";
                 OpponentStatsText.Text = $"💣 Выстрелы противника: {computerHits} попаданий, {computerMisses} промахов";
             }
-        }
     }
 
     private void UpdateStatusAndBoards()
     {
         if (!_isGameScreenVisible) return;
         if (_networkManager.NetworkMode != NetworkGameMode.InGame)
-        {
             if (currentMode == GameMode.VsPlayer)
-            {
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = isPlayer2Turn
-                        ? "⚔️ ВАШ ХОД, ИГРОК 2! Атакуйте поле противника"
-                        : "⚔️ ВАШ ХОД, ИГРОК 1! Атакуйте поле противника";
-                }
-            }
+                GameStatusText?.Text = isPlayer2Turn
+                    ? "⚔️ ВАШ ХОД, ИГРОК 2! Атакуйте поле противника"
+                    : "⚔️ ВАШ ХОД, ИГРОК 1! Атакуйте поле противника";
             else if (currentMode == GameMode.VsComputer)
-            {
-                if (GameStatusText != null)
-                {
-                    GameStatusText.Text = playerTurn ? "⚔️ ВАШ ХОД! Атакуйте поле противника" : "💀 Ход противника...";
-                }
-            }
-        }
+                GameStatusText?.Text = playerTurn ? "⚔️ ВАШ ХОД! Атакуйте поле противника" : "💀 Ход противника...";
     
         string ownTitle = "🛡️ ВАШЕ ПОЛЕ";
         string enemyTitle = GetEnemyBoardTitle();
     
-        if (OwnBoardTitle != null)
-            OwnBoardTitle.Text = ownTitle;
+        OwnBoardTitle?.Text = ownTitle;
     
-        if (EnemyBoardTitle != null)
-            EnemyBoardTitle.Text = enemyTitle;
+        EnemyBoardTitle?.Text = enemyTitle;
     
         UpdateBoards();
         UpdateStats();
@@ -1913,17 +1728,11 @@ public partial class MainWindow : Window
     private string GetEnemyBoardTitle()
     {
         if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-        {
             return $"🎯 ПОЛЕ {_networkManager.OpponentName.ToUpper()}";
-        }
         else if (currentMode == GameMode.VsPlayer)
-        {
             return isPlayer2Turn ? "🎯 ПОЛЕ ИГРОКА 1" : "🎯 ПОЛЕ ИГРОКА 2";
-        }
         else
-        {
             return "🎯 ПОЛЕ ПРОТИВНИКА";
-        }
     }
 
     private void UpdateBoard(Canvas canvas, GameBoard board, bool isEnemy)
@@ -1990,15 +1799,10 @@ public partial class MainWindow : Window
     
         // Убедитесь, что для Sunk всегда используется класс "Sunk", даже если это поле противника
         if (state == CellState.Sunk)
-        {
             border.Classes.Add("Sunk");
-        }
         else if (isEnemy && _networkManager.NetworkMode == NetworkGameMode.InGame && state == CellState.Ship)
-        {
             border.Classes.Add("Empty");
-        }
         else
-        {
             border.Classes.Add(state switch
             {
                 CellState.Empty => "Empty",
@@ -2008,30 +1812,19 @@ public partial class MainWindow : Window
                 CellState.Blocked => "Blocked",
                 _ => "Empty"
             });
-        }
 
         var content = new Canvas { Width = cellSize - 2, Height = cellSize - 2 };
 
         if (board.Grid[x, y] == CellState.Ship && !isEnemy)
-        {
             DrawShipSegment(content, cellSize - 2);
-        }
         else if (board.Grid[x, y] == CellState.Miss)
-        {
             DrawMiss(content, cellSize - 2);
-        }
         else if (board.Grid[x, y] == CellState.Hit)
-        {
             DrawHit(content, cellSize - 2);
-        }
         else if (board.Grid[x, y] == CellState.Sunk)
-        {
             DrawSunk(content, cellSize - 2);
-        }
         else if (board.Grid[x, y] == CellState.Blocked)
-        {
             DrawBlocked(content, cellSize - 2);
-        }
 
         border.Child = content;
 
@@ -2041,17 +1834,11 @@ public partial class MainWindow : Window
             bool canClick = false;
             
             if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-            {
                 canClick = playerTurn;
-            }
             else if (currentMode == GameMode.VsPlayer && _networkManager.NetworkMode == NetworkGameMode.None)
-            {
                 canClick = playerTurn;
-            }
             else if (currentMode == GameMode.VsComputer)
-            {
                 canClick = playerTurn;
-            }
             
             var cellState = board.Grid[cx, cy];
             bool cellAvailable = cellState == CellState.Empty || cellState == CellState.Ship;
@@ -2061,22 +1848,16 @@ public partial class MainWindow : Window
                 border.PointerPressed += async (s, e) => 
                 {
                     if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-                    {
                         await OnNetworkGameCellClickAsync(cx, cy);
-                    }
                     else
-                    {
                         OnGameCellClick(cx, cy);
-                    }
                 };
                 border.Cursor = new Cursor(StandardCursorType.Hand);
             
                 border.PointerEntered += (s, e) =>
                 {
                     if (cellState == CellState.Empty || cellState == CellState.Ship)
-                    {
                         border.Opacity = 0.8;
-                    }
                 };
                 border.PointerExited += (s, e) =>
                 {

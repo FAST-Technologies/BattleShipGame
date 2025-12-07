@@ -14,7 +14,7 @@ public class ServerMessage
     /// <summary>
     /// Тип сообщения (команда).
     /// </summary>
-    public string Type { get; set; }
+    public required string Type { get; set; }
     
     /// <summary>
     /// Данные сообщения в формате ключ-значение.

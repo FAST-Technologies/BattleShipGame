@@ -11,7 +11,7 @@ namespace BattleShipGame2.Logic;
 public class BotManager
 {
     private Dictionary<BotDifficulty, BotLogic> _bots = new(); /// <summary>Список ботов по сложности.</summary>
-    private BotLogic _currentBot; /// <summary>Текущий выбранный бот.</summary>
+    private BotLogic? _currentBot; /// <summary>Текущий выбранный бот.</summary>
     
     /// <summary>
     /// Инициализация менеджера ботов.
@@ -41,10 +41,7 @@ public class BotManager
         GameBoard playerBoard, 
         Action<int, int, bool, bool, bool> onAttack)
     {
-        if (_currentBot == null)
-        {
-            _currentBot = _bots[BotDifficulty.Easy];
-        }
+        _currentBot ??= _bots[BotDifficulty.Easy];
         
         return await _currentBot.MakeSimpleTurn(playerBoard, onAttack);
     }
@@ -59,10 +56,7 @@ public class BotManager
         GameBoard playerBoard, 
         Action<int, int, bool, bool, bool> onAttack)
     {
-        if (_currentBot == null)
-        {
-            _currentBot = _bots[BotDifficulty.Medium];
-        }
+        _currentBot ??= _bots[BotDifficulty.Medium];
         
         return await _currentBot.MakeSmartTurn(playerBoard, onAttack);
     }
@@ -72,9 +66,6 @@ public class BotManager
     /// </summary>
     public void ResetAll()
     {
-        foreach (var bot in _bots.Values)
-        {
-            bot.Reset();
-        }
+        foreach (var bot in _bots.Values) bot.Reset();
     }
 }

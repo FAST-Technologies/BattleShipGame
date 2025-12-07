@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 namespace BattleShipGame2.Views;
 
@@ -21,12 +20,12 @@ public partial class NetworkConnectWindow : Window
         InitializeComponent();
         
         // Находим элементы
-        _playerNameInput = this.FindControl<TextBox>("PlayerNameInput");
-        _serverHostInput = this.FindControl<TextBox>("ServerHostInput");
-        _serverPortInput = this.FindControl<TextBox>("ServerPortInput");
-        var connectButton = this.FindControl<Button>("ConnectButton");
-        var backButton = this.FindControl<Button>("NetworkBackButton");
-        _errorText = this.FindControl<TextBlock>("ConnectionErrorTextBlock");
+        _playerNameInput = PlayerNameInput;
+        _serverHostInput = ServerHostInput;
+        _serverPortInput = ServerPortInput;
+        var connectButton = ConnectButton;
+        var backButton = NetworkBackButton;
+        _errorText = ConnectionErrorTextBlock;
         
         // Обработчики событий
         connectButton.Click += OnConnectClick;

@@ -1,6 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 
 namespace BattleShipGame2.Views;
 
@@ -13,8 +11,7 @@ public partial class ConfirmDialogWindow : Window
         get => messageText?.Text ?? string.Empty;
         set 
         { 
-            if (messageText != null) 
-                messageText.Text = value; 
+            messageText?.Text = value; 
         }
     }
     
@@ -23,9 +20,9 @@ public partial class ConfirmDialogWindow : Window
         InitializeComponent();
         
         // Находим элементы
-        messageText = this.FindControl<TextBlock>("ConfirmDialogMessage");
-        var yesButton = this.FindControl<Button>("ConfirmYesButton");
-        var noButton = this.FindControl<Button>("ConfirmNoButton");
+        messageText = ConfirmDialogMessage;
+        var yesButton = ConfirmYesButton;
+        var noButton = ConfirmNoButton;
         
         // Обработчики кнопок
         yesButton.Click += (s, e) => Close(true);

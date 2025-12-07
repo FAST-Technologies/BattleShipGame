@@ -1,6 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 
 namespace BattleShipGame2.Views;
 
@@ -21,10 +19,10 @@ public partial class NetworkGameOverWindow : Window
         InitializeComponent();
         
         // Находим элементы
-        var resultText = this.FindControl<TextBlock>("NetworkGameOverResultText");
-        var winnerText = this.FindControl<TextBlock>("NetworkGameOverWinnerText");
-        var newGameButton = this.FindControl<Button>("NetworkGameOverNewGameButton");
-        var menuButton = this.FindControl<Button>("NetworkGameOverMenuButton");
+        var resultText = NetworkGameOverResultText;
+        var winnerText = NetworkGameOverWinnerText;
+        var newGameButton = NetworkGameOverNewGameButton;
+        var menuButton = NetworkGameOverMenuButton;
         
         // Инициализация текста
         Opened += (s, e) =>

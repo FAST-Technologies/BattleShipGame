@@ -1,6 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 using BattleShipGame2.Models;
 
 namespace BattleShipGame2.Views;
@@ -14,9 +12,9 @@ public partial class DifficultyWindow : Window
         InitializeComponent();
         
         // Находим кнопки
-        var easyButton = this.FindControl<Button>("EasyDifficultyButton");
-        var mediumButton = this.FindControl<Button>("MediumDifficultyButton");
-        var hardButton = this.FindControl<Button>("HardDifficultyButton");
+        var easyButton = EasyDifficultyButton;
+        var mediumButton = MediumDifficultyButton;
+        var hardButton = HardDifficultyButton;
         
         // Обработчики событий
         easyButton.Click += (s, e) => SelectDifficulty(BotDifficulty.Easy);

@@ -144,9 +144,7 @@ public partial class App : Application
         var dataValidationPluginsToRemove =
             BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
         foreach (var plugin in dataValidationPluginsToRemove)
-        {
             BindingPlugins.DataValidators.Remove(plugin);
-        }
     }
     
     private void OnShutdownRequested(object sender, ShutdownRequestedEventArgs e)

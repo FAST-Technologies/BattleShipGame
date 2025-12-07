@@ -1,6 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 
 namespace BattleShipGame2.Views;
 
@@ -13,8 +11,8 @@ public partial class OpponentDisconnectWindow : Window
         InitializeComponent();
         
         // Находим элементы
-        var messageText = this.FindControl<TextBlock>("OpponentDisconnectMessage");
-        var okButton = this.FindControl<Button>("OpponentDisconnectOkButton");
+        var messageText = OpponentDisconnectMessage;
+        var okButton = OpponentDisconnectOkButton;
         
         // Инициализация текста
         Opened += (s, e) =>
@@ -23,6 +21,6 @@ public partial class OpponentDisconnectWindow : Window
         };
         
         // Обработчики кнопок
-        okButton.Click += (s, e) => Close(true);
+        okButton?.Click += (s, e) => Close(true);
     }
 }

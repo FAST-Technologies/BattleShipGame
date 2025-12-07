@@ -1,12 +1,4 @@
-﻿// Создай папку Networking в проекте и файл NetworkClient.cs
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Sockets;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace BattleShipGame2.Networking
+﻿namespace BattleShipGame2.Networking
 {
     public class NetworkMessage
     {
@@ -75,9 +67,7 @@ namespace BattleShipGame2.Networking
                 {
                     var msg = ParseMessage(line);
                     if (msg != null)
-                    {
                         OnMessageReceived?.Invoke(msg);
-                    }
                 }
             }
             catch (Exception ex)

@@ -1,7 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using BattleShipGame2.Models;
+﻿using Avalonia.Controls;
 
 namespace BattleShipGame2.Views;
 
@@ -22,10 +19,10 @@ public partial class GameOverWindow : Window
         InitializeComponent();
         
         // Находим элементы
-        var resultText = this.FindControl<TextBlock>("GameOverResultText");
-        var winnerText = this.FindControl<TextBlock>("GameOverWinnerText");
-        var newGameButton = this.FindControl<Button>("GameOverNewGameButton");
-        var menuButton = this.FindControl<Button>("GameOverMenuButton");
+        var resultText = GameOverResultText;
+        var winnerText = GameOverWinnerText;
+        var newGameButton = GameOverNewGameButton;
+        var menuButton = GameOverMenuButton;
         
         // Инициализация текста при загрузке
         Opened += (s, e) =>
