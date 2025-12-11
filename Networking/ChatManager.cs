@@ -91,10 +91,9 @@ public class ChatManager
         var text = data.GetValueOrDefault(NetworkProtocol.Keys.ChatText, "");
 
         Console.WriteLine($"[Chat] {sender}: {text}");
-        if (MessageAdded == null)
-            Console.WriteLine($"[ChatManager] WARNING: MessageAdded event has no subscribers!");
-        else
-            Console.WriteLine($"[ChatManager] MessageAdded event has subscribers, invoking...");
+        Console.WriteLine(MessageAdded == null
+            ? $"[ChatManager] WARNING: MessageAdded event has no subscribers!"
+            : $"[ChatManager] MessageAdded event has subscribers, invoking...");
         AddMessage(sender, text, DateTime.Now);
     }
     

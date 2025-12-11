@@ -17,7 +17,6 @@ public class BotLogic
     private readonly List<(int x, int y)> _lastHits = new(); /// <summary>Последние координаты попаданий бота (для умного ИИ).</summary>
     private (int x, int y)? _lastHitDirection; /// <summary>Текущее направление поиска после попадания.</summary>
     private (int x, int y)? _initialHit; /// <summary>Координаты первого попадания в текущий корабль.</summary>
-    #endregion
     
     /// <summary>
     /// Инициализация бота с некоторой сложностью.
@@ -27,6 +26,7 @@ public class BotLogic
     {
         _difficulty = difficulty;
     }
+    #endregion
     
     #region Основные методы для работы ботов различной сложности
     

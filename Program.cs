@@ -7,7 +7,7 @@ namespace BattleShipGame;
 /// Точка входа в приложение.
 /// Содержит методы инициализации и запуска Avalonia приложения.
 /// </summary>
-sealed class Program
+internal static class Program
 {
     /// <summary>
     /// Основная точка входа в приложение.
