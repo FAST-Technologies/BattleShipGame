@@ -103,7 +103,7 @@ public partial class MainWindowViewModel : ViewModelBase
         RequestGameReset?.Invoke();
         HideAllScreens();
         IsMainMenuVisible = true;
-        ResetUIState();
+        ResetUiState();
     
         Console.WriteLine($"[DEBUG ViewModel] After: IsMainMenuVisible={IsMainMenuVisible}");
     }
@@ -112,7 +112,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Команда для сброса игрового состояния.
     /// Сбрасывает статусы на значения по умолчанию.
     /// </summary>
-    private void ResetUIState()
+    private void ResetUiState()
     {
         GameStatus = "⚔️ ВАШ ХОД! Атакуйте поле противника";
         PlacementStatus = "🚢 Расставьте корабли";

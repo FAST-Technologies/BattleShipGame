@@ -11,7 +11,7 @@ public class NetworkGameManager
 {
     #region Поля и свойства
     
-    private NetworkClient _networkClient; /// <summary>Инициализация сетевого клиента.</summary>
+    private readonly NetworkClient _networkClient; /// <summary>Инициализация сетевого клиента.</summary>
     private ChatManager? _chatManager; /// <summary>Инициализация чат-менеджера.</summary>
     
     private GameBoard? _playerBoard; /// <summary>Собственная игровая доска игрока.</summary>
@@ -222,7 +222,7 @@ public class NetworkGameManager
     /// <summary>
     /// Сброс состояния.
     /// </summary>
-    public void ResetState()
+    private void ResetState()
     {
         _networkMode = NetworkGameMode.None;
         _myPlayerId = "";
@@ -235,7 +235,7 @@ public class NetworkGameManager
     /// <summary>
     /// Инициализация доски для новой сетевой игры.
     /// </summary>
-    public void InitializeGameBoards()
+    private void InitializeGameBoards()
     {
         _playerBoard = new GameBoard();
         _opponentBoard = new GameBoard();
@@ -251,7 +251,7 @@ public class NetworkGameManager
     /// Свойства для перечисленных выше свойств.
     /// </summary>
     public NetworkGameMode NetworkMode => _networkMode;
-    public ChatManager ChatManager => _chatManager;
+    public ChatManager? ChatManager => _chatManager;
     public bool IsConnected => _networkClient.IsConnected;
     public string PlayerName => _playerName;
     public string OpponentName => _opponentName;

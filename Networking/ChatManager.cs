@@ -12,7 +12,7 @@ namespace BattleShipGame.Networking;
 public class ChatManager
 {
     #region Поля и свойства
-    private NetworkClient _networkClient;
+    private readonly NetworkClient _networkClient;
     private string _playerName;
     private ChatControl? _chatControl;
 
@@ -70,7 +70,7 @@ public class ChatManager
     /// Не отправляет сообщение по сети — только обновляет локальный чат.
     /// Используется как для входящих, так и для исходящих сообщений.
     /// </remarks>
-    public void AddMessage(string sender, string text, DateTime timestamp)
+    private void AddMessage(string sender, string text, DateTime timestamp)
     {
         Console.WriteLine($"[ChatManager] AddMessage called: {sender}: {text}");
         MessageAdded?.Invoke(sender, text, timestamp);

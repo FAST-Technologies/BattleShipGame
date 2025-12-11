@@ -18,7 +18,7 @@ namespace BattleShipGame;
 /// Основной класс приложения Avalonia.
 /// Отвечает за инициализацию приложения, создание главного окна и управление жизненным циклом.
 /// </summary>
-public partial class App : Application
+public class App : Application
 {
     private GameServer? _gameServer; /// <summary>Инициализация игрового сервера.</summary>
     
@@ -61,7 +61,7 @@ public partial class App : Application
             if (mainWindow.DataContext is MainWindowViewModel viewModel)
             {
                 viewModel.ShowLoadingScreen();
-                _ = viewModel.SimulateLoadingAsync().ContinueWith(t =>
+                _ = viewModel.SimulateLoadingAsync().ContinueWith(_ =>
                 {
                     Dispatcher.UIThread.Post(() => viewModel.ShowMainMenu());
                 }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -91,7 +91,7 @@ public partial class App : Application
     /// </summary>
     /// <param name="sender">Источник события.</param>
     /// <param name="e">Аргументы события завершения работы.</param>
-    private void OnShutdownRequested(object sender, ShutdownRequestedEventArgs e)
+    private void OnShutdownRequested(object? sender, ShutdownRequestedEventArgs e)
     {
         _gameServer?.Stop();
     }

@@ -83,7 +83,7 @@ public partial class MainWindow : Window
     private bool _currentShipHorizontal = true;
 
     /// <summary>Доска, на которой сейчас происходит расстановка кораблей.</summary>
-    private GameBoard _placingBoard;
+    private GameBoard? _placingBoard;
     
     /// <summary>
     /// Флаг, указывающий, какой игрок сейчас расставляет корабли в локальном режиме.
@@ -93,7 +93,7 @@ public partial class MainWindow : Window
     
     // Боты
     /// <summary>Менеджер ботов для управления логикой ИИ противника.</summary>
-    private BotManager _botManager = new BotManager();
+    private readonly BotManager _botManager = new BotManager();
     
     /// <summary>Текущая сложность бота (легкая, средняя, сложная).</summary>
     private BotDifficulty _botDifficulty = BotDifficulty.Easy;
@@ -109,7 +109,7 @@ public partial class MainWindow : Window
     private readonly NetworkGameManager _networkManager;
     
     /// <summary>Клиент для соединения с сетевым сервером.</summary>
-    private NetworkClient _networkClient = new NetworkClient();
+    private readonly NetworkClient _networkClient = new NetworkClient();
     
     /// <summary>Флаг окончания игры.</summary>
     private bool _gameOver;
@@ -119,13 +119,13 @@ public partial class MainWindow : Window
     // --------------------------------------------------------------------
     
     /// <summary>Canvas для ручной расстановки кораблей.</summary>
-    private Canvas _placementCanvas;
+    private Canvas? _placementCanvas;
     
     /// <summary>Левое поле — всегда своё (с видимыми кораблями).</summary>
-    private Canvas _ownCanvas;
+    private Canvas? _ownCanvas;
     
     /// <summary>Правое поле — поле противника.</summary>
-    private Canvas _enemyCanvas;
+    private Canvas? _enemyCanvas;
 
     /// <summary>
     /// Флаг блокировки повторных атак при ожидании результата от сервера.
@@ -140,7 +140,7 @@ public partial class MainWindow : Window
     private bool _isGameOverProcessing;
     
     /// <summary>Объект блокировки для синхронизации обработки завершения игры.</summary>
-    private object _gameOverLock = new object();
+    private readonly object _gameOverLock = new object();
     
     #endregion
 
@@ -178,9 +178,11 @@ public partial class MainWindow : Window
     /// </summary>
     private void InitializeEventHandlers()
     {
+        // Инициализация canvas ссылок
         _ownCanvas = OwnCanvas;
         _enemyCanvas = EnemyCanvas;
         _placementCanvas = PlacementCanvas;
+        
         // Главное меню
         VsComputerButton.Click += (_, _) => ShowDifficultyWindow();
         VsPlayerButton.Click += (_, _) => StartGame(GameMode.VsPlayer);
@@ -213,7 +215,7 @@ public partial class MainWindow : Window
             Dispatcher.UIThread.Post(() => OnPlayerTurnChanged(isPlayerTurn));
             
         _networkManager.GameStarted += (_, _) => 
-            Dispatcher.UIThread.Post(() => OnNetworkGameStarted());
+            Dispatcher.UIThread.Post(OnNetworkGameStarted);
             
         _networkManager.GameOver += (winnerName, iWon) => 
             Dispatcher.UIThread.Post(() => OnNetworkGameOver(winnerName, iWon));
@@ -231,19 +233,19 @@ public partial class MainWindow : Window
             Dispatcher.UIThread.Post(() => OnJoinedReceived(message));
             
         _networkManager.MatchFoundReceived += () => 
-            Dispatcher.UIThread.Post(() => OnMatchFound());
+            Dispatcher.UIThread.Post(OnMatchFound);
             
         _networkManager.GameStartReceived += (playerTurn) => 
             Dispatcher.UIThread.Post(() => OnGameStartReceived(playerTurn));
             
         _networkManager.YourTurnReceived += () => 
-            Dispatcher.UIThread.Post(() => OnYourTurn());
-            
+            Dispatcher.UIThread.Post(OnYourTurn);
+    
         _networkManager.YourTurnAgainReceived += () => 
-            Dispatcher.UIThread.Post(() => OnYourTurnAgain());
-            
+            Dispatcher.UIThread.Post(OnYourTurnAgain);
+    
         _networkManager.OpponentTurnReceived += () => 
-            Dispatcher.UIThread.Post(() => OnOpponentTurn());
+            Dispatcher.UIThread.Post(OnOpponentTurn);
             
         _networkManager.AttackResultReceived += (x, y, hit, sunk, gameOver, isMyAttack, data) => 
             Dispatcher.UIThread.Post(() => OnAttackResultReceived(x, y, hit, sunk, gameOver, isMyAttack, data));
@@ -294,11 +296,12 @@ public partial class MainWindow : Window
     
         Console.WriteLine($"[DEBUG] playerBoard from manager: {_playerBoard != null}");
         Console.WriteLine($"[DEBUG] opponentBoard from manager: {_opponentBoard != null}");
-
-
+    
+        // Если доски все еще null, создаем новые
         _playerBoard ??= new GameBoard();
         _opponentBoard ??= new GameBoard();
         
+        // Убедимся, что NetworkManager знает об этих досках
         _networkManager.PlayerBoard = _playerBoard;
         _networkManager.OpponentBoard = _opponentBoard;
     
@@ -315,7 +318,7 @@ public partial class MainWindow : Window
             ShowConfirmDialog(
                 "Начать новую онлайн-игру?\nТекущая игра будет завершена.",
                 () => {
-                    LeaveNetworkGameAsync();
+                    _ = LeaveNetworkGameAsync();
                     ShowNetworkConnectWindow();
                 }
             );
@@ -333,7 +336,7 @@ public partial class MainWindow : Window
             ShowConfirmDialog(
                 "Вернуться в главное меню?\nТекущая игра будет завершена.",
                 () => {
-                    LeaveNetworkGameAsync();
+                    _ = LeaveNetworkGameAsync();
                     ShowMainMenu();
                 }
             );
@@ -586,7 +589,7 @@ public partial class MainWindow : Window
         
         InitializeNetworkGameBoards();
     
-        _placingBoard = _playerBoard;
+        _placingBoard = _playerBoard!; // Гарантированно не null после InitializeNetworkGameBoards
         _placingPlayer1Ships = true;
         _currentShipIndex = 0;
         _currentShipHorizontal = true;
@@ -617,6 +620,12 @@ public partial class MainWindow : Window
             return;
         }
 
+        if (_opponentBoard == null)
+        {
+            Console.WriteLine($"[ERROR] opponentBoard is null");
+            return;
+        }
+        
         var cellState = _opponentBoard.Grid[x, y];
         if (cellState != CellState.Empty && cellState != CellState.Ship)
         {
@@ -804,6 +813,7 @@ public partial class MainWindow : Window
             Console.WriteLine($"[DEBUG] Clearing all canvases");
             Dispatcher.UIThread.Post(() =>
             {
+                // Обновляем ссылки на canvas
                 _ownCanvas = OwnCanvas;
                 _enemyCanvas = EnemyCanvas;
                 _placementCanvas = PlacementCanvas;
@@ -850,15 +860,9 @@ public partial class MainWindow : Window
     /// </summary>
     private void UpdatePlacementInstructions()
     {
-        if (_currentShipIndex < _shipsToPlace.Count)
-        {
-            ViewModel.PlacementInstruction = 
-                $"Размещаем корабль размером {_shipsToPlace[_currentShipIndex]} клеток\nПробел - повернуть, ЛКМ - разместить";
-        }
-        else
-        {
-            ViewModel.PlacementInstruction = "Все корабли размещены!";
-        }
+        ViewModel.PlacementInstruction = _currentShipIndex < _shipsToPlace.Count
+            ? $"Размещаем корабль размером {_shipsToPlace[_currentShipIndex]} клеток\nПробел - повернуть, ЛКМ - разместить"
+            : "Все корабли размещены!";
     }
 
     /// <summary>
@@ -867,15 +871,15 @@ public partial class MainWindow : Window
     /// </summary>
     private void RenderPlacementCanvas()
     {
-        if (PlacementCanvas == null) return;
+        if (_placementCanvas == null) return;
         
-        PlacementCanvas.Children.Clear();
+        _placementCanvas.Children.Clear();
 
         int cellSize = 40;
         int padding = 10;
 
         // Координаты
-        for (int i = 0; i < _placingBoard.Size; i++)
+        for (int i = 0; i < _placingBoard!.Size; i++)
         {
             var letterText = new TextBlock
             {
@@ -884,7 +888,7 @@ public partial class MainWindow : Window
             letterText.Classes.Add("Coordinate");
             Canvas.SetLeft(letterText, padding + i * cellSize + cellSize * 0.5 - 5);
             Canvas.SetTop(letterText, 0);
-            PlacementCanvas.Children.Add(letterText);
+            _placementCanvas.Children.Add(letterText);
 
             var numberText = new TextBlock
             {
@@ -893,7 +897,7 @@ public partial class MainWindow : Window
             numberText.Classes.Add("Coordinate");
             Canvas.SetLeft(numberText, 0);
             Canvas.SetTop(numberText, padding + i * cellSize + cellSize * 0.5 - 7);
-            PlacementCanvas.Children.Add(numberText);
+            _placementCanvas.Children.Add(numberText);
         }
 
         // Клетки
@@ -904,7 +908,7 @@ public partial class MainWindow : Window
                 var cell = CreatePlacementCell(i, j, cellSize);
                 Canvas.SetLeft(cell, padding + i * cellSize);
                 Canvas.SetTop(cell, padding + j * cellSize);
-                PlacementCanvas.Children.Add(cell);
+                _placementCanvas.Children.Add(cell);
             }
         }
     }
@@ -945,7 +949,7 @@ public partial class MainWindow : Window
         };
         border.Classes.Add("PlacementCell");
 
-        if (_placingBoard.Grid[x, y] == CellState.Ship)
+        if (_placingBoard!.Grid[x, y] == CellState.Ship)
         {
             border.Classes.Add("Ship");
             var content = new Canvas { Width = cellSize - 2, Height = cellSize - 2 };
@@ -986,7 +990,7 @@ public partial class MainWindow : Window
     /// <param name="highlight">true - подсветить размещение, false - убрать подсветку.</param>
     private void HighlightShipPlacement(int x, int y, bool highlight)
     {
-        if (_currentShipIndex >= _shipsToPlace.Count) return;
+        if (_currentShipIndex >= _shipsToPlace.Count || _placingBoard == null) return;
 
         int shipSize = _shipsToPlace[_currentShipIndex];
         bool canPlace = _placingBoard.CanPlaceShip(x, y, shipSize, _currentShipHorizontal);
@@ -1021,12 +1025,12 @@ public partial class MainWindow : Window
     /// <returns>Border ячейки или null если не найден.</returns>
     private Border? FindPlacementCellBorder(int x, int y)
     {
-        if (PlacementCanvas == null) return null;
+        if (_placementCanvas == null) return null;
         
         int cellSize = 40;
         int padding = 10;
 
-        foreach (var child in PlacementCanvas.Children)
+        foreach (var child in _placementCanvas.Children)
             if (child is Border border)
             {
                 double left = Canvas.GetLeft(border);
@@ -1047,7 +1051,7 @@ public partial class MainWindow : Window
     /// <param name="y">Y-координата ячейки.</param>
     private void OnPlacementCellClick(int x, int y)
     {
-        if (_currentShipIndex >= _shipsToPlace.Count) return;
+        if (_currentShipIndex >= _shipsToPlace.Count || _placingBoard == null) return;
 
         int shipSize = _shipsToPlace[_currentShipIndex];
         var ship = new Ship(shipSize, _currentShipHorizontal);
@@ -1071,6 +1075,8 @@ public partial class MainWindow : Window
     /// </summary>
     private void PlaceShipsRandomly()
     {
+        if (_placingBoard == null) return;
+        
         _placingBoard.Clear();
         _placingBoard.PlaceShipsRandomly();
         _currentShipIndex = _shipsToPlace.Count;
@@ -1092,7 +1098,7 @@ public partial class MainWindow : Window
     /// Обрабатывает нажатие клавиш при расстановке кораблей.
     /// Пробел - повернуть корабль.
     /// </summary>
-    private void OnPlacementKeyDown(object sender, KeyEventArgs e)
+    private void OnPlacementKeyDown(object? sender, KeyEventArgs e)
     {
         if (e.Key == Key.Space) RotateCurrentShip();
     }
@@ -1117,19 +1123,20 @@ public partial class MainWindow : Window
         if (_currentMode == GameMode.VsPlayer && _networkManager.NetworkMode == NetworkGameMode.None && _placingPlayer1Ships)
         {
             _placingPlayer1Ships = false;
-            _placingBoard = _computerBoard;
+            _placingBoard = _computerBoard; // Может быть null, но это обрабатывается в ShowShipPlacementScreen
             _currentShipIndex = 0;
             _currentShipHorizontal = true;
             ShowShipPlacementScreen();
         }
         else if (_currentMode == GameMode.VsComputer)
         {
-            _computerBoard.PlaceShipsRandomly();
+            if (_computerBoard != null)
+                _computerBoard.PlaceShipsRandomly();
             ShowGameScreen();
         }
         else if (_networkManager.NetworkMode == NetworkGameMode.InGame)
         {
-            await _networkManager.SendShipPlacementAsync(_placingBoard);
+            await _networkManager.SendShipPlacementAsync(_placingBoard!);
         
             ViewModel.GameStatus = "Корабли расставлены! Ждем соперника...";
         }
@@ -1153,8 +1160,10 @@ public partial class MainWindow : Window
         // Инициализируем доски если они null
         if (_networkManager.NetworkMode == NetworkGameMode.InGame)
         {
-            _playerBoard ??= _networkManager.PlayerBoard ?? new GameBoard();
-            _opponentBoard ??= _networkManager.OpponentBoard ?? new GameBoard();
+            if (_playerBoard == null)
+                _playerBoard = _networkManager.PlayerBoard;
+            if (_opponentBoard == null)
+                _opponentBoard = _networkManager.OpponentBoard;
         }
     
         if (_networkManager.NetworkMode == NetworkGameMode.InGame && _chatManager != null)
@@ -1187,6 +1196,8 @@ public partial class MainWindow : Window
         if (_currentMode == GameMode.VsPlayer)
         {
             if (!_playerTurn) return;
+            
+            if (_playerBoard == null || _computerBoard == null) return;
             
             GameBoard targetBoard = (_currentMode == GameMode.VsPlayer && _isPlayer2Turn) ? _playerBoard : _computerBoard;
             var (hit, sunk, gameOver) = targetBoard.Attack(x, y);
@@ -1255,7 +1266,7 @@ public partial class MainWindow : Window
         else
         {
             // Режим против компьютера
-            if (!_playerTurn) return;
+            if (!_playerTurn || _computerBoard == null) return;
             var (hit, sunk, gameOver) = _computerBoard.Attack(x, y);
             if (hit)
             {
@@ -1309,6 +1320,7 @@ public partial class MainWindow : Window
            return;
        }
        
+       // Обновляем ссылки на canvas
        _ownCanvas = OwnCanvas;
        _enemyCanvas = EnemyCanvas;
        
@@ -1440,6 +1452,8 @@ public partial class MainWindow : Window
     /// </summary>
     private async Task ComputerTurn()
     {
+        if (_playerBoard == null) return;
+        
         bool continueTurn = true;
 
         while (continueTurn && !_playerTurn && !_gameOver)
@@ -1449,7 +1463,7 @@ public partial class MainWindow : Window
                 HandleBotAttackResult
             );
             
-            continueTurn = result.ContinueTurn && !result.GameOver;
+            continueTurn = result is { ContinueTurn: true, GameOver: false };
             _gameOver = result.GameOver;
             
             if (continueTurn && !_gameOver)
@@ -1477,6 +1491,8 @@ public partial class MainWindow : Window
     /// </summary>
     private async Task ComputerTurnSmart()
     {
+        if (_playerBoard == null) return;
+        
         bool continueTurn = true;
 
         while (continueTurn && !_playerTurn && !_gameOver)
@@ -1486,7 +1502,7 @@ public partial class MainWindow : Window
                 HandleBotAttackResult
             );
             
-            continueTurn = result.ContinueTurn && !result.GameOver;
+            continueTurn = result is { ContinueTurn: true, GameOver: false };
             _gameOver = result.GameOver;
             
             if (continueTurn && !_gameOver)
@@ -1567,7 +1583,10 @@ public partial class MainWindow : Window
     /// <param name="onConfirm">Действие при подтверждении.</param>
     private async void ShowConfirmDialog(string message, Action onConfirm)
     {
-        var confirmWindow = new ConfirmDialogWindow();
+        var confirmWindow = new ConfirmDialogWindow
+        {
+            Message = message
+        };
         confirmWindow.Message = message;
     
         var result = await confirmWindow.ShowDialog<bool?>(this);
@@ -1632,7 +1651,7 @@ public partial class MainWindow : Window
        _enemyCanvas?.InvalidateVisual();
        
        await Task.Delay(100);
-
+       
        var gameOverWindow = new NetworkGameOverWindow();
        gameOverWindow.IsWin = iWon;
        gameOverWindow.WinnerName = winnerName;
@@ -1677,7 +1696,10 @@ public partial class MainWindow : Window
     /// <param name="message">Сообщение о выходе.</param>
     private async void ShowOpponentLeftDialog(string message)
     {
-        var opponentWindow = new OpponentDisconnectWindow();
+        var opponentWindow = new OpponentDisconnectWindow
+        {
+            Message = message
+        };
         opponentWindow.Message = message;
         opponentWindow.Title = "Соперник покинул игру";
     
@@ -1696,7 +1718,10 @@ public partial class MainWindow : Window
     /// <param name="message">Сообщение об отключении.</param>
     private async void ShowOpponentDisconnectedDialog(string message)
     {
-        var opponentWindow = new OpponentDisconnectWindow();
+        var opponentWindow = new OpponentDisconnectWindow
+        {
+            Message = message
+        };
         opponentWindow.Message = message;
         opponentWindow.Title = "Соединение потеряно";
     
@@ -1752,7 +1777,7 @@ public partial class MainWindow : Window
            return;
        }
        
-       GameBoard targetBoard = isMyAttack ? _opponentBoard : _playerBoard;
+       GameBoard? targetBoard = isMyAttack ? _opponentBoard : _playerBoard;
 
        if (targetBoard == null)
        {
@@ -1959,7 +1984,13 @@ public partial class MainWindow : Window
     private string GetEnemyBoardTitle()
     {
         if (_networkManager.NetworkMode == NetworkGameMode.InGame)
-            return $"🎯 ПОЛЕ {_networkManager.OpponentName.ToUpper()}";
+        {
+            var opponentName = _networkManager.OpponentName;
+            if (string.IsNullOrEmpty(opponentName))
+                return "🎯 ПОЛЕ ПРОТИВНИКА";
+            else
+                return $"🎯 ПОЛЕ {opponentName.ToUpper()}";
+        }
         else if (_currentMode == GameMode.VsPlayer)
             return _isPlayer2Turn ? "🎯 ПОЛЕ ИГРОКА 1" : "🎯 ПОЛЕ ИГРОКА 2";
         else

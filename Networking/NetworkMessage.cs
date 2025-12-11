@@ -15,12 +15,12 @@ public class NetworkMessage
     /// Тип сообщения (команда). Должен соответствовать NetworkProtocol.Commands.
     /// </summary>
     /// <example>"ATTACK", "GAME_START", "CHAT_MESSAGE".</example>
-    public required string Type { get; set; }
+    public required string Type { get; init; }
     /// <summary>
     /// Словарь данных сообщения. Содержит дополнительные параметры команды.
     /// </summary>
     /// <example>
     /// Для сообщения "ATTACK" может содержать: {"x": "5", "y": "3"}.
     /// </example>
-    public Dictionary<string, string> Data { get; set; } = new();
+    public Dictionary<string, string> Data { get; init; } = new();
 }

@@ -26,4 +26,8 @@
     <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
   
+  <PropertyGroup>
+	<NoWarn>$(NoWarn);CA1700</NoWarn>
+  </PropertyGroup>
+  
 </Project>

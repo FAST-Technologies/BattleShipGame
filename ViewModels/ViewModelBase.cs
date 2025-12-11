@@ -10,5 +10,4 @@ namespace BattleShipGame.ViewModels;
 /// Все ViewModel должны наследоваться от этого класса для поддержки привязки данных.
 /// Предоставляет механизм уведомлений об изменении свойств.
 /// </remarks>
-public abstract class ViewModelBase : ObservableObject
-{}
+public abstract class ViewModelBase : ObservableObject;

@@ -28,10 +28,10 @@ public partial class NetworkConnectWindow : Window
     /// </summary>
     public string PlayerName { get; private set; } = string.Empty;
     
-    private TextBox _playerNameInput;
-    private TextBox _serverHostInput;
-    private TextBox _serverPortInput;
-    private TextBlock _errorText;
+    private readonly TextBox _playerNameInput;
+    private readonly TextBox _serverHostInput;
+    private readonly TextBox _serverPortInput;
+    private readonly TextBlock _errorText;
     
     /// <summary>
     /// Инициализирует новый экземпляр класса NetworkConnectWindow.
@@ -59,14 +59,14 @@ public partial class NetworkConnectWindow : Window
     /// </summary>
     /// <param name="sender">Источник события.</param>
     /// <param name="e">Аргументы события маршрутизации.</param>
-    private void OnConnectClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void OnConnectClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (ValidateInput())
+        if (ValidateInput(out int portNumber))
         {
             Success = true;
             PlayerName = _playerNameInput.Text ?? string.Empty;
             Hostname = _serverHostInput.Text ?? "127.0.0.1";
-            Port = int.Parse(_serverPortInput.Text);
+            Port = portNumber;
             Close();
         }
     }
@@ -74,32 +74,34 @@ public partial class NetworkConnectWindow : Window
     /// <summary>
     /// Проверяет корректность введенных пользователем данных.
     /// </summary>
+    /// <param name="port">Выходной параметр для распарсенного порта.</param>
     /// <returns>true, если данные корректны; иначе false.</returns>
-    private bool ValidateInput()
+    private bool ValidateInput(out int port)
     {
         _errorText.IsVisible = false;
-        
+        port = 0; // Инициализация по умолчанию
+    
         if (string.IsNullOrWhiteSpace(_playerNameInput.Text))
         {
             _errorText.Text = "Введите имя игрока";
             _errorText.IsVisible = true;
             return false;
         }
-        
+    
         if (string.IsNullOrWhiteSpace(_serverHostInput.Text))
         {
             _errorText.Text = "Введите адрес сервера";
             _errorText.IsVisible = true;
             return false;
         }
-        
-        if (!int.TryParse(_serverPortInput.Text, out int portNumber) || portNumber <= 0 || portNumber > 65535)
+    
+        if (!int.TryParse(_serverPortInput.Text, out port) || port <= 0 || port > 65535)
         {
             _errorText.Text = "Неверный порт. Допустимый диапазон: 1-65535";
             _errorText.IsVisible = true;
             return false;
         }
-        
+    
         return true;
     }
 }

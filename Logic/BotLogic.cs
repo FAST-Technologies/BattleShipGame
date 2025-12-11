@@ -12,13 +12,11 @@ namespace BattleShipGame.Logic;
 public class BotLogic
 {
     #region Поля и свойства
-    
-    private Random _random = new Random();  /// <summary>Генератор случайных чисел.</summary>
-    private BotDifficulty _difficulty; /// <summary>Выбранная сложность бота (Лёгкая, средняя или тяжёлая).</summary>
-    private List<(int x, int y)> _lastHits = new(); /// <summary>Последние координаты попаданий бота (для умного ИИ).</summary>
+    private readonly Random _random = new Random();  /// <summary>Генератор случайных чисел.</summary>
+    private readonly BotDifficulty _difficulty; /// <summary>Выбранная сложность бота (Лёгкая, средняя или тяжёлая).</summary>
+    private readonly List<(int x, int y)> _lastHits = new(); /// <summary>Последние координаты попаданий бота (для умного ИИ).</summary>
     private (int x, int y)? _lastHitDirection; /// <summary>Текущее направление поиска после попадания.</summary>
     private (int x, int y)? _initialHit; /// <summary>Координаты первого попадания в текущий корабль.</summary>
-    
     #endregion
     
     /// <summary>
@@ -43,20 +41,19 @@ public class BotLogic
         var possibleTargets = GetSmartTargets(playerBoard);
         
         if (possibleTargets.Count == 0)
-            return new BotTurnResult(false, false, false);
+            return new BotTurnResult(false, false);
 
         int randomIndex = _random.Next(possibleTargets.Count);
         var (x, y) = possibleTargets[randomIndex];
         possibleTargets.RemoveAt(randomIndex);
 
         var (hit, sunk, gameOver) = playerBoard.Attack(x, y);
-        onAttack?.Invoke(x, y, hit, sunk, gameOver);
+        onAttack.Invoke(x, y, hit, sunk, gameOver);
         
         // Определяем, продолжать ли ход
         bool continueTurn = hit && !gameOver;
-        bool isPlayerTurn = !continueTurn && !gameOver;
         
-        return new BotTurnResult(continueTurn, isPlayerTurn, gameOver);
+        return new BotTurnResult(continueTurn, gameOver);
     }
 
     /// <summary>
@@ -70,7 +67,7 @@ public class BotLogic
         var possibleTargets = GetSmartTargets(playerBoard);
         
         if (possibleTargets.Count == 0)
-            return new BotTurnResult(false, false, false);
+            return new BotTurnResult(false, false);
 
         var target = GetNextSmartShot(possibleTargets, playerBoard);
         possibleTargets.Remove((target.x, target.y));
@@ -103,13 +100,12 @@ public class BotLogic
         }
 
         // Вызываем колбэк для обработки результатов
-        onAttack?.Invoke(target.x, target.y, hit, sunk, gameOver);
+        onAttack.Invoke(target.x, target.y, hit, sunk, gameOver);
         
         // Определяем, продолжать ли ход
         bool continueTurn = hit && !gameOver;
-        bool isPlayerTurn = !continueTurn && !gameOver;
         
-        return new BotTurnResult(continueTurn, isPlayerTurn, gameOver);
+        return new BotTurnResult(continueTurn, gameOver);
     }
     
     /// <summary>
@@ -136,21 +132,20 @@ public class BotLogic
     /// <returns>Выбранные координаты для атаки.</returns>
     private (int x, int y) GetNextSmartShot(List<(int x, int y)> possibleTargets, GameBoard board)
     {
-        switch (_difficulty)
+        return _difficulty switch
         {
             // === СЛОЖНЫЙ ИИ: стреляем рядом с попаданиями ===
-            case BotDifficulty.Hard:
-                return GetSmartTargetHard(possibleTargets, board);
+            BotDifficulty.Hard => GetSmartTargetHard(possibleTargets, board),
             
             // === СРЕДНИЙ: приоритет соседям попаданий ===
-            case BotDifficulty.Medium:
-                return GetSmartTargetMedium(possibleTargets, board);
+            BotDifficulty.Medium => GetSmartTargetMedium(possibleTargets, board),
             
             // === ЛЁГКИЙ: рандом ===    
-            case BotDifficulty.Easy:
-            default:
-                return GetRandomTarget(possibleTargets);
-        }
+            BotDifficulty.Easy => GetRandomTarget(possibleTargets),
+            
+            // По умолчанию рандом
+            _ => GetRandomTarget(possibleTargets)
+        };
     }
     
     /// <summary>
@@ -190,7 +185,7 @@ public class BotLogic
 
         // Стреляем по соседям последнего попадания
         var neighbors = GetNeighbors(lastHit.x, lastHit.y, board)
-            .Where(neighbor => possibleTargets.Contains(neighbor))
+            .Where(possibleTargets.Contains)
             .ToList();
 
         if (neighbors.Count > 0)
@@ -218,7 +213,7 @@ public class BotLogic
         // Убираем дубликаты и выбираем только доступные цели
         var uniqueNeighbors = allNeighbors
             .Distinct()
-            .Where(neighbor => possibleTargets.Contains(neighbor))
+            .Where(possibleTargets.Contains)
             .ToList();
 
         if (uniqueNeighbors.Count > 0)
@@ -266,7 +261,13 @@ public class BotLogic
     private List<(int x, int y)> GetNeighbors(int x, int y, GameBoard board)
     {
         var neighbors = new List<(int x, int y)>();
-        int[][] directions = { [-1, 0], [1, 0], [0, -1], [0, 1] }; // 4 стороны
+        int[][] directions = new int[][]
+        {
+            new[] { -1, 0 },
+            new[] { 1, 0 },
+            new[] { 0, -1 },
+            new[] { 0, 1 }
+        }; // 4 стороны
 
         foreach (var dir in directions)
         {
@@ -299,23 +300,23 @@ public class BotTurnResult
 {
     #region Поля и свойства
     /// <summary>Флаг возможности продолжения хода.</summary>
-    public bool ContinueTurn { get; } 
-    /// <summary>Флаг проверки хода игрока.</summary>
-    public bool IsPlayerTurn { get; }
+    public bool ContinueTurn { get; }
+    
     /// <summary>Флаг окончания игры.</summary>
     public bool GameOver { get; }
+    
+    /// <summary>Флаг проверки хода игрока (вычисляется из ContinueTurn).</summary>
+    public bool IsPlayerTurn => !ContinueTurn && !GameOver;
     #endregion
 
     /// <summary>
     /// Возвращает результат атаки бота выбранной сложности.
     /// </summary>
     /// <param name="continueTurn">Возможность продолжения хода.</param>
-    /// <param name="isPlayerTurn">Проверка хода игрока.</param>
     /// <param name="gameOver">Флаг окончания игры.</param>
-    public BotTurnResult(bool continueTurn, bool isPlayerTurn, bool gameOver)
+    public BotTurnResult(bool continueTurn, bool gameOver)
     {
         ContinueTurn = continueTurn;
-        IsPlayerTurn = isPlayerTurn;
         GameOver = gameOver;
     }
 }

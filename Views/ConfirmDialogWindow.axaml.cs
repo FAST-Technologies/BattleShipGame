@@ -11,7 +11,7 @@ namespace BattleShipGame.Views;
 /// </remarks>
 public partial class ConfirmDialogWindow : Window
 {
-    private TextBlock _messageText; /// <summary>Текст сообщения.</summary>
+    private readonly TextBlock _messageText; /// <summary>Текст сообщения.</summary>
     
     /// <summary>
     /// Сообщение, отображаемое в диалоговом окне.
@@ -19,10 +19,7 @@ public partial class ConfirmDialogWindow : Window
     public string Message 
     { 
         get => _messageText.Text ?? string.Empty;
-        set 
-        { 
-            _messageText.Text = value; 
-        }
+        set => _messageText.Text = value;
     }
     
     /// <summary>

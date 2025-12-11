@@ -17,7 +17,7 @@ namespace BattleShipGame.Views;
 /// </remarks>
 public partial class ChatControl : UserControl
 {
-    private List<(string sender, string message, DateTime timestamp)> _messages = new(); /// <summary>Массив сообщений чата.</summary>
+    private readonly List<(string sender, string message, DateTime timestamp)> _messages = new(); /// <summary>Массив сообщений чата.</summary>
     private ChatManager? _chatManager; /// <summary>Инициализация менеджера чатов.</summary>
 
     /// <summary>
@@ -36,10 +36,9 @@ public partial class ChatControl : UserControl
     private void InitializeComponents()
     {
         var messagesPanel = ChatMessagesPanel;
-        if (messagesPanel == null)
-            Console.WriteLine("[ChatControl] WARNING: ChatMessagesPanel not found during initialization!");
-        else
-            Console.WriteLine("[ChatControl] ChatMessagesPanel found successfully");
+        Console.WriteLine(messagesPanel == null 
+            ? "[ChatControl] WARNING: ChatMessagesPanel not found during initialization!" 
+            : "[ChatControl] ChatMessagesPanel found successfully");
     }
 
     /// <summary>
@@ -65,9 +64,10 @@ public partial class ChatControl : UserControl
     /// <param name="timestamp">Временная метка сообщения.</param>
     private void OnMessageAdded(string sender, string text, DateTime timestamp)
     {
+        _messages.Add((sender, text, timestamp));
         Dispatcher.UIThread.Post(() =>
         {
-            AddMessageToUI(sender, text, timestamp);
+            AddMessageToUi(sender, text, timestamp);
         }, DispatcherPriority.Background);
     }
 
@@ -78,7 +78,7 @@ public partial class ChatControl : UserControl
     /// <param name="sender">Имя отправителя.</param>
     /// <param name="text">Текст сообщения.</param>
     /// <param name="timestamp">Временная метка.</param>
-    private void AddMessageToUI(string sender, string text, DateTime timestamp)
+    private void AddMessageToUi(string sender, string text, DateTime timestamp)
     {
         var messagesPanel = ChatMessagesPanel;
         if (messagesPanel == null) return;

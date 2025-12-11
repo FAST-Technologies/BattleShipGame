@@ -11,6 +11,7 @@ namespace BattleShipGame.Models2;
 /// </summary>
 public static class SoundManager
 {
+    private static readonly int NumChannels = 1;
     /// <summary>
     /// Воспроизводит короткий высокий тон, обозначающий попадание по кораблю.
     /// </summary>
@@ -110,41 +111,38 @@ public static class SoundManager
                 double amplitude = 0.5;
 
                 // Создаем WAV файл в памяти
-                using (var memoryStream = new System.IO.MemoryStream())
+                using var memoryStream = new System.IO.MemoryStream();
+
+                // Заголовок WAV файла
+                WriteWavHeader(memoryStream, durationMs, sampleRate);
+
+                // Аудиоданные (синусоида)
+                short[] data = new short[(int)(sampleRate * durationMs / 1000.0)];
+                double freq = frequency * 2.0 * Math.PI / sampleRate;
+
+                for (int i = 0; i < data.Length; i++)
                 {
-                    // Заголовок WAV файла
-                    WriteWavHeader(memoryStream, durationMs, sampleRate);
-
-                    // Аудиоданные (синусоида)
-                    short[] data = new short[(int)(sampleRate * durationMs / 1000.0)];
-                    double freq = frequency * 2.0 * Math.PI / sampleRate;
-
-                    for (int i = 0; i < data.Length; i++)
-                    {
-                        data[i] = (short)(amplitude * Math.Sin(freq * i) * short.MaxValue);
-                    }
-
-                    // Конвертируем short[] в byte[]
-                    byte[] byteData = new byte[data.Length * 2];
-                    Buffer.BlockCopy(data, 0, byteData, 0, byteData.Length);
-
-                    memoryStream.Write(byteData, 0, byteData.Length);
-                    memoryStream.Position = 0;
-
-                    // Воспроизводим
-                    using (var audioFile = new WaveFileReader(memoryStream))
-                    using (var outputDevice = new WaveOutEvent())
-                    {
-                        outputDevice.Init(audioFile);
-                        outputDevice.Play();
-
-                        // Ждем окончания звука
-                        while (outputDevice.PlaybackState == PlaybackState.Playing)
-                        {
-                            Task.Delay(50).Wait();
-                        }
-                    }
+                    data[i] = (short)(amplitude * Math.Sin(freq * i) * short.MaxValue);
                 }
+
+                // Конвертируем short[] в byte[]
+                byte[] byteData = new byte[data.Length * 2];
+                Buffer.BlockCopy(data, 0, byteData, 0, byteData.Length);
+
+                memoryStream.Write(byteData, 0, byteData.Length);
+                memoryStream.Position = 0;
+                
+                using var audioFile = new WaveFileReader(memoryStream);
+                using var outputDevice = new WaveOutEvent();
+
+                outputDevice.Init(audioFile);
+                outputDevice.Play();
+                
+                while (outputDevice.PlaybackState == PlaybackState.Playing)
+                {
+                    Task.Delay(50).Wait();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -164,10 +162,9 @@ public static class SoundManager
     /// </remarks>
     private static void WriteWavHeader(System.IO.Stream stream, int durationMs, int sampleRate)
     {
-        int numChannels = 1;
         int bitsPerSample = 16;
         int numSamples = sampleRate * durationMs / 1000;
-        int subChunk2Size = numSamples * numChannels * bitsPerSample / 8;
+        int subChunk2Size = numSamples * NumChannels * bitsPerSample / 8;
 
         // RIFF заголовок
         WriteString(stream, "RIFF");
@@ -178,10 +175,10 @@ public static class SoundManager
         WriteString(stream, "fmt ");
         WriteInt(stream, 16);
         WriteShort(stream, 1); // AudioFormat = PCM
-        WriteShort(stream, (short)numChannels);
+        WriteShort(stream, (short)NumChannels);
         WriteInt(stream, sampleRate);
-        WriteInt(stream, sampleRate * numChannels * bitsPerSample / 8); // ByteRate
-        WriteShort(stream, (short)(numChannels * bitsPerSample / 8)); // BlockAlign
+        WriteInt(stream, sampleRate * NumChannels * bitsPerSample / 8); // ByteRate
+        WriteShort(stream, (short)(NumChannels * bitsPerSample / 8)); // BlockAlign
         WriteShort(stream, (short)bitsPerSample);
 
         // data подзаголовок

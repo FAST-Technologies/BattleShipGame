@@ -14,7 +14,7 @@ public class ClientMessage
     /// <summary>
     /// Тип сообщения (команда).
     /// </summary>
-    public required string Type { get; set; }
+    public required string Type { get; init; }
     /// <summary>
     /// Данные сообщения в формате ключ-значение.
     /// </summary>

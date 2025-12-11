@@ -21,7 +21,6 @@ public class NetworkClient
     private StreamWriter? _writer; /// <summary>Writer.</summary>
     private StreamReader? _reader; /// <summary>Reader.</summary>
     private bool _connected; /// <summary>Флаг подключения.</summary>
-    private Task? _listenTask; /// <summary>Фоновая задача для прослушки сообщений.</summary>
 
     /// <summary>
     /// Событие, возникающее при получении сообщения от сервера.
@@ -56,7 +55,7 @@ public class NetworkClient
             _writer = new StreamWriter(stream) { AutoFlush = true };
             _reader = new StreamReader(stream);
             _connected = true;
-            _listenTask = Task.Run(ListenForMessagesAsync);
+            _ = Task.Run(ListenForMessagesAsync);
             return true;
         }
         catch (Exception ex)
@@ -113,8 +112,12 @@ public class NetworkClient
     {
         try
         {
-            string? line;
-            while (_connected && (line = await _reader.ReadLineAsync()) != null)
+            if (_reader == null)
+            {
+                Console.WriteLine("[Network Error] Reader не инициализирован");
+                return;
+            }
+            while (_connected && await _reader.ReadLineAsync() is { } line)
             {
                 var msg = ParseMessage(line);
                 if (msg != null)

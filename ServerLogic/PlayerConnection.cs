@@ -20,11 +20,11 @@ public class PlayerConnection
     /// <summary>
     /// Имя игрока.
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     /// <summary>
     /// TCP-клиент для связи с игроком.
     /// </summary>
-    public TcpClient TcpClient { get; }
+    private TcpClient TcpClient { get; }
     /// <summary>
     /// Писатель для отправки сообщений игроку.
     /// </summary>

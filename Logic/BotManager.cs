@@ -10,7 +10,7 @@ namespace BattleShipGame.Logic;
 /// </summary>
 public class BotManager
 {
-    private Dictionary<BotDifficulty, BotLogic> _bots = new(); /// <summary>Список ботов по сложности.</summary>
+    private readonly Dictionary<BotDifficulty, BotLogic> _bots = new(); /// <summary>Список ботов по сложности.</summary>
     private BotLogic? _currentBot; /// <summary>Текущий выбранный бот.</summary>
     
     /// <summary>

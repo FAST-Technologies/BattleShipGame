@@ -14,12 +14,12 @@ public class ServerMessage
     /// <summary>
     /// Тип сообщения (команда).
     /// </summary>
-    public required string Type { get; set; }
+    public required string Type { get; init; }
     
     /// <summary>
     /// Данные сообщения в формате ключ-значение.
     /// </summary>
-    public Dictionary<string, string> Data { get; set; } = new();
+    public Dictionary<string, string> Data { get; init; } = new();
 
     /// <summary>
     /// Сериализует сообщение в строковый формат протокола.

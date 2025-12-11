@@ -23,12 +23,12 @@ public partial class OpponentDisconnectWindow : Window
         var messageText = OpponentDisconnectMessage;
         var okButton = OpponentDisconnectOkButton;
         
-        Opened += (s, e) =>
+        Opened += (_, _) =>
         {
             messageText.Text = Message;
         };
         
         // Обработчики кнопок
-        okButton.Click += (s, e) => Close(true);
+        okButton.Click += (_, _) => Close(true);
     }
 }

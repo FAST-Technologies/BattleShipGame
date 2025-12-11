@@ -88,14 +88,13 @@ public class GameServer
     /// <returns>Задача, представляющая асинхронную обработку.</returns>
     private async Task HandleClientAsync(TcpClient tcpClient)
     {
-        PlayerConnection player = null;
+        PlayerConnection? player = null;
         try
         {
             player = new PlayerConnection(tcpClient);
             _players[player.Id] = player;
             Console.WriteLine($"[SERVER] Клиент подключился: {player.Id}");
-            string? line;
-            while ((line = await player.Reader.ReadLineAsync()) != null)
+            while (await player.Reader.ReadLineAsync() is { } line)
             {
                 Console.WriteLine($"[SERVER] Получено от {player.Name ?? player.Id}: {line}");
                 var msg = ParseMessage(line);
@@ -198,8 +197,7 @@ public class GameServer
     private void LeaveQueue(PlayerConnection player)
     {
         var remaining = new ConcurrentQueue<PlayerConnection>();
-        PlayerConnection current;
-        while (_waitingPlayers.TryDequeue(out current))
+        while (_waitingPlayers.TryDequeue(out PlayerConnection? current))
         {
             if (current.Id != player.Id)
             {
@@ -349,14 +347,9 @@ public class GameServer
                     
                     // Создаем корабль
                     var ship = new Ship(size, isHorizontal);
-                    if (player.Board.PlaceShip(ship, startX, startY))
-                    {
-                        Console.WriteLine($"[SERVER] Корабль {shipIndex} размещен: размер={size}, horizontal={isHorizontal}, позиция=({startX},{startY})");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"[SERVER] ОШИБКА: Не удалось разместить корабль {shipIndex} на ({startX},{startY})");
-                    }
+                    Console.WriteLine(player.Board.PlaceShip(ship, startX, startY)
+                        ? $"[SERVER] Корабль {shipIndex} размещен: размер={size}, horizontal={isHorizontal}, позиция=({startX},{startY})"
+                        : $"[SERVER] ОШИБКА: Не удалось разместить корабль {shipIndex} на ({startX},{startY})");
                 }
                 shipIndex++;
             }
@@ -645,15 +638,20 @@ public class GameServer
     /// <returns>Задача, представляющая асинхронную обработку.</returns>
     private async Task HandleList(string playerId)
     {
-        if (!_players.TryGetValue(playerId, out var player))
+        if (!_players.TryGetValue(playerId, out var requestingPlayer))
             return;
+    
         Dictionary<string, string> message = new Dictionary<string, string>();
         foreach (string id in _players.Keys)
         {
             if (id == playerId) continue;
-            message.Add(id, _players[playerId].Name);
+            if (_players.TryGetValue(id, out var otherPlayer))
+            {
+                message.Add(id, otherPlayer.Name ?? "Unknown");
+            }
         }
-        await SendServerMessageAsync(_players[playerId], new ServerMessage
+    
+        await SendServerMessageAsync(requestingPlayer, new ServerMessage
         {
             Type = NetworkProtocol.Commands.ListRes, 
             Data = message
