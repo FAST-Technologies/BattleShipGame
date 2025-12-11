@@ -50,19 +50,19 @@ public partial class NetworkGameOverWindow : Window
         var newGameButton = NetworkGameOverNewGameButton;
         var menuButton = NetworkGameOverMenuButton;
         
-        Opened += (s, e) =>
+        Opened += (_, _) =>
         {
             resultText.Text = IsWin ? "🎉 ПОБЕДА! 🎉" : "💀 ПОРАЖЕНИЕ 💀";
             winnerText.Text = IsWin ? "Вы потопили весь флот противника!" : $"Победитель: {WinnerName}";
         };
         
         // Обработчики кнопок
-        newGameButton.Click += (s, e) => 
+        newGameButton.Click += (_, _) => 
         {
             Result = NetworkGameOverResult.NewOnlineGame;
             Close();
         };
-        menuButton.Click += (s, e) => {
+        menuButton.Click += (_, _) => {
             Result = NetworkGameOverResult.MainMenu;
             Close();
         };

@@ -11,5 +11,4 @@ namespace BattleShipGame.ViewModels;
 /// Предоставляет механизм уведомлений об изменении свойств.
 /// </remarks>
 public abstract class ViewModelBase : ObservableObject
-{
-}
+{}

@@ -20,7 +20,7 @@ public class NetworkClient
     private TcpClient? _tcpClient; /// <summary>TCP клиент.</summary>
     private StreamWriter? _writer; /// <summary>Writer.</summary>
     private StreamReader? _reader; /// <summary>Reader.</summary>
-    private bool _connected = false; /// <summary>Флаг подключения.</summary>
+    private bool _connected; /// <summary>Флаг подключения.</summary>
     private Task? _listenTask; /// <summary>Фоновая задача для прослушки сообщений.</summary>
 
     /// <summary>
@@ -123,7 +123,7 @@ public class NetworkClient
         }
         catch (IOException ex) when (!_connected)
         {
-            Console.WriteLine("[Network] Соединение закрыто");
+            Console.WriteLine($"[Network] Соединение закрыто: {ex.Message}");
         }
         catch (ObjectDisposedException) when (!_connected)
         {

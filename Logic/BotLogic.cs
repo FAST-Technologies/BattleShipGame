@@ -16,8 +16,8 @@ public class BotLogic
     private Random _random = new Random();  /// <summary>Генератор случайных чисел.</summary>
     private BotDifficulty _difficulty; /// <summary>Выбранная сложность бота (Лёгкая, средняя или тяжёлая).</summary>
     private List<(int x, int y)> _lastHits = new(); /// <summary>Последние координаты попаданий бота (для умного ИИ).</summary>
-    private (int x, int y)? _lastHitDirection = null; /// <summary>Текущее направление поиска после попадания.</summary>
-    private (int x, int y)? _initialHit = null;       /// <summary>Координаты первого попадания в текущий корабль.</summary>
+    private (int x, int y)? _lastHitDirection; /// <summary>Текущее направление поиска после попадания.</summary>
+    private (int x, int y)? _initialHit; /// <summary>Координаты первого попадания в текущий корабль.</summary>
     
     #endregion
     
@@ -50,8 +50,6 @@ public class BotLogic
         possibleTargets.RemoveAt(randomIndex);
 
         var (hit, sunk, gameOver) = playerBoard.Attack(x, y);
-
-        // Вызываем колбэк для обработки результатов
         onAttack?.Invoke(x, y, hit, sunk, gameOver);
         
         // Определяем, продолжать ли ход
@@ -168,7 +166,7 @@ public class BotLogic
 
         var lastHit = _lastHits.Last();
 
-        // 1. Продолжаем в том же направлении
+        // Продолжаем в том же направлении
         if (_lastHitDirection.HasValue && _lastHits.Count >= 2)
         {
             var (dx, dy) = _lastHitDirection.Value;
@@ -179,7 +177,7 @@ public class BotLogic
                 return (nextX, nextY);
         }
 
-        // 2. Пробуем противоположное направление
+        // Пробуем противоположное направление
         if (_lastHitDirection.HasValue && _initialHit.HasValue)
         {
             var (dx, dy) = _lastHitDirection.Value;
@@ -190,7 +188,7 @@ public class BotLogic
                 return (oppositeX, oppositeY);
         }
 
-        // 3. Стреляем по соседям последнего попадания
+        // Стреляем по соседям последнего попадания
         var neighbors = GetNeighbors(lastHit.x, lastHit.y, board)
             .Where(neighbor => possibleTargets.Contains(neighbor))
             .ToList();

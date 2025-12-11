@@ -36,11 +36,11 @@ public class PlayerConnection
     /// <summary>
     /// Флаг готовности игрока (все корабли расставлены).
     /// </summary>
-    public bool IsReady { get; set; } = false; 
+    public bool IsReady { get; set; }
     /// <summary>
     /// Флаг, указывающий является ли текущий ход игрока.
     /// </summary>
-    public bool IsMyTurn { get; set; } = false;
+    public bool IsMyTurn { get; set; }
     /// <summary>
     /// Игровая доска игрока.
     /// </summary>
@@ -65,9 +65,9 @@ public class PlayerConnection
     /// </summary>
     public void Close()
     {
-        Writer?.Close();
-        Reader?.Close();
-        TcpClient?.Close();
+        Writer.Close();
+        Reader.Close();
+        TcpClient.Close();
     }
     
     /// <summary>

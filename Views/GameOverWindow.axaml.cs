@@ -46,19 +46,19 @@ public partial class GameOverWindow : Window
         var newGameButton = GameOverNewGameButton;
         var menuButton = GameOverMenuButton;
         
-        Opened += (s, e) =>
+        Opened += (_, _) =>
         {
             resultText.Text = IsWin ? "🎉 ПОБЕДА! 🎉" : "💀 ПОРАЖЕНИЕ 💀";
             winnerText.Text = IsWin ? "Вы потопили весь флот противника!" : $"Победитель: {WinnerName}";
         };
         
         // Обработчики кнопок
-        newGameButton.Click += (s, e) => 
+        newGameButton.Click += (_, _) => 
         {
             Result = GameOverResult.NewGame;
             Close();
         };
-        menuButton.Click += (s, e) => 
+        menuButton.Click += (_, _) => 
         {
             Result = GameOverResult.MainMenu;
             Close();

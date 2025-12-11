@@ -32,9 +32,9 @@ public partial class DifficultyWindow : Window
         var hardButton = HardDifficultyButton;
         
         // Обработчики событий
-        easyButton.Click += (s, e) => SelectDifficulty(BotDifficulty.Easy);
-        mediumButton.Click += (s, e) => SelectDifficulty(BotDifficulty.Medium);
-        hardButton.Click += (s, e) => SelectDifficulty(BotDifficulty.Hard);
+        easyButton.Click += (_, _) => SelectDifficulty(BotDifficulty.Easy);
+        mediumButton.Click += (_, _) => SelectDifficulty(BotDifficulty.Medium);
+        hardButton.Click += (_, _) => SelectDifficulty(BotDifficulty.Hard);
     }
     
     /// <summary>

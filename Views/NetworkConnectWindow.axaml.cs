@@ -1,5 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 
 namespace BattleShipGame.Views;
 
@@ -51,7 +50,7 @@ public partial class NetworkConnectWindow : Window
         
         // Обработчики событий
         connectButton.Click += OnConnectClick;
-        backButton.Click += (s, e) => Close();
+        backButton.Click += (_, _) => Close();
     }
     
     /// <summary>
@@ -60,7 +59,7 @@ public partial class NetworkConnectWindow : Window
     /// </summary>
     /// <param name="sender">Источник события.</param>
     /// <param name="e">Аргументы события маршрутизации.</param>
-    private async void OnConnectClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void OnConnectClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (ValidateInput())
         {

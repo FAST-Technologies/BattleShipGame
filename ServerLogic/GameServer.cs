@@ -24,7 +24,7 @@ public class GameServer
     private readonly ConcurrentDictionary<string, PlayerConnection> _players = new(); /// <summary>Игроки на сервере.</summary>
     private ConcurrentQueue<PlayerConnection> _waitingPlayers = new(); /// <summary>Игроки, ожидающие серверную игру.</summary>
     private readonly ConcurrentDictionary<string, GameRoom> _rooms = new(); /// <summary>Серверные комнаты.</summary>
-    private bool _isRunning = false; /// <summary>Флаг для проверки работоспособности сервера.</summary>
+    private bool _isRunning; /// <summary>Флаг для проверки работоспособности сервера.</summary>
 
     /// <summary>
     /// Создает новый экземпляр игрового сервера.
@@ -245,7 +245,7 @@ public class GameServer
     public void Dispose()
     {
         Stop();
-        _listener?.Stop();
+        _listener.Stop();
     }
     
     #endregion
@@ -698,7 +698,7 @@ public class GameServer
         var opponent = room?.GetOpponent(player);
         if (opponent != null)
             await SendServerMessageAsync(opponent, new ServerMessage { Type = NetworkProtocol.Commands.OpponentDisconnected });
-        _rooms.TryRemove(room.Id, out _);
+        if (room != null) _rooms.TryRemove(room.Id, out _);
     }
     
     #endregion

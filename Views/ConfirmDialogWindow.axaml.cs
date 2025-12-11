@@ -11,17 +11,17 @@ namespace BattleShipGame.Views;
 /// </remarks>
 public partial class ConfirmDialogWindow : Window
 {
-    private TextBlock messageText; /// <summary>Текст сообщения.</summary>
+    private TextBlock _messageText; /// <summary>Текст сообщения.</summary>
     
     /// <summary>
     /// Сообщение, отображаемое в диалоговом окне.
     /// </summary>
     public string Message 
     { 
-        get => messageText?.Text ?? string.Empty;
+        get => _messageText.Text ?? string.Empty;
         set 
         { 
-            messageText.Text = value; 
+            _messageText.Text = value; 
         }
     }
     
@@ -32,10 +32,10 @@ public partial class ConfirmDialogWindow : Window
     public ConfirmDialogWindow()
     {
         InitializeComponent();
-        messageText = ConfirmDialogMessage;
+        _messageText = ConfirmDialogMessage;
         var yesButton = ConfirmYesButton;
         var noButton = ConfirmNoButton;
-        yesButton.Click += (s, e) => Close(true);
-        noButton.Click += (s, e) => Close(false);
+        yesButton.Click += (_, _) => Close(true);
+        noButton.Click += (_, _) => Close(false);
     }
 }

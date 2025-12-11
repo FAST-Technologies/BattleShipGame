@@ -22,11 +22,11 @@ public class GameRoom
     /// <summary>
     /// Флаг, указывающий началась ли игра.
     /// </summary>
-    public bool GameStarted { get; set; } = false;
+    public bool GameStarted { get; set; }
     /// <summary>
     /// Флаг, указывающий завершилась ли игра.
     /// </summary>
-    public bool GameOver { get; set; } = false;
+    public bool GameOver { get; set; }
 
     /// <summary>
     /// Создает новую игровую комнату для двух игроков.

@@ -18,7 +18,7 @@ public class BotManager
     /// </summary>
     public BotManager()
     {
-        foreach (BotDifficulty difficulty in System.Enum.GetValues(typeof(BotDifficulty)))
+        foreach (BotDifficulty difficulty in Enum.GetValues(typeof(BotDifficulty)))
             _bots[difficulty] = new BotLogic(difficulty);
     }
     

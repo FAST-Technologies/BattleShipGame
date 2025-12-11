@@ -21,9 +21,9 @@ public class NetworkGameManager
     private string _opponentName = "Opponent"; /// <summary>Имя соперника в сетевой игре.</summary>
     private string _myPlayerId = ""; /// <summary>ID игрока, присвоенный сервером.</summary>
     
-    private bool _localShipsPlaced = false; /// <summary>true — свои корабли уже расставлены и отправлены серверу.</summary>
-    private bool _opponentShipsPlaced = false; /// <summary>true — соперник завершил расстановку (получено от сервера).</summary>
-    private bool _isProcessingNetworkAttack = false; /// <summary>Блокировка повторных атак пока ждём результат от сервера.</summary>
+    private bool _localShipsPlaced; /// <summary>true — свои корабли уже расставлены и отправлены серверу.</summary>
+    private bool _opponentShipsPlaced; /// <summary>true — соперник завершил расстановку (получено от сервера).</summary>
+    private bool _isProcessingNetworkAttack; /// <summary>Блокировка повторных атак пока ждём результат от сервера.</summary>
     
     private NetworkGameMode _networkMode = NetworkGameMode.None; /// <summary>Состояние сетевого подключения.</summary>
     
@@ -190,14 +190,6 @@ public class NetworkGameManager
     }
     
     /// <summary>
-    /// Отправка сообщения в чат.
-    /// </summary>
-    public async Task SendChatMessageAsync(string text)
-    {
-        await _chatManager.SendChatMessageAsync(text);
-    }
-    
-    /// <summary>
     /// Корректно выходит из сетевой игры.
     /// </summary>
     public async Task LeaveGameAsync()
@@ -237,7 +229,7 @@ public class NetworkGameManager
         _localShipsPlaced = false;
         _opponentShipsPlaced = false;
         _isProcessingNetworkAttack = false;
-        _chatManager.Clear();
+        _chatManager?.Clear();
     }
     
     /// <summary>
@@ -535,7 +527,7 @@ public class NetworkGameManager
     /// <param name="data">Сообщение в чате.</param>
     private void HandleChatMessage(Dictionary<string, string> data)
     {
-        _chatManager.HandleChatMessage(data);
+        _chatManager?.HandleChatMessage(data);
     }
     
     /// <summary>
