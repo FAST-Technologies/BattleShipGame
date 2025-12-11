@@ -1,0 +1,29 @@
+.TH "" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Debug net10\&.0 \&.NETCoreApp,Version=v10\&.0\&.AssemblyAttributes\&.cs BattleShipGame\&.AssemblyInfo\&.cs 
+.PP
+net9\&.0 \&.NETCoreApp,Version=v9\&.0\&.AssemblyAttributes\&.cs BattleShipGame\&.AssemblyInfo\&.cs 
+.PP
+Logic BotLogic\&.cs BotManager\&.cs 
+.PP
+Models2 BotDifficulty\&.cs CellState\&.cs GameBoard\&.cs GameMode\&.cs Ship\&.cs SoundManager\&.cs 
+.PP
+net10\&.0 \&.NETCoreApp,Version=v10\&.0\&.AssemblyAttributes\&.cs BattleShipGame\&.AssemblyInfo\&.cs 
+.PP
+net9\&.0 \&.NETCoreApp,Version=v9\&.0\&.AssemblyAttributes\&.cs BattleShipGame\&.AssemblyInfo\&.cs 
+.PP
+Networking ChatManager\&.cs NetworkClient\&.cs NetworkGameManager\&.cs NetworkGameMode\&.cs NetworkMessage\&.cs NetworkProtocol\&.cs 
+.PP
+obj Debug net10\&.0 \&.NETCoreApp,Version=v10\&.0\&.AssemblyAttributes\&.cs BattleShipGame\&.AssemblyInfo\&.cs 
+.PP
+net9\&.0 \&.NETCoreApp,Version=v9\&.0\&.AssemblyAttributes\&.cs BattleShipGame\&.AssemblyInfo\&.cs 
+.PP
+ServerLogic ClientMessage\&.cs GameRoom\&.cs GameServer\&.cs Networking\&.cs PlayerConnection\&.cs ServerMessage\&.cs 
+.PP
+ViewModels MainWindowViewModel\&.cs ViewModelBase\&.cs 
+.PP
+Views ChatControl\&.axaml\&.cs ConfirmDialogWindow\&.axaml\&.cs DifficultyWindow\&.axaml\&.cs GameOverWindow\&.axaml\&.cs MainWindow\&.axaml\&.cs NetworkConnectWindow\&.axaml\&.cs NetworkGameOverWindow\&.axaml\&.cs OpponentDisconnectWindow\&.axaml\&.cs 
+.PP
+

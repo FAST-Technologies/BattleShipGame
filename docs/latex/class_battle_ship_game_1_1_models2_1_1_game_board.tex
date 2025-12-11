@@ -1,0 +1,299 @@
+\doxysection{Battle\+Ship\+Game.\+Models2.\+Game\+Board Class Reference}
+\hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board}{}\label{class_battle_ship_game_1_1_models2_1_1_game_board}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+
+
+Игровое поле для Морского Боя.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a1b77e5e736cf4f9a02c49ddbb5e5aab9}{Game\+Board}} (int size=10)
+\begin{DoxyCompactList}\small\item\em Создает новое игровое поле. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a198ee57d512eb9f37f21322dc0414e54}{Place\+Ship}} (\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship}{Ship}} ship, int x, int y)
+\begin{DoxyCompactList}\small\item\em Размещает корабль на поле. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ae02d94965bac583b3906abc87aafbddc}{Can\+Place\+Ship}} (int x, int y, int size, bool horizontal)
+\begin{DoxyCompactList}\small\item\em Проверяет возможность размещения корабля. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a24f7bff69d0364a160d5b5868b06d81d}{Place\+Ships\+Randomly}} ()
+\begin{DoxyCompactList}\small\item\em Автоматически расставляет корабли на поле. \end{DoxyCompactList}\item 
+bool bool bool game\+Over \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_aaf40204e6a1691b7fea33396706c3bc0}{Attack}} (int x, int y)
+\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ade1409e708365ad05828c7512c72ad21}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Очищает поле (удаляет все корабли и сбрасывает состояния). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{Cell\+State}} \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_aabdc9a86218c35038d9e4a27d3dd2315}{Get\+Cell\+State}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Получает состояние клетки по координатам. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ae7e2ecaa740cdce22967271bb4a995a2}{Can\+Attack\+Cell}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Проверяет, можно ли атаковать указанную клетку \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a949457182b377d087db768a3f0c447e2}{hit}}
+\begin{DoxyCompactList}\small\item\em Выполняет атаку по указанным координатам. \end{DoxyCompactList}\item 
+bool bool \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_adfadd423b003e887f18b64b1cd25bdea}{sunk}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{Cell\+State}}\mbox{[},\mbox{]} \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9}{Grid}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Двумерный массив состояний клеток поля. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship}{Ship}} $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ade7c89ea487c5ca833c6454fbf3421c1}{Ships}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Список кораблей на поле. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1}{Size}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Размер поля (обычно 10x10). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Игровое поле для Морского Боя. 
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_a1b77e5e736cf4f9a02c49ddbb5e5aab9}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!GameBoard@{GameBoard}}
+\index{GameBoard@{GameBoard}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{GameBoard()}{GameBoard()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_a1b77e5e736cf4f9a02c49ddbb5e5aab9} 
+Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Game\+Board (\begin{DoxyParamCaption}\item[{int}]{size}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+
+
+Создает новое игровое поле. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Размер поля.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00030}{30}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_aaf40204e6a1691b7fea33396706c3bc0}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!Attack@{Attack}}
+\index{Attack@{Attack}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{Attack()}{Attack()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_aaf40204e6a1691b7fea33396706c3bc0} 
+bool bool bool game\+Over Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Attack (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00152}{152}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_ae7e2ecaa740cdce22967271bb4a995a2}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!CanAttackCell@{CanAttackCell}}
+\index{CanAttackCell@{CanAttackCell}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{CanAttackCell()}{CanAttackCell()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_ae7e2ecaa740cdce22967271bb4a995a2} 
+bool Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Can\+Attack\+Cell (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Проверяет, можно ли атаковать указанную клетку 
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00245}{245}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_ae02d94965bac583b3906abc87aafbddc}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!CanPlaceShip@{CanPlaceShip}}
+\index{CanPlaceShip@{CanPlaceShip}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{CanPlaceShip()}{CanPlaceShip()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_ae02d94965bac583b3906abc87aafbddc} 
+bool Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Can\+Place\+Ship (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{int}]{size}{, }\item[{bool}]{horizontal}{}\end{DoxyParamCaption})}
+
+
+
+Проверяет возможность размещения корабля. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/координата начала.\\
+\hline
+{\em y} & Y-\/координата начала.\\
+\hline
+{\em size} & Размер корабля.\\
+\hline
+{\em horizontal} & Ориентация корабля.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True если корабль можно разместить.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00086}{86}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_ade1409e708365ad05828c7512c72ad21}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!Clear@{Clear}}
+\index{Clear@{Clear}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_ade1409e708365ad05828c7512c72ad21} 
+void Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Очищает поле (удаляет все корабли и сбрасывает состояния). 
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00221}{221}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_aabdc9a86218c35038d9e4a27d3dd2315}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!GetCellState@{GetCellState}}
+\index{GetCellState@{GetCellState}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{GetCellState()}{GetCellState()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_aabdc9a86218c35038d9e4a27d3dd2315} 
+\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{Cell\+State}} Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Get\+Cell\+State (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Получает состояние клетки по координатам. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/координата.\\
+\hline
+{\em y} & Y-\/координата.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Состояние клетки.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00234}{234}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_a198ee57d512eb9f37f21322dc0414e54}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!PlaceShip@{PlaceShip}}
+\index{PlaceShip@{PlaceShip}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{PlaceShip()}{PlaceShip()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_a198ee57d512eb9f37f21322dc0414e54} 
+bool Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Place\+Ship (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship}{Ship}}}]{ship}{, }\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Размещает корабль на поле. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ship} & Корабль для размещения.\\
+\hline
+{\em x} & X-\/координата начала.\\
+\hline
+{\em y} & Y-\/координата начала.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True если корабль успешно размещен.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00061}{61}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_a24f7bff69d0364a160d5b5868b06d81d}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!PlaceShipsRandomly@{PlaceShipsRandomly}}
+\index{PlaceShipsRandomly@{PlaceShipsRandomly}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{PlaceShipsRandomly()}{PlaceShipsRandomly()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_a24f7bff69d0364a160d5b5868b06d81d} 
+void Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Place\+Ships\+Randomly (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Автоматически расставляет корабли на поле. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00118}{118}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_a949457182b377d087db768a3f0c447e2}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!hit@{hit}}
+\index{hit@{hit}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{hit}{hit}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_a949457182b377d087db768a3f0c447e2} 
+bool Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+hit}
+
+
+
+Выполняет атаку по указанным координатам. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/координата атаки.\\
+\hline
+{\em y} & Y-\/координата атаки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Результат атаки\+: (попадание, потопление, конец игры).
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00152}{152}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_adfadd423b003e887f18b64b1cd25bdea}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!sunk@{sunk}}
+\index{sunk@{sunk}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{sunk}{sunk}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_adfadd423b003e887f18b64b1cd25bdea} 
+bool bool Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+sunk}
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00152}{152}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!Grid@{Grid}}
+\index{Grid@{Grid}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{Grid}{Grid}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9} 
+\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{Cell\+State}} \mbox{[},\mbox{]} Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Grid\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Двумерный массив состояний клеток поля. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_ade7c89ea487c5ca833c6454fbf3421c1}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!Ships@{Ships}}
+\index{Ships@{Ships}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{Ships}{Ships}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_ade7c89ea487c5ca833c6454fbf3421c1} 
+List$<$\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship}{Ship}}$>$ Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Ships\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Список кораблей на поле. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00020}{20}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1}\index{BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}!Size@{Size}}
+\index{Size@{Size}!BattleShipGame.Models2.GameBoard@{BattleShipGame.Models2.GameBoard}}
+\doxysubsubsection{\texorpdfstring{Size}{Size}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1} 
+int Battle\+Ship\+Game.\+Models2.\+Game\+Board.\+Size\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Размер поля (обычно 10x10). 
+
+
+
+Definition at line \mbox{\hyperlink{_game_board_8cs_source_l00024}{24}} of file \mbox{\hyperlink{_game_board_8cs_source}{Game\+Board.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Models2/\mbox{\hyperlink{_game_board_8cs}{Game\+Board.\+cs}}\end{DoxyCompactItemize}

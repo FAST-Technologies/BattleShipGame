@@ -1,26 +1,34 @@
 ﻿using Avalonia.Controls;
 
-namespace BattleShipGame2.Views;
+namespace BattleShipGame.Views;
 
+/// <summary>
+/// Диалоговое окно уведомления о потере соединения с соперником.
+/// Используется для информирования игрока о разрыве сетевого соединения.
+/// </summary>
 public partial class OpponentDisconnectWindow : Window
 {
+    /// <summary>
+    /// Получает или устанавливает сообщение для отображения.
+    /// </summary>
     public string Message { get; set; } = string.Empty;
     
+    /// <summary>
+    /// Инициализирует новый экземпляр класса OpponentDisconnectWindow.
+    /// Настраивает отображение сообщения и обработчик кнопки подтверждения.
+    /// </summary>
     public OpponentDisconnectWindow()
     {
         InitializeComponent();
-        
-        // Находим элементы
         var messageText = OpponentDisconnectMessage;
         var okButton = OpponentDisconnectOkButton;
         
-        // Инициализация текста
         Opened += (s, e) =>
         {
             messageText.Text = Message;
         };
         
         // Обработчики кнопок
-        okButton?.Click += (s, e) => Close(true);
+        okButton.Click += (s, e) => Close(true);
     }
 }

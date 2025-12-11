@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-namespace BattleShipGame2.Networking;
+namespace BattleShipGame.Networking;
 
 /// <summary>
 /// TCP-клиент для сетевой игры Морской Бой

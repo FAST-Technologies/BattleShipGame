@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['canattackcell_0',['CanAttackCell',['../class_battle_ship_game_1_1_models2_1_1_game_board.html#ae7e2ecaa740cdce22967271bb4a995a2',1,'BattleShipGame::Models2::GameBoard']]],
+  ['canplaceship_1',['CanPlaceShip',['../class_battle_ship_game_1_1_models2_1_1_game_board.html#ae02d94965bac583b3906abc87aafbddc',1,'BattleShipGame::Models2::GameBoard']]],
+  ['cellstate_2',['CellState',['../namespace_battle_ship_game_1_1_models2.html#ad321fe65bc52f5457d5c23abb9a274d2',1,'BattleShipGame::Models2']]],
+  ['cellstate_2ecs_3',['CellState.cs',['../_cell_state_8cs.html',1,'']]],
+  ['chatcontrol_4',['ChatControl',['../class_battle_ship_game_1_1_views_1_1_chat_control.html',1,'BattleShipGame.Views.ChatControl'],['../class_battle_ship_game_1_1_views_1_1_chat_control.html#a96ee94282017bac40c578b68303dd43d',1,'BattleShipGame.Views.ChatControl.ChatControl()']]],
+  ['chatcontrol_2eaxaml_2ecs_5',['ChatControl.axaml.cs',['../_chat_control_8axaml_8cs.html',1,'']]],
+  ['chatmanager_6',['ChatManager',['../class_battle_ship_game_1_1_networking_1_1_chat_manager.html',1,'BattleShipGame.Networking.ChatManager'],['../class_battle_ship_game_1_1_networking_1_1_chat_manager.html#a634676d2b4b477b30390208f9e2def35',1,'BattleShipGame.Networking.ChatManager.ChatManager()']]],
+  ['chatmanager_2ecs_7',['ChatManager.cs',['../_chat_manager_8cs.html',1,'']]],
+  ['clear_8',['Clear',['../class_battle_ship_game_1_1_models2_1_1_game_board.html#ade1409e708365ad05828c7512c72ad21',1,'BattleShipGame.Models2.GameBoard.Clear()'],['../class_battle_ship_game_1_1_networking_1_1_chat_manager.html#a393d09686420de6d59394ca1d714f75a',1,'BattleShipGame.Networking.ChatManager.Clear()'],['../class_battle_ship_game_1_1_views_1_1_chat_control.html#ae89fb0234dacd78eaa3c179b94563937',1,'BattleShipGame.Views.ChatControl.Clear()']]],
+  ['clientmessage_9',['ClientMessage',['../class_battle_ship_game_1_1_server_logic_1_1_client_message.html',1,'BattleShipGame::ServerLogic']]],
+  ['clientmessage_2ecs_10',['ClientMessage.cs',['../_client_message_8cs.html',1,'']]],
+  ['close_11',['Close',['../class_battle_ship_game_1_1_server_logic_1_1_player_connection.html#acccdcb56eba3d93475525c4ce54fe31d',1,'BattleShipGame::ServerLogic::PlayerConnection']]],
+  ['confirmdialogwindow_12',['ConfirmDialogWindow',['../class_battle_ship_game_1_1_views_1_1_confirm_dialog_window.html',1,'BattleShipGame.Views.ConfirmDialogWindow'],['../class_battle_ship_game_1_1_views_1_1_confirm_dialog_window.html#a33c33e278b6bd4dfd790c75bc7b481a3',1,'BattleShipGame.Views.ConfirmDialogWindow.ConfirmDialogWindow()']]],
+  ['confirmdialogwindow_2eaxaml_2ecs_13',['ConfirmDialogWindow.axaml.cs',['../_confirm_dialog_window_8axaml_8cs.html',1,'']]],
+  ['connectasync_14',['ConnectAsync',['../class_battle_ship_game_1_1_networking_1_1_network_client.html#abdaa6d24be8c3568f4cbdc85aa4cbb40',1,'BattleShipGame.Networking.NetworkClient.ConnectAsync()'],['../class_battle_ship_game_1_1_server_logic_1_1_network_client.html#ac8dd7ae8696d8657cce852d214bb60f6',1,'BattleShipGame.ServerLogic.NetworkClient.ConnectAsync()']]],
+  ['containsplayer_15',['ContainsPlayer',['../class_battle_ship_game_1_1_server_logic_1_1_game_room.html#a85630f6849ea9fa6799b4c3c3167b060',1,'BattleShipGame::ServerLogic::GameRoom']]],
+  ['continueturn_16',['ContinueTurn',['../class_battle_ship_game_1_1_logic_1_1_bot_turn_result.html#a911baa85fa893446159f6ba7a0d5cbd5',1,'BattleShipGame::Logic::BotTurnResult']]],
+  ['createchatcontrol_17',['CreateChatControl',['../class_battle_ship_game_1_1_networking_1_1_chat_manager.html#aae3e50746d8ea01f2c846b0005b758cb',1,'BattleShipGame::Networking::ChatManager']]]
+];

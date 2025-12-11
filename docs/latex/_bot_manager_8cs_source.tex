@@ -1,0 +1,52 @@
+\doxysection{Bot\+Manager.\+cs}
+\hypertarget{_bot_manager_8cs_source}{}\label{_bot_manager_8cs_source}\index{Logic/BotManager.cs@{Logic/BotManager.cs}}
+\mbox{\hyperlink{_bot_manager_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2}{BattleShipGame.Models2}};}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00006}00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_logic}{BattleShipGame.Logic}};}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00011}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager}{00011}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_a5e7079000a1130d41a9c7e4c9e66f05f}{BotManager}}}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{private}\ Dictionary<BotDifficulty,\ BotLogic>\ \_bots\ =\ \textcolor{keyword}{new}();\ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00014}00014\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic}{BotLogic}}?\ \_currentBot;\ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00015}00015\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00019}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_a5e7079000a1130d41a9c7e4c9e66f05f}{00019}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_a5e7079000a1130d41a9c7e4c9e66f05f}{BotManager}}()}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00020}00020\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}\ difficulty\ \textcolor{keywordflow}{in}\ System.Enum.GetValues(typeof(\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}})))}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \_bots[difficulty]\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic}{BotLogic}}(difficulty);}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00023}00023\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00024}00024\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00029}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_a4bf4f6635b9f731a8457797b5a866e6a}{00029}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_a4bf4f6635b9f731a8457797b5a866e6a}{SetDifficulty}}(\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}\ difficulty)}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \_currentBot\ =\ \_bots[difficulty];}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00033}00033\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00040}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_aa53b1c10367bbca15db263292c79afdc}{00040}}\ \ \ \ \ \textcolor{keyword}{public}\ async\ Task<BotTurnResult>\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_aa53b1c10367bbca15db263292c79afdc}{MakeSimpleTurn}}(}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{GameBoard}}\ playerBoard,\ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ Action<int,\ int,\ bool,\ bool,\ bool>\ onAttack)}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00043}00043\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \_currentBot\ ??=\ \_bots[\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}.Easy];}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ await\ \_currentBot.MakeSimpleTurn(playerBoard,\ onAttack);}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00048}00048\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00055}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_ac5bd252446fb953f0c296aa42a22831c}{00055}}\ \ \ \ \ \textcolor{keyword}{public}\ async\ Task<BotTurnResult>\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_ac5bd252446fb953f0c296aa42a22831c}{MakeSmartTurn}}(}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{GameBoard}}\ playerBoard,\ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ Action<int,\ int,\ bool,\ bool,\ bool>\ onAttack)}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \_currentBot\ ??=\ \_bots[\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}.Medium];}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ await\ \_currentBot.MakeSmartTurn(playerBoard,\ onAttack);}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00063}00063\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00067}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_aaab91e6622526726510017a14a44a3e0}{00067}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_aaab91e6622526726510017a14a44a3e0}{ResetAll}}()}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00068}00068\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ bot\ \textcolor{keywordflow}{in}\ \_bots.Values)\ bot.Reset();}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00070}00070\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_manager_8cs_source_l00071}00071\ \}}
+
+\end{DoxyCode}

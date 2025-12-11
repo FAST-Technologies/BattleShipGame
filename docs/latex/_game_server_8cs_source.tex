@@ -1,0 +1,590 @@
+\doxysection{Game\+Server.\+cs}
+\hypertarget{_game_server_8cs_source}{}\label{_game_server_8cs_source}\index{ServerLogic/GameServer.cs@{ServerLogic/GameServer.cs}}
+\mbox{\hyperlink{_game_server_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Concurrent;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Net;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Net.Sockets;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00008}00008\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2}{BattleShipGame.Models2}};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00009}00009\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_networking}{BattleShipGame.Networking}};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00011}00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_server_logic}{BattleShipGame.ServerLogic}};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00020}00020\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }GameServer}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00021}00021\ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00022}00022\ \textcolor{preprocessor}{\ \ \ \ \#region\ Поля\ и\ свойства}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{private}\ readonly\ TcpListener\ \_listener;\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{private}\ readonly\ ConcurrentDictionary<string,\ PlayerConnection>\ \_players\ =\ \textcolor{keyword}{new}();\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{private}\ ConcurrentQueue<PlayerConnection>\ \_waitingPlayers\ =\ \textcolor{keyword}{new}();\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{private}\ readonly\ ConcurrentDictionary<string,\ GameRoom>\ \_rooms\ =\ \textcolor{keyword}{new}();\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ \_isRunning\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{public}\ GameServer(\textcolor{keywordtype}{int}\ port\ =\ 8889)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00035}00035\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \_listener\ =\ \textcolor{keyword}{new}\ TcpListener(IPAddress.Any,\ port);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00038}00038\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00039}00039\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00041}00041\ \textcolor{preprocessor}{\ \ \ \ \#region\ Основные\ серверные\ методы}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{public}\ async\ Task\ StartAsync()}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00047}00047\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \_listener.Start();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \_isRunning\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Сервер\ морского\ боя\ запущен\ на\ порту\ \{\ \_listener.LocalEndpoint\ \}..."{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\_isRunning)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ client\ =\ await\ \_listener.AcceptTcpClientAsync();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\ =\ Task.Run(()\ =>\ HandleClientAsync(client));\ \textcolor{comment}{//\ Обработка\ клиента\ в\ отдельной\ задаче}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (SocketException)\ when\ (!\_isRunning)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сервер\ остановлен,\ выходим\ из\ цикла}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ Stop()}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \_isRunning\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \_listener.Stop();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ player\ \textcolor{keywordflow}{in}\ \_players.Values)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ player.Close();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \_players.Clear();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \_waitingPlayers.Clear();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \_rooms.Clear();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ Console.WriteLine(\textcolor{stringliteral}{"{}[SERVER]\ Сервер\ остановлен"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00082}00082\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00089}00089\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleClientAsync(TcpClient\ tcpClient)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00090}00090\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ PlayerConnection\ player\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ player\ =\ \textcolor{keyword}{new}\ PlayerConnection(tcpClient);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \_players[player.Id]\ =\ player;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Клиент\ подключился:\ \{player.Id\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}?\ line;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((line\ =\ await\ player.Reader.ReadLineAsync())\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Получено\ от\ \{player.Name\ ??\ player.Id\}:\ \{line\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ msg\ =\ ParseMessage(line);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (msg\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ ProcessMessageAsync(player,\ msg);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (Exception\ ex)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Ошибка\ обработки\ клиента\ \{player?.Id\}:\ \{ex.Message\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{finally}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (player\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LeaveQueue(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandlePlayerDisconnect(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RemovePlayer(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ player.Close();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Клиент\ отключился:\ \{player.Id\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00121}00121\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00128}00128\ \ \ \ \ \textcolor{keyword}{private}\ ClientMessage?\ ParseMessage(\textcolor{keywordtype}{string}\ line)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00129}00129\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00130}00130\ \ \ \ \ \ \ \ \ var\ parts\ =\ line.Split(\textcolor{charliteral}{':'},\ 2);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parts.Length\ <\ 2)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00132}00132\ \ \ \ \ \ \ \ \ var\ message\ =\ \textcolor{keyword}{new}\ ClientMessage\ \{\ Type\ =\ parts[0]\ \};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00133}00133\ \ \ \ \ \ \ \ \ var\ dataPart\ =\ parts[1];}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\textcolor{keywordtype}{string}.IsNullOrEmpty(dataPart))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00135}00135\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ var\ dataPairs\ =\ dataPart.Split(\textcolor{charliteral}{';'});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ pair\ \textcolor{keywordflow}{in}\ dataPairs)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ keyValue\ =\ pair.Split(\textcolor{charliteral}{'='},\ 2);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keyValue.Length\ ==\ 2)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message.Data[keyValue[0]]\ =\ keyValue[1];}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00145}00145\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ message;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00155}00155\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ ProcessMessageAsync(PlayerConnection\ player,\ ClientMessage\ message)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00156}00156\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (message.Type.ToUpper())}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00158}00158\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.Join:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandleJoinAsync(player,\ message.Data.GetValueOrDefault(NetworkProtocol.Keys.Name,\ \textcolor{stringliteral}{"{}Anon"{}}));}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.PlaceShipsRandomly:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.ShipPlaced:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.ShipPlacement:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandleShipPlacementAsync(player,\ message.Data);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.AllShipsPlaced:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandleShipsPlacedAsync(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.Attack:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandleAttackAsync(player,\ message.Data);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.LeaveGame:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandleLeaveGameAsync(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.ChatMessage:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandleChatMessageAsync(player,\ message.Data);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ NetworkProtocol.Commands.ListReq:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ HandleList(player.Id);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Неизвестная\ команда\ от\ \{player.Name\}\ (\{player.Id\}):\ \{message.Type\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(player,\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.Error,}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.Message,\ \$\textcolor{stringliteral}{"{}[SERVER]\ Неизвестная\ команда:\ \{message.Type\}"{}}\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00191}00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00192}00192\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00193}00193\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00198}00198\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ LeaveQueue(PlayerConnection\ player)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00199}00199\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00200}00200\ \ \ \ \ \ \ \ \ var\ remaining\ =\ \textcolor{keyword}{new}\ ConcurrentQueue<PlayerConnection>();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00201}00201\ \ \ \ \ \ \ \ \ PlayerConnection\ current;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\_waitingPlayers.TryDequeue(out\ current))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00203}00203\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current.Id\ !=\ player.Id)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ remaining.Enqueue(current);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00208}00208\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00209}00209\ \ \ \ \ \ \ \ \ \_waitingPlayers\ =\ remaining;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00210}00210\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00216}00216\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ RemovePlayer(PlayerConnection\ player)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00217}00217\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00218}00218\ \ \ \ \ \ \ \ \ \_players.TryRemove(player.Id,\ out\ \_);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00219}00219\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00227}00227\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ SendServerMessageAsync(PlayerConnection\ player,\ ServerMessage\ message)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00228}00228\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00230}00230\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ await\ player.Writer.WriteLineAsync(message.ToString());}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Отправлено\ \{player.Name\}:\ \{message.Type\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00233}00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00234}00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (Exception\ ex)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00235}00235\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Ошибка\ отправки\ сообщения\ игроку\ \{player.Id\}:\ \{ex.Message\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ RemovePlayer(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ player.Close();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00239}00239\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00240}00240\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00241}00241\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00245}00245\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ Dispose()}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00246}00246\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00247}00247\ \ \ \ \ \ \ \ \ Stop();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00248}00248\ \ \ \ \ \ \ \ \ \_listener?.Stop();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00249}00249\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00250}00250\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00251}00251\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00252}00252\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00253}00253\ \textcolor{preprocessor}{\ \ \ \ \#region\ Server\ Event\ Handlers}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00254}00254\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00261}00261\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleJoinAsync(PlayerConnection\ player,\ \textcolor{keywordtype}{string}\ name)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00262}00262\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00263}00263\ \ \ \ \ \ \ \ \ player.Name\ =\ name;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00264}00264\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Отправляем\ подтверждение}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00265}00265\ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(player,\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00266}00266\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.Joined,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.PlayerName,\ name\ \},\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.PlayerId,\ player.Id\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00273}00273\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00275}00275\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Добавляем\ в\ очередь\ ожидания}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00276}00276\ \ \ \ \ \ \ \ \ \_waitingPlayers.Enqueue(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00277}00277\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Игрок\ \{name\}\ (\{player.Id\})\ добавлен\ в\ очередь\ ожидания.\ Ожидающих:\ \{\_waitingPlayers.Count\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00279}00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем,\ есть\ ли\ пара\ для\ начала\ игры}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00280}00280\ \ \ \ \ \ \ \ \ await\ TryCreateGameRoomAsync();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00281}00281\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00282}00282\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00287}00287\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ TryCreateGameRoomAsync()}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00288}00288\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00289}00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_waitingPlayers.Count\ >=\ 2)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00290}00290\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_waitingPlayers.TryDequeue(out\ var\ p1)\ \&\&\ \_waitingPlayers.TryDequeue(out\ var\ p2))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ room\ =\ \textcolor{keyword}{new}\ GameRoom(p1,\ p2);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_rooms[room.Id]\ =\ room;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сбрасываем\ флаги\ готовности}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p1.IsReady\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p2.IsReady\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Случайным\ образом\ определяем\ первого\ игрока}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ random\ =\ \textcolor{keyword}{new}\ Random();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p1.IsMyTurn\ =\ random.Next(2)\ ==\ 0;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p2.IsMyTurn\ =\ !p1.IsMyTurn;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Уведомляем\ игроков\ о\ найденном\ сопернике}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(p1,\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.MatchFound,}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.OpponentName,\ p2.Name\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(p2,\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.MatchFound,}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.OpponentName,\ p1.Name\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Создана\ комната\ \{room.Id\}\ между\ \{p1.Name\}\ и\ \{p2.Name\}.\ Первый\ ход:\ \{(p1.IsMyTurn\ ?\ p1.Name\ :\ p2.Name)\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00320}00320\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00321}00321\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00322}00322\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00329}00329\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleShipPlacementAsync(PlayerConnection\ player,\ Dictionary<string,\ string>\ data)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00330}00330\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00331}00331\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Получено\ размещение\ кораблей\ от\ \{player.Name\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00332}00332\ \ \ \ \ \ \ \ \ player.Board.Clear();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00333}00333\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ shipIndex\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00334}00334\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (data.ContainsKey(\$\textcolor{stringliteral}{"{}ship\{shipIndex\}\_size"{}}))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00335}00335\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ \textcolor{keywordtype}{int}.Parse(data[\$\textcolor{stringliteral}{"{}ship\{shipIndex\}\_size"{}}]);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isHorizontal\ =\ \textcolor{keywordtype}{bool}.Parse(data[\$\textcolor{stringliteral}{"{}ship\{shipIndex\}\_horizontal"{}}]);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ positions\ =\ data[\$\textcolor{stringliteral}{"{}ship\{shipIndex\}\_positions"{}}];}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Парсим\ позиции:\ "{}0:0,1:0,2:0,3:0"{}}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ positionPairs\ =\ positions.Split(\textcolor{charliteral}{','});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positionPairs.Length\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ firstPos\ =\ positionPairs[0].Split(\textcolor{charliteral}{':'});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ startX\ =\ \textcolor{keywordtype}{int}.Parse(firstPos[0]);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ startY\ =\ \textcolor{keywordtype}{int}.Parse(firstPos[1]);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Создаем\ корабль}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ ship\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a0387832795db3eb2e05f4365fba5ddac}{Ship}}(size,\ isHorizontal);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (player.Board.PlaceShip(ship,\ startX,\ startY))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Корабль\ \{shipIndex\}\ размещен:\ размер=\{size\},\ horizontal=\{isHorizontal\},\ позиция=(\{startX\},\{startY\})"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ ОШИБКА:\ Не\ удалось\ разместить\ корабль\ \{shipIndex\}\ на\ (\{startX\},\{startY\})"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shipIndex++;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (Exception\ ex)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Ошибка\ парсинга\ корабля\ \{shipIndex\}:\ \{ex.Message\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00368}00368\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00369}00369\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00370}00370\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Размещено\ \{player.Board.Ships.Count\}\ кораблей\ для\ \{player.Name\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00371}00371\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00372}00372\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Отправляем\ подтверждение\ размещения}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00373}00373\ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(player,\ \textcolor{keyword}{new}\ ServerMessage\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00374}00374\ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.ShipPlacementConfirmed,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.ShipPlaced,\ player.Board.Ships.Count.ToString()\ \}\ \}\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00377}00377\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00378}00378\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00379}00379\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00385}00385\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleShipsPlacedAsync(PlayerConnection\ player)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00386}00386\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00387}00387\ \ \ \ \ \ \ \ \ player.IsReady\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00388}00388\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Игрок\ \{player.Name\}\ (\{player.Id\})\ готов\ (корабли\ расставлены)."{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00390}00390\ \ \ \ \ \ \ \ \ var\ room\ =\ \_rooms.Values.FirstOrDefault(r\ =>\ r.Player1.Id\ ==\ player.Id\ ||\ r.Player2.Id\ ==\ player.Id);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00391}00391\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (room\ !=\ \textcolor{keyword}{null}\ \&\&\ room.Player1.IsReady\ \&\&\ room.Player2.IsReady)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00392}00392\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ room.GameStarted\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Игра\ в\ комнате\ \{room.Id\}\ начинается!"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Уведомляем\ обоих\ игроков\ о\ начале\ игры\ и\ чей\ ход}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(room.Player1,\ \textcolor{keyword}{new}\ ServerMessage\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.GameStart,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.YourTurn,\ room.Player1.IsMyTurn.ToString().ToLower()\ \}\ \}\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(room.Player2,\ \textcolor{keyword}{new}\ ServerMessage\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.GameStart,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.YourTurn,\ room.Player2.IsMyTurn.ToString().ToLower()\ \}\ \}\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00406}00406\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00407}00407\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00408}00408\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00415}00415\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleAttackAsync(PlayerConnection\ attacker,\ Dictionary<string,\ string>\ data)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00416}00416\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00417}00417\ \ \ \ \ \ \ \ \ var\ room\ =\ \_rooms.Values.FirstOrDefault(r\ =>\ r.Player1.Id\ ==\ attacker.Id\ ||\ r.Player2.Id\ ==\ attacker.Id);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00418}00418\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (room\ ==\ \textcolor{keyword}{null}\ ||\ !room.GameStarted\ ||\ room.GameOver)\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00419}00419\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Атака\ от\ \{attacker.Name\}\ отклонена:\ комната\ не\ найдена\ или\ игра\ не\ активна"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00422}00422\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00423}00423\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00424}00424\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((room.Player1.Id\ ==\ attacker.Id\ \&\&\ !room.Player1.IsMyTurn)\ ||}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ \ \ (room.Player2.Id\ ==\ attacker.Id\ \&\&\ !room.Player2.IsMyTurn))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00426}00426\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(attacker,\ \textcolor{keyword}{new}\ ServerMessage\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.Error,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.Message,\ \textcolor{stringliteral}{"{}Not\ your\ turn"{}}\ \}\ \}\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Атака\ от\ \{attacker.Name\}\ отклонена:\ не\ его\ ход"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00434}00434\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00435}00435\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00436}00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\textcolor{keywordtype}{int}.TryParse(data.GetValueOrDefault(\textcolor{stringliteral}{"{}x"{}},\ \textcolor{stringliteral}{"{}"{}}),\ out\ \textcolor{keywordtype}{int}\ x)\ ||}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ !\textcolor{keywordtype}{int}.TryParse(data.GetValueOrDefault(\textcolor{stringliteral}{"{}y"{}},\ \textcolor{stringliteral}{"{}"{}}),\ out\ \textcolor{keywordtype}{int}\ y))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00438}00438\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(attacker,\ \textcolor{keyword}{new}\ ServerMessage\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00440}00440\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.Error,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.Message,\ \textcolor{stringliteral}{"{}Invalid\ coordinates"{}}\ \}\ \}\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00444}00444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00445}00445\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00446}00446\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00447}00447\ \ \ \ \ \ \ \ \ var\ defender\ =\ room.GetOpponent(attacker);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00448}00448\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (defender\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00449}00449\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Ошибка:\ не\ найден\ противник\ для\ \{attacker.Name\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00451}00451\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00452}00452\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00453}00453\ \ \ \ \ \ \ \ \ var\ defenderBoard\ =\ defender.Board;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00455}00455\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем,\ можно\ ли\ атаковать\ эту\ клетку}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00456}00456\ \ \ \ \ \ \ \ \ var\ cellState\ =\ defenderBoard.Grid[x,\ y];}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00457}00457\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellState\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Hit\ ||\ cellState\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Miss\ ||\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ cellState\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Sunk\ ||\ cellState\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Blocked)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00459}00459\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(attacker,\ \textcolor{keyword}{new}\ ServerMessage\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.Error,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.Message,\ \textcolor{stringliteral}{"{}Cell\ already\ attacked"{}}\ \}\ \}\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Атака\ от\ \{attacker.Name\}\ по\ (\{x\},\{y\})\ отклонена:\ клетка\ уже\ атакована\ (состояние=\{cellState\})"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00467}00467\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00468}00468\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00469}00469\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Атака\ от\ \{attacker.Name\}\ по\ (\{x\},\{y\}),\ состояние\ клетки\ до\ атаки:\ \{cellState\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00470}00470\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00471}00471\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выполняем\ атаку}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00472}00472\ \ \ \ \ \ \ \ \ var\ (hit,\ sunk,\ gameOver)\ =\ defenderBoard.Attack(x,\ y);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00473}00473\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00474}00474\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Результат\ атаки:\ попадание=\{hit\},\ потоплен=\{sunk\},\ конец\ игры=\{gameOver\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00475}00475\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00476}00476\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Отправляем\ результаты\ атаки\ обоим\ игрокам}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00477}00477\ \ \ \ \ \ \ \ \ await\ SendAttackResultAsync(attacker,\ defender,\ x,\ y,\ hit,\ sunk,\ gameOver,\ defenderBoard);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00479}00479\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Обрабатываем\ переход\ хода\ или\ завершение\ игры}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00480}00480\ \ \ \ \ \ \ \ \ await\ HandleTurnTransitionAsync(room,\ attacker,\ defender,\ hit,\ gameOver);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00481}00481\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00482}00482\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00495}00495\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ SendAttackResultAsync(PlayerConnection\ attacker,\ PlayerConnection\ defender,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{bool}\ hit,\ \textcolor{keywordtype}{bool}\ sunk,\ \textcolor{keywordtype}{bool}\ gameOver,\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{GameBoard}}\ board)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00496}00496\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00497}00497\ \ \ \ \ \ \ \ \ var\ resultData\ =\ \textcolor{keyword}{new}\ Dictionary<string,\ string>}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00498}00498\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00499}00499\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.X,\ x.ToString()\ \},}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.Y,\ y.ToString()\ \},}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.Hit,\ hit.ToString().ToLower()\ \},}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00502}00502\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.Sunk,\ sunk.ToString().ToLower()\ \},}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00503}00503\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.GameOver,\ gameOver.ToString().ToLower()\ \},}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00504}00504\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.AttackerId,\ attacker.Id\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00505}00505\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00506}00506\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00507}00507\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ корабль\ потоплен,\ отправляем\ информацию\ о\ заблокированных\ клетках}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00508}00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sunk)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00509}00509\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00510}00510\ \ \ \ \ \ \ \ \ \ \ \ \ var\ blockedCells\ =\ \textcolor{keyword}{new}\ List<string>();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00512}00512\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Находим\ потопленный\ корабль}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00513}00513\ \ \ \ \ \ \ \ \ \ \ \ \ var\ sunkShip\ =\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ade7c89ea487c5ca833c6454fbf3421c1}{Ships}}.FirstOrDefault(s\ =>\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s.IsSunk\ \&\&\ s.Positions.Any(p\ =>\ p.X\ ==\ x\ \&\&\ p.Y\ ==\ y));}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00516}00516\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sunkShip\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00517}00517\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00518}00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Корабль\ потоплен!\ Позиции\ корабля:\ \{string.Join("{}},\ \textcolor{stringliteral}{"{},\ sunkShip.Positions.Select(p\ =>\ \$"{}}(\{p.X\},\{p.Y\})\textcolor{stringliteral}{"{}))\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00519}00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00520}00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Собираем\ все\ заблокированные\ клетки\ вокруг\ корабля}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00521}00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ pos\ \textcolor{keywordflow}{in}\ sunkShip.Positions)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00522}00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00523}00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dx\ =\ -\/1;\ dx\ <=\ 1;\ dx++)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00524}00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00525}00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dy\ =\ -\/1;\ dy\ <=\ 1;\ dy++)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00526}00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ checkX\ =\ pos.X\ +\ dx;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00528}00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ checkY\ =\ pos.Y\ +\ dy;}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00529}00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00530}00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (checkX\ >=\ 0\ \&\&\ checkX\ <\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1}{Size}}\ \&\&\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00531}00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ checkY\ >=\ 0\ \&\&\ checkY\ <\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1}{Size}})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9}{Grid}}[checkX,\ checkY]\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Blocked)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockedCells.Add(\$\textcolor{stringliteral}{"{}\{checkX\}:\{checkY\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00539}00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00541}00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Добавляем\ позиции\ потопленного\ корабля}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resultData[NetworkProtocol.Keys.SunkShipPositions]\ =\ \textcolor{keywordtype}{string}.Join(\textcolor{stringliteral}{"{},"{}},\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sunkShip.Positions.Select(p\ =>\ \$\textcolor{stringliteral}{"{}\{p.X\}:\{p.Y\}"{}}));}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Заблокировано\ клеток:\ \{blockedCells.Count\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (blockedCells.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resultData[NetworkProtocol.Keys.BlockedCells]\ =\ \textcolor{keywordtype}{string}.Join(\textcolor{stringliteral}{"{},"{}},\ blockedCells);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00553}00553\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00555}00555\ \ \ \ \ \ \ \ \ var\ resultMsg\ =\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00556}00556\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.AttackResult,}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ resultData}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00559}00559\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00560}00560\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00561}00561\ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(attacker,\ resultMsg);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00562}00562\ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(defender,\ resultMsg);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00563}00563\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00564}00564\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00574}00574\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleTurnTransitionAsync(GameRoom\ room,\ PlayerConnection\ attacker,\ PlayerConnection\ defender,\ \textcolor{keywordtype}{bool}\ hit,\ \textcolor{keywordtype}{bool}\ gameOver)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00575}00575\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00576}00576\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (gameOver)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00577}00577\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ \ \ room.GameOver\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00579}00579\ \ \ \ \ \ \ \ \ \ \ \ \ var\ winMsg\ =\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00580}00580\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.GameOver,}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.Winner,\ attacker.Name\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(attacker,\ winMsg);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(defender,\ winMsg);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Игра\ в\ комнате\ \{room.Id\}\ завершена.\ Победитель:\ \{attacker.Name\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ \_rooms.TryRemove(room.Id,\ out\ \_);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00588}00588\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00589}00589\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!hit)\ \textcolor{comment}{//\ Промах\ -\/\ ход\ переходит}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00590}00590\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ attacker.IsMyTurn\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00592}00592\ \ \ \ \ \ \ \ \ \ \ \ \ defender.IsMyTurn\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00593}00593\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(defender,\ \textcolor{keyword}{new}\ ServerMessage\ \{\ Type\ =\ NetworkProtocol.Commands.YourTurn\ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(attacker,\ \textcolor{keyword}{new}\ ServerMessage\ \{\ Type\ =\ NetworkProtocol.Commands.OpponentTurn\ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00595}00595\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Ход\ переходит\ к\ \{defender.Name\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00596}00596\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00597}00597\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ Попадание\ -\/\ ход\ остается}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00598}00598\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(attacker,\ \textcolor{keyword}{new}\ ServerMessage\ \{\ Type\ =\ NetworkProtocol.Commands.YourTurnAgain\ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Попадание!\ \{attacker.Name\}\ стреляет\ снова"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00601}00601\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00602}00602\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00603}00603\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00610}00610\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleChatMessageAsync(PlayerConnection\ sender,\ Dictionary<string,\ string>\ data)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00611}00611\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00612}00612\ \ \ \ \ \ \ \ \ var\ room\ =\ \_rooms.Values.FirstOrDefault(r\ =>\ r.Player1.Id\ ==\ sender.Id\ ||\ r.Player2.Id\ ==\ sender.Id);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00613}00613\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (room\ ==\ \textcolor{keyword}{null}\ ||\ !room.GameStarted)\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00614}00614\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00615}00615\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Чат\ от\ \{sender.Name\}\ отклонён:\ игра\ не\ началась\ или\ комната\ не\ найдена"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00616}00616\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00617}00617\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00618}00618\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00619}00619\ \ \ \ \ \ \ \ \ var\ recipient\ =\ room.GetOpponent(sender);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00620}00620\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (recipient\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00621}00621\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Ошибка\ чата:\ не\ найден\ получатель\ для\ \{sender.Name\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00623}00623\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00624}00624\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00625}00625\ \ \ \ \ \ \ \ \ var\ chatText\ =\ data.GetValueOrDefault(NetworkProtocol.Keys.ChatText,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00626}00626\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00627}00627\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Чат\ от\ \{sender.Name\}\ к\ \{recipient.Name\}:\ \{chatText\}"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00628}00628\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00629}00629\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Пересылаем\ сообщение\ сопернику}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00630}00630\ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(recipient,\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00631}00631\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00632}00632\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.ChatMessageReceived,}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00635}00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.Sender,\ sender.Name\ \},}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00636}00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ NetworkProtocol.Keys.ChatText,\ chatText\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00638}00638\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00639}00639\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00640}00640\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00646}00646\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleList(\textcolor{keywordtype}{string}\ playerId)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00647}00647\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00648}00648\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_players.TryGetValue(playerId,\ out\ var\ player))}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00649}00649\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00650}00650\ \ \ \ \ \ \ \ \ Dictionary<string,\ string>\ message\ =\ \textcolor{keyword}{new}\ Dictionary<string,\ string>();}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00651}00651\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\textcolor{keywordtype}{string}\ \textcolor{keywordtype}{id}\ \textcolor{keywordflow}{in}\ \_players.Keys)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00652}00652\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00653}00653\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{id}\ ==\ playerId)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00654}00654\ \ \ \ \ \ \ \ \ \ \ \ \ message.Add(\textcolor{keywordtype}{id},\ \_players[playerId].Name);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00655}00655\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00656}00656\ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(\_players[playerId],\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00657}00657\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00658}00658\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.ListRes,\ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00659}00659\ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ message}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00660}00660\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00661}00661\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00662}00662\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00668}00668\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandleLeaveGameAsync(PlayerConnection\ player)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00669}00669\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00670}00670\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Игрок\ \{player.Name\}\ покидает\ игру"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00671}00671\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00672}00672\ \ \ \ \ \ \ \ \ var\ room\ =\ \_rooms.Values.FirstOrDefault(r\ =>\ r.Player1.Id\ ==\ player.Id\ ||\ r.Player2.Id\ ==\ player.Id);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00673}00673\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (room\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00674}00674\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ var\ opponent\ =\ room.GetOpponent(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00676}00676\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (opponent\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Уведомляем\ соперника}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(opponent,\ \textcolor{keyword}{new}\ ServerMessage}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.OpponentLeft,}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00681}00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.Message,\ \$\textcolor{stringliteral}{"{}\{player.Name\}\ покинул\ игру"{}}\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00682}00682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00683}00683\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00684}00684\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Удаляем\ комнату}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00685}00685\ \ \ \ \ \ \ \ \ \ \ \ \ \_rooms.TryRemove(room.Id,\ out\ \_);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00686}00686\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[SERVER]\ Комната\ \{room.Id\}\ удалена"{}});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00687}00687\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00688}00688\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00689}00689\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00695}00695\ \ \ \ \ \textcolor{keyword}{private}\ async\ Task\ HandlePlayerDisconnect(PlayerConnection\ player)}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00696}00696\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00697}00697\ \ \ \ \ \ \ \ \ var\ room\ =\ \_rooms.Values.FirstOrDefault(r\ =>\ r.Player1.Id\ ==\ player.Id\ ||\ r.Player2.Id\ ==\ player.Id);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00698}00698\ \ \ \ \ \ \ \ \ var\ opponent\ =\ room?.GetOpponent(player);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00699}00699\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (opponent\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00700}00700\ \ \ \ \ \ \ \ \ \ \ \ \ await\ SendServerMessageAsync(opponent,\ \textcolor{keyword}{new}\ ServerMessage\ \{\ Type\ =\ NetworkProtocol.Commands.OpponentDisconnected\ \});}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00701}00701\ \ \ \ \ \ \ \ \ \_rooms.TryRemove(room.Id,\ out\ \_);}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00702}00702\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00703}00703\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00704}00704\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_game_server_8cs_source_l00705}00705\ \}}
+
+\end{DoxyCode}

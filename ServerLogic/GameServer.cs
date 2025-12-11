@@ -5,10 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using BattleShipGame2.Models;
-using BattleShipGame2.Networking;
+using BattleShipGame.Models2;
+using BattleShipGame.Networking;
 
-namespace BattleShipGame2.ServerLogic;
+namespace BattleShipGame.ServerLogic;
 
 /// <summary>
 /// Сервер для игры Морской Бой.

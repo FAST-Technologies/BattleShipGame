@@ -1,18 +1,18 @@
-<Window xmlns="https://github.com/avaloniaui"
+<Window x:DataType="viewModels:MainWindowViewModel"
+        xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:BattleShipGame2.ViewModels"
-        xmlns:views="using:BattleShipGame2.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:BattleShipGame.ViewModels"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
-        x:Class="BattleShipGame2.Views.MainWindow"
+        x:Class="BattleShipGame.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="⚓️ Морской бой"
         Width="1000"
         Height="700">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <viewModels:MainWindowViewModel/>
     </Design.DataContext>
 
     <!-- Основной контейнер с фоном -->
@@ -25,19 +25,17 @@
         <!-- ========================================== -->
         <!-- ЭКРАН ЗАГРУЗКИ -->
         <!-- ========================================== -->
-        <Grid Name="LoadingScreen" Classes="LoadingScreen" IsVisible="False">
+        <Grid Name="LoadingScreen" Classes="LoadingScreen" IsVisible="{Binding IsLoadingScreenVisible, Mode=OneWay}">
             <Border Classes="LoadingPanel">
                 <StackPanel Classes="LoadingContent">
                     <TextBlock Text="⚓️ МОРСКОЙ БОЙ ⚓️" Classes="LoadingTitle"/>
                     <TextBlock Text="Game by F.A.S.T DEVELOPMENT" Classes="LoadingSubtitle"/>
-                    <TextBlock Name="LoadingStatusText" 
-                               Text="Инициализация..."
+                    <TextBlock Text="{Binding LoadingStatus, Mode=OneWay}" 
                                Classes="LoadingStatus"/>
                     
                     <!-- Прогресс-бар -->
                     <Border Classes="ProgressBarContainer">
-                        <Border Name="LoadingProgressBar" 
-                                Width="0" 
+                        <Border Width="{Binding LoadingProgress, Mode=OneWay}" 
                                 Classes="ProgressBarFill"/>
                     </Border>
                 </StackPanel>
@@ -47,7 +45,7 @@
         <!-- ========================================== -->
         <!-- ГЛАВНОЕ МЕНЮ -->
         <!-- ========================================== -->
-        <StackPanel Name="MainMenuScreen" Classes="MenuPanel" IsVisible="False">
+        <StackPanel Name="MainMenuScreen" Classes="MenuPanel" IsVisible="{Binding IsMainMenuVisible, Mode=OneWay}">
             <TextBlock Text="⚓️ МОРСКОЙ БОЙ ⚓️" Classes="Title"/>
             
             <Button Name="VsComputerButton" 
@@ -68,17 +66,15 @@
         <!-- ========================================== -->
         <!-- ЭКРАН РАССТАНОВКИ КОРАБЛЕЙ -->
         <!-- ========================================== -->
-        <StackPanel Name="PlacementScreen" Classes="PlacementPanel" IsVisible="False">
+        <StackPanel Name="PlacementScreen" Classes="PlacementPanel" IsVisible="{Binding IsPlacementScreenVisible, Mode=OneWay}">
             <!-- Заголовок -->
             <Border Classes="Panel" Margin="0,0,0,20">
-                <TextBlock Name="PlacementStatusText" 
-                           Text="🚢 Расставьте корабли" 
+                <TextBlock Text="{Binding PlacementStatus, Mode=OneWay}" 
                            Classes="Status"/>
             </Border>
 
             <!-- Инструкции -->
-            <TextBlock Name="PlacementInstructionText"
-                       Text="Размещаем корабль размером X клеток&#x0a;Пробел - повернуть, ЛКМ - разместить"
+            <TextBlock Text="{Binding PlacementInstruction, Mode=OneWay}"
                        Classes="Instruction"
                        Margin="0,0,0,20"/>
 
@@ -98,18 +94,17 @@
                 <Button Name="StartGameButton"
                         Content="▶️ Начать игру"
                         Classes="GameButton StartButton"
-                        IsEnabled="False"/>
+                        IsEnabled="{Binding IsStartGameButtonEnabled, Mode=OneWay}"/>
             </StackPanel>
         </StackPanel>
 
         <!-- ========================================== -->
         <!-- ИГРОВОЙ ЭКРАН -->
         <!-- ========================================== -->
-        <StackPanel Name="GameScreen" Classes="GameMainPanel" IsVisible="False">
+        <StackPanel Name="GameScreen" Classes="GameMainPanel" IsVisible="{Binding IsGameScreenVisible, Mode=OneWay}">
             <!-- Статус игры -->
             <Border Classes="Panel" Margin="0,0,0,20">
-                <TextBlock Name="GameStatusText" 
-                           Text="⚔️ ВАШ ХОД! Атакуйте поле противника" 
+                <TextBlock Text="{Binding GameStatus, Mode=OneWay}" 
                            Classes="Status"/>
             </Border>
 
@@ -120,26 +115,22 @@
                     <!-- Своя доска -->
                     <StackPanel Classes="BoardPanel">
                         <Border Classes="BoardHeader Player">
-                            <TextBlock Name="OwnBoardTitle" 
-                                       Text="🛡️ ВАШЕ ПОЛЕ" 
+                            <TextBlock Text="{Binding OwnBoardTitle, Mode=OneWay}" 
                                        Classes="BoardLabel"/>
                         </Border>
                         <Canvas Name="OwnCanvas" Classes="GameBoard"/>
-                        <TextBlock Name="PlayerStatsText" 
-                                   Text="🎯 Ваши выстрелы: 0 попаданий, 0 промахов" 
+                        <TextBlock Text="{Binding PlayerStats, Mode=OneWay}" 
                                    Classes="Stats"/>
                     </StackPanel>
 
                     <!-- Доска противника -->
                     <StackPanel Classes="BoardPanel">
                         <Border Classes="BoardHeader Enemy">
-                            <TextBlock Name="EnemyBoardTitle" 
-                                       Text="🎯 ПОЛЕ ПРОТИВНИКА" 
+                            <TextBlock Text="{Binding EnemyBoardTitle, Mode=OneWay}" 
                                        Classes="BoardLabel"/>
                         </Border>
                         <Canvas Name="EnemyCanvas" Classes="GameBoard"/>
-                        <TextBlock Name="OpponentStatsText" 
-                                   Text="💣 Выстрелы противника: 0 попаданий, 0 промахов" 
+                        <TextBlock Text="{Binding OpponentStats, Mode=OneWay}" 
                                    Classes="Stats"/>
                     </StackPanel>
                 </StackPanel>

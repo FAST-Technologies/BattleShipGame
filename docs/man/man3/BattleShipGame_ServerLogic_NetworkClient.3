@@ -1,0 +1,75 @@
+.TH "BattleShipGame.ServerLogic.NetworkClient" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.ServerLogic.NetworkClient
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "async Task< bool > \fBConnectAsync\fP (string hostname, int port)"
+.br
+.ti -1c
+.RI "async Task \fBSendMessageAsync\fP (\fBNetworkMessage\fP message)"
+.br
+.ti -1c
+.RI "void \fBDisconnect\fP ()"
+.br
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "bool \fBIsConnected\fP\fR [get]\fP"
+.br
+.in -1c
+.SS "Events"
+
+.in +1c
+.ti -1c
+.RI "Action< \fBNetworkMessage\fP >? \fBOnMessageReceived\fP"
+.br
+.ti -1c
+.RI "Action? \fBOnDisconnected\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line \fB16\fP of file \fBNetworking\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "async Task< bool > BattleShipGame\&.ServerLogic\&.NetworkClient\&.ConnectAsync (string hostname, int port)"
+
+.PP
+Definition at line \fB29\fP of file \fBNetworking\&.cs\fP\&.
+.SS "void BattleShipGame\&.ServerLogic\&.NetworkClient\&.Disconnect ()"
+
+.PP
+Definition at line \fB121\fP of file \fBNetworking\&.cs\fP\&.
+.SS "async Task BattleShipGame\&.ServerLogic\&.NetworkClient\&.SendMessageAsync (\fBNetworkMessage\fP message)"
+
+.PP
+Definition at line \fB51\fP of file \fBNetworking\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "bool BattleShipGame\&.ServerLogic\&.NetworkClient\&.IsConnected\fR [get]\fP"
+
+.PP
+Definition at line \fB27\fP of file \fBNetworking\&.cs\fP\&.
+.SH "Event Documentation"
+.PP 
+.SS "Action? BattleShipGame\&.ServerLogic\&.NetworkClient\&.OnDisconnected"
+
+.PP
+Definition at line \fB25\fP of file \fBNetworking\&.cs\fP\&.
+.SS "Action<\fBNetworkMessage\fP>? BattleShipGame\&.ServerLogic\&.NetworkClient\&.OnMessageReceived"
+
+.PP
+Definition at line \fB24\fP of file \fBNetworking\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

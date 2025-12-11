@@ -1,4 +1,4 @@
-﻿namespace BattleShipGame2.Networking;
+﻿namespace BattleShipGame.Networking;
 
 /// <summary>
 /// Статический класс, определяющий протокол обмена сообщениями между клиентом и сервером.

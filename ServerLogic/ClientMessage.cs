@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BattleShipGame2.ServerLogic;
+namespace BattleShipGame.ServerLogic;
 
 /// <summary>
 /// Представляет сообщение, полученное от клиента.

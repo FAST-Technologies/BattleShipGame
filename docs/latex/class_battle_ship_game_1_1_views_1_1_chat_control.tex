@@ -1,0 +1,95 @@
+\doxysection{Battle\+Ship\+Game.\+Views.\+Chat\+Control Class Reference}
+\hypertarget{class_battle_ship_game_1_1_views_1_1_chat_control}{}\label{class_battle_ship_game_1_1_views_1_1_chat_control}\index{BattleShipGame.Views.ChatControl@{BattleShipGame.Views.ChatControl}}
+
+
+Пользовательский контрол для отображения и управления чатом в сетевой игре. Обеспечивает отправку и получение сообщений, форматирование времени и управление UI чата.  
+
+
+Inheritance diagram for Battle\+Ship\+Game.\+Views.\+Chat\+Control\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_battle_ship_game_1_1_views_1_1_chat_control}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control_a96ee94282017bac40c578b68303dd43d}{Chat\+Control}} ()
+\begin{DoxyCompactList}\small\item\em Инициализация менеджера чатов. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control_a0d8eb329c2ccaaed36c29106880062f7}{Set\+Chat\+Manager}} (\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}} chat\+Manager)
+\begin{DoxyCompactList}\small\item\em Устанавливает \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager} для взаимодействия с сетью. Подписывается на события добавления сообщений. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control_ae89fb0234dacd78eaa3c179b94563937}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Очищает историю сообщений чата. Удаляет все сообщения из коллекции и очищает UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Пользовательский контрол для отображения и управления чатом в сетевой игре. Обеспечивает отправку и получение сообщений, форматирование времени и управление UI чата. 
+
+Контрол используется только в сетевом режиме игры для общения между игроками. Автоматически подключается к \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager} для обработки сетевых сообщений. 
+
+Definition at line \mbox{\hyperlink{_chat_control_8axaml_8cs_source_l00018}{18}} of file \mbox{\hyperlink{_chat_control_8axaml_8cs_source}{Chat\+Control.\+axaml.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_battle_ship_game_1_1_views_1_1_chat_control_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_ship_game_1_1_views_1_1_chat_control_a96ee94282017bac40c578b68303dd43d}\index{BattleShipGame.Views.ChatControl@{BattleShipGame.Views.ChatControl}!ChatControl@{ChatControl}}
+\index{ChatControl@{ChatControl}!BattleShipGame.Views.ChatControl@{BattleShipGame.Views.ChatControl}}
+\doxysubsubsection{\texorpdfstring{ChatControl()}{ChatControl()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_views_1_1_chat_control_a96ee94282017bac40c578b68303dd43d} 
+Battle\+Ship\+Game.\+Views.\+Chat\+Control.\+Chat\+Control (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Инициализация менеджера чатов. 
+
+Инициализирует новый экземпляр класса \doxylink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}. 
+
+Definition at line \mbox{\hyperlink{_chat_control_8axaml_8cs_source_l00026}{26}} of file \mbox{\hyperlink{_chat_control_8axaml_8cs_source}{Chat\+Control.\+axaml.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_views_1_1_chat_control_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_views_1_1_chat_control_ae89fb0234dacd78eaa3c179b94563937}\index{BattleShipGame.Views.ChatControl@{BattleShipGame.Views.ChatControl}!Clear@{Clear}}
+\index{Clear@{Clear}!BattleShipGame.Views.ChatControl@{BattleShipGame.Views.ChatControl}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_views_1_1_chat_control_ae89fb0234dacd78eaa3c179b94563937} 
+void Battle\+Ship\+Game.\+Views.\+Chat\+Control.\+Clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Очищает историю сообщений чата. Удаляет все сообщения из коллекции и очищает UI. 
+
+
+
+Definition at line \mbox{\hyperlink{_chat_control_8axaml_8cs_source_l00204}{204}} of file \mbox{\hyperlink{_chat_control_8axaml_8cs_source}{Chat\+Control.\+axaml.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_views_1_1_chat_control_a0d8eb329c2ccaaed36c29106880062f7}\index{BattleShipGame.Views.ChatControl@{BattleShipGame.Views.ChatControl}!SetChatManager@{SetChatManager}}
+\index{SetChatManager@{SetChatManager}!BattleShipGame.Views.ChatControl@{BattleShipGame.Views.ChatControl}}
+\doxysubsubsection{\texorpdfstring{SetChatManager()}{SetChatManager()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_views_1_1_chat_control_a0d8eb329c2ccaaed36c29106880062f7} 
+void Battle\+Ship\+Game.\+Views.\+Chat\+Control.\+Set\+Chat\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}}}]{chat\+Manager}{}\end{DoxyParamCaption})}
+
+
+
+Устанавливает \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager} для взаимодействия с сетью. Подписывается на события добавления сообщений. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em chat\+Manager} & Менеджер чата для установки соединения.\\
+\hline
+\end{DoxyParams}
+
+
+Должен быть вызван перед использованием контрола для работы с сетевым чатом. 
+
+Definition at line \mbox{\hyperlink{_chat_control_8axaml_8cs_source_l00053}{53}} of file \mbox{\hyperlink{_chat_control_8axaml_8cs_source}{Chat\+Control.\+axaml.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Views/\mbox{\hyperlink{_chat_control_8axaml_8cs}{Chat\+Control.\+axaml.\+cs}}\end{DoxyCompactItemize}

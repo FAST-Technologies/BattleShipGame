@@ -1,0 +1,56 @@
+.TH "BattleShipGame.Program" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Program \- Точка входа в приложение\&. Содержит методы инициализации и запуска Avalonia приложения\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBMain\fP (string[] args)"
+.br
+.RI "Основная точка входа в приложение\&. Не используйте Avalonia, сторонние API или любой код, зависящий от SynchronizationContext, до вызова AppMain: вещи ещё не инициализированы и могут сломаться\&. "
+.ti -1c
+.RI "static AppBuilder \fBBuildAvaloniaApp\fP ()"
+.br
+.RI "Конфигурация Avalonia приложения\&. Не удаляйте; также используется визуальным дизайнером\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Точка входа в приложение\&. Содержит методы инициализации и запуска Avalonia приложения\&. 
+.PP
+Definition at line \fB10\fP of file \fBProgram\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "AppBuilder BattleShipGame\&.Program\&.BuildAvaloniaApp ()\fR [static]\fP"
+
+.PP
+Конфигурация Avalonia приложения\&. Не удаляйте; также используется визуальным дизайнером\&. 
+.PP
+\fBReturns\fP
+.RS 4
+Построитель приложения Avalonia\&.
+.RE
+.PP
+
+.SS "void BattleShipGame\&.Program\&.Main (string[] args)\fR [static]\fP"
+
+.PP
+Основная точка входа в приложение\&. Не используйте Avalonia, сторонние API или любой код, зависящий от SynchronizationContext, до вызова AppMain: вещи ещё не инициализированы и могут сломаться\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIargs\fP Аргументы командной строки\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB19\fP of file \fBProgram\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

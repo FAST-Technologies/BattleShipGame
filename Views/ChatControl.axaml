@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="500"
-             x:Class="BattleShipGame2.Views.ChatControl">
+             x:Class="BattleShipGame.Views.ChatControl">
     
     <StackPanel Classes="ChatContainer">
         <!-- Заголовок чата -->

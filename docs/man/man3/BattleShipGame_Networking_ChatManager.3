@@ -1,0 +1,175 @@
+.TH "BattleShipGame.Networking.ChatManager" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Networking.ChatManager \- Класс \fR\fBChatManager\fP\fP управляет обменом текстовыми сообщениями между игроками в сетевой игре\&. Он интегрируется с сетевым клиентом и UI-компонентом чата (\fR\fBChatControl\fP\fP)\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBChatManager\fP (\fBNetworkClient\fP networkClient, string playerName)"
+.br
+.RI "Инициализирует новый экземпляр \fBChatManager\fP\&. "
+.ti -1c
+.RI "\fBChatControl\fP \fBCreateChatControl\fP ()"
+.br
+.RI "Создаёт и инициализирует UI-компонент чата\&. "
+.ti -1c
+.RI "void \fBAddMessage\fP (string sender, string text, DateTime timestamp)"
+.br
+.RI "Добавляет сообщение в локальную историю чата и уведомляет подписчиков\&. "
+.ti -1c
+.RI "void \fBHandleChatMessage\fP (Dictionary< string, string > data)"
+.br
+.RI "Обрабатывает входящее сетевое сообщение чата\&. "
+.ti -1c
+.RI "async Task \fBSendChatMessageAsync\fP (string text)"
+.br
+.RI "Асинхронно отправляет текстовое сообщение сопернику через сетевой клиент\&. "
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.RI "Очищает историю сообщений в связанном UI-контроле\&. "
+.in -1c
+.SS "Events"
+
+.in +1c
+.ti -1c
+.RI "Action< string, string, DateTime >? \fBMessageAdded\fP"
+.br
+.RI "Событие, вызываемое при добавлении нового сообщения в чат\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс \fR\fBChatManager\fP\fP управляет обменом текстовыми сообщениями между игроками в сетевой игре\&. Он интегрируется с сетевым клиентом и UI-компонентом чата (\fR\fBChatControl\fP\fP)\&. 
+.PP
+Definition at line \fB12\fP of file \fBChatManager\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.Networking\&.ChatManager\&.ChatManager (\fBNetworkClient\fP networkClient, string playerName)"
+
+.PP
+Инициализирует новый экземпляр \fBChatManager\fP\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInetworkClient\fP Сетевой клиент для отправки сообщений\&.
+.br
+\fIplayerName\fP Имя текущего игрока (отображается как "Вы" при отправке)\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIArgumentNullException\fP Если \fInetworkClient\fP  или \fIplayerName\fP  равны \fRnull\fP или пусты\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB39\fP of file \fBChatManager\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void BattleShipGame\&.Networking\&.ChatManager\&.AddMessage (string sender, string text, DateTime timestamp)"
+
+.PP
+Добавляет сообщение в локальную историю чата и уведомляет подписчиков\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP Имя отправителя сообщения\&.
+.br
+\fItext\fP Текст сообщения\&.
+.br
+\fItimestamp\fP Время отправки/получения сообщения\&.
+.RE
+.PP
+
+.PP
+Не отправляет сообщение по сети — только обновляет локальный чат\&. Используется как для входящих, так и для исходящих сообщений\&. 
+.PP
+Definition at line \fB73\fP of file \fBChatManager\&.cs\fP\&.
+.SS "void BattleShipGame\&.Networking\&.ChatManager\&.Clear ()"
+
+.PP
+Очищает историю сообщений в связанном UI-контроле\&. Безопасно вызывать даже если \fR\fBChatControl\fP\fP не создан\&. 
+.PP
+Definition at line \fB131\fP of file \fBChatManager\&.cs\fP\&.
+.SS "\fBChatControl\fP BattleShipGame\&.Networking\&.ChatManager\&.CreateChatControl ()"
+
+.PP
+Создаёт и инициализирует UI-компонент чата\&. 
+.PP
+\fBReturns\fP
+.RS 4
+Экземпляр \fBChatControl\fP, привязанный к этому менеджеру\&.
+.RE
+.PP
+
+.PP
+Метод должен вызываться один раз при инициализации UI\&. 
+.PP
+Definition at line \fB56\fP of file \fBChatManager\&.cs\fP\&.
+.SS "void BattleShipGame\&.Networking\&.ChatManager\&.HandleChatMessage (Dictionary< string, string > data)"
+
+.PP
+Обрабатывает входящее сетевое сообщение чата\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata\fP Словарь с данными сообщения, содержащий ключи из NetworkProtocol\&.Keys\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIArgumentNullException\fP Если \fIdata\fP  равен \fRnull\fP\&.
+.RE
+.PP
+
+.PP
+Извлекает поля \fRSender\fP и \fRChatText\fP из входящего пакета\&. Если отправитель не указан, используется "Opponent"\&. 
+.PP
+Definition at line \fB88\fP of file \fBChatManager\&.cs\fP\&.
+.SS "async Task BattleShipGame\&.Networking\&.ChatManager\&.SendChatMessageAsync (string text)"
+
+.PP
+Асинхронно отправляет текстовое сообщение сопернику через сетевой клиент\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fItext\fP Текст сообщения для отправки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Задача, представляющая асинхронную операцию отправки\&.
+.RE
+.PP
+
+.PP
+Если текст пуст или игрок не подключён — метод возвращает управление без действия\&. После успешной отправки сообщение также добавляется в локальный чат с пометкой "Вы"\&. 
+.PP
+Definition at line \fB110\fP of file \fBChatManager\&.cs\fP\&.
+.SH "Event Documentation"
+.PP 
+.SS "Action<string, string, DateTime>? BattleShipGame\&.Networking\&.ChatManager\&.MessageAdded"
+
+.PP
+Событие, вызываемое при добавлении нового сообщения в чат\&. Параметры делегата: 
+.PD 0
+.IP "\(bu" 2
+\fRsender\fP — имя отправителя\&. 
+.IP "\(bu" 2
+\fRtext\fP — текст сообщения\&. 
+.IP "\(bu" 2
+\fRtimestamp\fP — время получения/отправки\&. 
+.PP
+Подписчики (обычно \fR\fBChatControl\fP\fP) обновляют UI\&. 
+.PP
+Definition at line \fB31\fP of file \fBChatManager\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

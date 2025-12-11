@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BattleShipGame2.Models;
+using BattleShipGame.Models2;
 
-namespace BattleShipGame2.Logic;
+namespace BattleShipGame.Logic;
 
 /// <summary>
 /// Представляет основную логику бота.

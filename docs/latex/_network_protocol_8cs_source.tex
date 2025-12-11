@@ -1,0 +1,102 @@
+\doxysection{Network\+Protocol.\+cs}
+\hypertarget{_network_protocol_8cs_source}{}\label{_network_protocol_8cs_source}\index{Networking/NetworkProtocol.cs@{Networking/NetworkProtocol.cs}}
+\mbox{\hyperlink{_network_protocol_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00001}00001\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_networking}{BattleShipGame.Networking}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00010}00010\ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }NetworkProtocol}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }Commands}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00016}00016\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Join\ =\ \textcolor{stringliteral}{"{}JOIN"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Joined\ =\ \textcolor{stringliteral}{"{}JOINED"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ MatchFound\ =\ \textcolor{stringliteral}{"{}MATCH\_FOUND"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ PlaceShipsRandomly\ =\ \textcolor{stringliteral}{"{}PLACE\_SHIPS\_RANDOMLY"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ShipPlacementConfirmed\ =\ \textcolor{stringliteral}{"{}SHIP\_PLACEMENT\_CONFIRMED"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ShipPlaced\ =\ \textcolor{stringliteral}{"{}SHIP\_PLACED"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ShipPlacement\ =\ \textcolor{stringliteral}{"{}SHIP\_PLACEMENT"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ AllShipsPlaced\ =\ \textcolor{stringliteral}{"{}ALL\_SHIPS\_PLACED"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ GameStart\ =\ \textcolor{stringliteral}{"{}GAME\_START"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Attack\ =\ \textcolor{stringliteral}{"{}ATTACK"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ AttackResult\ =\ \textcolor{stringliteral}{"{}ATTACK\_RESULT"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ YourTurn\ =\ \textcolor{stringliteral}{"{}YOUR\_TURN"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ YourTurnAgain\ =\ \textcolor{stringliteral}{"{}YOUR\_TURN\_AGAIN"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ OpponentTurn\ =\ \textcolor{stringliteral}{"{}OPPONENT\_TURN"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ GameOver\ =\ \textcolor{stringliteral}{"{}GAME\_OVER"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ OpponentLeft\ =\ \textcolor{stringliteral}{"{}OPPONENT\_LEFT"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ OpponentDisconnected\ =\ \textcolor{stringliteral}{"{}OPPONENT\_DISCONNECTED"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ChatMessage\ =\ \textcolor{stringliteral}{"{}CHAT\_MESSAGE"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ChatMessageReceived\ =\ \textcolor{stringliteral}{"{}CHAT\_MESSAGE\_RECEIVED"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Error\ =\ \textcolor{stringliteral}{"{}ERROR"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ LeaveGame\ =\ \textcolor{stringliteral}{"{}LEAVE\_GAME"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ListReq\ =\ \textcolor{stringliteral}{"{}LIST\_REQ"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ListRes\ =\ \textcolor{stringliteral}{"{}LIST\_RES"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00090}00090\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }Keys}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00091}00091\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Name\ =\ \textcolor{stringliteral}{"{}name"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ PlayerName\ =\ \textcolor{stringliteral}{"{}player\_name"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ PlayerId\ =\ \textcolor{stringliteral}{"{}player\_id"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ OpponentName\ =\ \textcolor{stringliteral}{"{}opponent\_name"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ YourTurn\ =\ \textcolor{stringliteral}{"{}your\_turn"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ X\ =\ \textcolor{stringliteral}{"{}x"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Y\ =\ \textcolor{stringliteral}{"{}y"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Hit\ =\ \textcolor{stringliteral}{"{}hit"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Sunk\ =\ \textcolor{stringliteral}{"{}sunk"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ GameOver\ =\ \textcolor{stringliteral}{"{}game\_over"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Winner\ =\ \textcolor{stringliteral}{"{}winner"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Message\ =\ \textcolor{stringliteral}{"{}message"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00127}00127\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ AttackerId\ =\ \textcolor{stringliteral}{"{}attacker\_id"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00130}00130\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Size\ =\ \textcolor{stringliteral}{"{}size"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00133}00133\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Horizontal\ =\ \textcolor{stringliteral}{"{}horizontal"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00136}00136\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ShipPlaced\ =\ \textcolor{stringliteral}{"{}ships\_placed"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00139}00139\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ SunkShipPositions\ =\ \textcolor{stringliteral}{"{}sunk\_ship\_positions"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00142}00142\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ BlockedCells\ =\ \textcolor{stringliteral}{"{}blocked\_cells"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00145}00145\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ ChatText\ =\ \textcolor{stringliteral}{"{}text"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00148}00148\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ Sender\ =\ \textcolor{stringliteral}{"{}sender"{}};}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_protocol_8cs_source_l00152}00152\ \}}
+
+\end{DoxyCode}

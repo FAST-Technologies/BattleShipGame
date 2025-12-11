@@ -1,0 +1,59 @@
+.TH "BattleShipGame.Networking" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Networking
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBChatManager\fP"
+.br
+.RI "Класс \fR\fBChatManager\fP\fP управляет обменом текстовыми сообщениями между игроками в сетевой игре\&. Он интегрируется с сетевым клиентом и UI-компонентом чата (\fR\fBChatControl\fP\fP)\&. "
+.ti -1c
+.RI "class \fBNetworkClient\fP"
+.br
+.RI "TCP-клиент для сетевой игры Морской Бой "
+.ti -1c
+.RI "class \fBNetworkMessage\fP"
+.br
+.RI "Представляет сетевое сообщение, передаваемое между клиентом и сервером\&. "
+.ti -1c
+.RI "class \fBNetworkProtocol\fP"
+.br
+.RI "Статический класс, определяющий протокол обмена сообщениями между клиентом и сервером\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBNetworkGameMode\fP { \fBNone\fP, \fBSearching\fP, \fBInGame\fP }"
+.br
+.RI "Режимы сетевой игры\&. "
+.in -1c
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBBattleShipGame\&.Networking\&.NetworkGameMode\fP"
+
+.PP
+Режимы сетевой игры\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BINone \fP
+Не в сетевой игре\&. 
+.TP
+\f(BISearching \fP
+Поиск соперника\&. 
+.TP
+\f(BIInGame \fP
+Активная сетевая игра\&. 
+.PP
+Definition at line \fB6\fP of file \fBNetworkGameMode\&.cs\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

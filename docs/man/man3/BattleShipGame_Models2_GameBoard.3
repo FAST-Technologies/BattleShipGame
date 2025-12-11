@@ -1,0 +1,231 @@
+.TH "BattleShipGame.Models2.GameBoard" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Models2.GameBoard \- Игровое поле для Морского Боя\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGameBoard\fP (int size=10)"
+.br
+.RI "Создает новое игровое поле\&. "
+.ti -1c
+.RI "bool \fBPlaceShip\fP (\fBShip\fP ship, int x, int y)"
+.br
+.RI "Размещает корабль на поле\&. "
+.ti -1c
+.RI "bool \fBCanPlaceShip\fP (int x, int y, int size, bool horizontal)"
+.br
+.RI "Проверяет возможность размещения корабля\&. "
+.ti -1c
+.RI "void \fBPlaceShipsRandomly\fP ()"
+.br
+.RI "Автоматически расставляет корабли на поле\&. "
+.ti -1c
+.RI "bool bool bool gameOver \fBAttack\fP (int x, int y)"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.RI "Очищает поле (удаляет все корабли и сбрасывает состояния)\&. "
+.ti -1c
+.RI "\fBCellState\fP \fBGetCellState\fP (int x, int y)"
+.br
+.RI "Получает состояние клетки по координатам\&. "
+.ti -1c
+.RI "bool \fBCanAttackCell\fP (int x, int y)"
+.br
+.RI "Проверяет, можно ли атаковать указанную клетку "
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "bool \fBhit\fP"
+.br
+.RI "Выполняет атаку по указанным координатам\&. "
+.ti -1c
+.RI "bool bool \fBsunk\fP"
+.br
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "\fBCellState\fP[,] \fBGrid\fP\fR [get]\fP"
+.br
+.RI "Двумерный массив состояний клеток поля\&. "
+.ti -1c
+.RI "List< \fBShip\fP > \fBShips\fP\fR [get]\fP"
+.br
+.RI "Список кораблей на поле\&. "
+.ti -1c
+.RI "int \fBSize\fP\fR [get]\fP"
+.br
+.RI "Размер поля (обычно 10x10)\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Игровое поле для Морского Боя\&. 
+.PP
+Definition at line \fB10\fP of file \fBGameBoard\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.Models2\&.GameBoard\&.GameBoard (int size = \fR10\fP)"
+
+.PP
+Создает новое игровое поле\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsize\fP Размер поля\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB30\fP of file \fBGameBoard\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "bool bool bool gameOver BattleShipGame\&.Models2\&.GameBoard\&.Attack (int x, int y)"
+
+.PP
+Definition at line \fB152\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "bool BattleShipGame\&.Models2\&.GameBoard\&.CanAttackCell (int x, int y)"
+
+.PP
+Проверяет, можно ли атаковать указанную клетку 
+.PP
+Definition at line \fB245\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "bool BattleShipGame\&.Models2\&.GameBoard\&.CanPlaceShip (int x, int y, int size, bool horizontal)"
+
+.PP
+Проверяет возможность размещения корабля\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIx\fP X-координата начала\&.
+.br
+\fIy\fP Y-координата начала\&.
+.br
+\fIsize\fP Размер корабля\&.
+.br
+\fIhorizontal\fP Ориентация корабля\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+True если корабль можно разместить\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB86\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "void BattleShipGame\&.Models2\&.GameBoard\&.Clear ()"
+
+.PP
+Очищает поле (удаляет все корабли и сбрасывает состояния)\&. 
+.PP
+Definition at line \fB221\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "\fBCellState\fP BattleShipGame\&.Models2\&.GameBoard\&.GetCellState (int x, int y)"
+
+.PP
+Получает состояние клетки по координатам\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIx\fP X-координата\&.
+.br
+\fIy\fP Y-координата\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Состояние клетки\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB234\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "bool BattleShipGame\&.Models2\&.GameBoard\&.PlaceShip (\fBShip\fP ship, int x, int y)"
+
+.PP
+Размещает корабль на поле\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIship\fP Корабль для размещения\&.
+.br
+\fIx\fP X-координата начала\&.
+.br
+\fIy\fP Y-координата начала\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+True если корабль успешно размещен\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB61\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "void BattleShipGame\&.Models2\&.GameBoard\&.PlaceShipsRandomly ()"
+
+.PP
+Автоматически расставляет корабли на поле\&. 
+.PP
+Definition at line \fB118\fP of file \fBGameBoard\&.cs\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "bool BattleShipGame\&.Models2\&.GameBoard\&.hit"
+
+.PP
+Выполняет атаку по указанным координатам\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIx\fP X-координата атаки\&.
+.br
+\fIy\fP Y-координата атаки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Результат атаки: (попадание, потопление, конец игры)\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB152\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "bool bool BattleShipGame\&.Models2\&.GameBoard\&.sunk"
+
+.PP
+Definition at line \fB152\fP of file \fBGameBoard\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "\fBCellState\fP [,] BattleShipGame\&.Models2\&.GameBoard\&.Grid\fR [get]\fP"
+
+.PP
+Двумерный массив состояний клеток поля\&. 
+.PP
+Definition at line \fB16\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "List<\fBShip\fP> BattleShipGame\&.Models2\&.GameBoard\&.Ships\fR [get]\fP"
+
+.PP
+Список кораблей на поле\&. 
+.PP
+Definition at line \fB20\fP of file \fBGameBoard\&.cs\fP\&.
+.SS "int BattleShipGame\&.Models2\&.GameBoard\&.Size\fR [get]\fP"
+
+.PP
+Размер поля (обычно 10x10)\&. 
+.PP
+Definition at line \fB24\fP of file \fBGameBoard\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

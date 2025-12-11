@@ -1,6 +1,6 @@
 using System;
 
-namespace BattleShipGame2.ServerLogic;
+namespace BattleShipGame.ServerLogic;
 
 /// <summary>
 /// Представляет игровую комнату для двух игроков.

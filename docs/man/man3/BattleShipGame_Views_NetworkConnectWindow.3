@@ -1,0 +1,82 @@
+.TH "BattleShipGame.Views.NetworkConnectWindow" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Views.NetworkConnectWindow \- Окно подключения к сетевой игре\&. Позволяет пользователю ввести имя, адрес сервера и порт для подключения\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits Window\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNetworkConnectWindow\fP ()"
+.br
+.RI "Инициализирует новый экземпляр класса \fBNetworkConnectWindow\fP\&. Настраивает обработчики событий для кнопок подключения и возврата\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "bool \fBSuccess\fP\fR [get]\fP"
+.br
+.RI "Получает флаг успешного подключения\&. "
+.ti -1c
+.RI "string \fBHostname\fP = string\&.Empty\fR [get]\fP"
+.br
+.RI "Получает введенное имя хоста сервера\&. "
+.ti -1c
+.RI "int \fBPort\fP\fR [get]\fP"
+.br
+.RI "Получает введенный порт сервера\&. "
+.ti -1c
+.RI "string \fBPlayerName\fP = string\&.Empty\fR [get]\fP"
+.br
+.RI "Получает введенное имя игрока\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Окно подключения к сетевой игре\&. Позволяет пользователю ввести имя, адрес сервера и порт для подключения\&. 
+.PP
+Definition at line \fB10\fP of file \fBNetworkConnectWindow\&.axaml\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.Views\&.NetworkConnectWindow\&.NetworkConnectWindow ()"
+
+.PP
+Инициализирует новый экземпляр класса \fBNetworkConnectWindow\fP\&. Настраивает обработчики событий для кнопок подключения и возврата\&. 
+.PP
+Definition at line \fB41\fP of file \fBNetworkConnectWindow\&.axaml\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "string BattleShipGame\&.Views\&.NetworkConnectWindow\&.Hostname = string\&.Empty\fR [get]\fP"
+
+.PP
+Получает введенное имя хоста сервера\&. 
+.PP
+Definition at line \fB20\fP of file \fBNetworkConnectWindow\&.axaml\&.cs\fP\&.
+.SS "string BattleShipGame\&.Views\&.NetworkConnectWindow\&.PlayerName = string\&.Empty\fR [get]\fP"
+
+.PP
+Получает введенное имя игрока\&. 
+.PP
+Definition at line \fB30\fP of file \fBNetworkConnectWindow\&.axaml\&.cs\fP\&.
+.SS "int BattleShipGame\&.Views\&.NetworkConnectWindow\&.Port\fR [get]\fP"
+
+.PP
+Получает введенный порт сервера\&. 
+.PP
+Definition at line \fB25\fP of file \fBNetworkConnectWindow\&.axaml\&.cs\fP\&.
+.SS "bool BattleShipGame\&.Views\&.NetworkConnectWindow\&.Success\fR [get]\fP"
+
+.PP
+Получает флаг успешного подключения\&. 
+.PP
+Definition at line \fB15\fP of file \fBNetworkConnectWindow\&.axaml\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

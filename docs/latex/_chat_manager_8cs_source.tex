@@ -1,0 +1,80 @@
+\doxysection{Chat\+Manager.\+cs}
+\hypertarget{_chat_manager_8cs_source}{}\label{_chat_manager_8cs_source}\index{Networking/ChatManager.cs@{Networking/ChatManager.cs}}
+\mbox{\hyperlink{_chat_manager_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_views}{BattleShipGame.Views}};}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00006}\mbox{\hyperlink{namespace_battle_ship_game_1_1_networking}{00006}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_networking}{BattleShipGame.Networking}};}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00012}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{00012}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a634676d2b4b477b30390208f9e2def35}{ChatManager}}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00014}00014\ \textcolor{preprocessor}{\ \ \ \ \#region\ Поля\ и\ свойства}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client}{NetworkClient}}\ \_networkClient;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{string}\ \_playerName;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control}{ChatControl}}?\ \_chatControl;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00031}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a807d22682f0c5b11878fc7446b28466c}{00031}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{event}\ Action<string,\ string,\ DateTime>?\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a807d22682f0c5b11878fc7446b28466c}{MessageAdded}};}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00039}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a634676d2b4b477b30390208f9e2def35}{00039}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a634676d2b4b477b30390208f9e2def35}{ChatManager}}(\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client}{NetworkClient}}\ networkClient,\ \textcolor{keywordtype}{string}\ playerName)}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \_networkClient\ =\ networkClient;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \_playerName\ =\ playerName;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00044}00044\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00045}00045\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00046}00046\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00047}00047\ \textcolor{preprocessor}{\ \ \ \ \#region\ Основная\ логика}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00048}00048\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00056}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_aae3e50746d8ea01f2c846b0005b758cb}{00056}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control}{ChatControl}}\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_aae3e50746d8ea01f2c846b0005b758cb}{CreateChatControl}}()}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00057}00057\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \_chatControl\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control}{ChatControl}}();}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \_chatControl.SetChatManager(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_chatControl;}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00073}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_ae935cf45ca70354366dc0193ef8ff06e}{00073}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_ae935cf45ca70354366dc0193ef8ff06e}{AddMessage}}(\textcolor{keywordtype}{string}\ sender,\ \textcolor{keywordtype}{string}\ text,\ DateTime\ timestamp)}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00074}00074\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[ChatManager]\ AddMessage\ called:\ \{sender\}:\ \{text\}"{}});}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a807d22682f0c5b11878fc7446b28466c}{MessageAdded}}?.Invoke(sender,\ text,\ timestamp);}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00088}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_af6ec196e44f0dac739c77233114ad316}{00088}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_af6ec196e44f0dac739c77233114ad316}{HandleChatMessage}}(Dictionary<string,\ string>\ data)}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00089}00089\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ var\ sender\ =\ data.GetValueOrDefault(NetworkProtocol.Keys.Sender,\ \textcolor{stringliteral}{"{}Opponent"{}});}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ var\ text\ =\ data.GetValueOrDefault(NetworkProtocol.Keys.ChatText,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[Chat]\ \{sender\}:\ \{text\}"{}});}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a807d22682f0c5b11878fc7446b28466c}{MessageAdded}}\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[ChatManager]\ WARNING:\ MessageAdded\ event\ has\ no\ subscribers!"{}});}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ Console.WriteLine(\$\textcolor{stringliteral}{"{}[ChatManager]\ MessageAdded\ event\ has\ subscribers,\ invoking..."{}});}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_ae935cf45ca70354366dc0193ef8ff06e}{AddMessage}}(sender,\ text,\ DateTime.Now);}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00099}00099\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00100}00100\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00110}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a1fbe13d9bda4198cbc04c307b9f49dec}{00110}}\ \ \ \ \ \textcolor{keyword}{public}\ async\ Task\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a1fbe13d9bda4198cbc04c307b9f49dec}{SendChatMessageAsync}}(\textcolor{keywordtype}{string}\ text)}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00111}00111\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{string}.IsNullOrWhiteSpace(text)\ ||\ !\_networkClient.IsConnected)}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00114}00114\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ var\ chatMsg\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message}{NetworkMessage}}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00116}00116\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ =\ NetworkProtocol.Commands.ChatMessage,}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ Data\ =\ \{\ \{\ NetworkProtocol.Keys.ChatText,\ text\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00120}00120\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ await\ \_networkClient.SendMessageAsync(chatMsg);}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00122}00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_ae935cf45ca70354366dc0193ef8ff06e}{AddMessage}}(\textcolor{stringliteral}{"{}Вы"{}},\ text,\ DateTime.Now);}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00123}00123\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00131}\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a393d09686420de6d59394ca1d714f75a}{00131}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a393d09686420de6d59394ca1d714f75a}{Clear}}()}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00132}00132\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00133}00133\ \ \ \ \ \ \ \ \ \_chatControl?.Clear();}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00134}00134\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00135}00135\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00136}00136\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_chat_manager_8cs_source_l00137}00137\ \}}
+
+\end{DoxyCode}

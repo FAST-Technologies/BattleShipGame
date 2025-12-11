@@ -1,0 +1,251 @@
+\doxysection{Bot\+Logic.\+cs}
+\hypertarget{_bot_logic_8cs_source}{}\label{_bot_logic_8cs_source}\index{Logic/BotLogic.cs@{Logic/BotLogic.cs}}
+\mbox{\hyperlink{_bot_logic_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2}{BattleShipGame.Models2}};}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00007}\mbox{\hyperlink{namespace_battle_ship_game_1_1_logic}{00007}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_logic}{BattleShipGame.Logic}};}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00012}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic}{00012}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_a4270ef1563ab93546e21b46996523d44}{BotLogic}}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00014}00014\ \textcolor{preprocessor}{\ \ \ \ \#region\ Поля\ и\ свойства}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00015}00015\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{private}\ Random\ \_random\ =\ \textcolor{keyword}{new}\ Random();\ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}\ \_difficulty;\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{private}\ List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ \_lastHits\ =\ \textcolor{keyword}{new}();\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{private}\ (\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)?\ \_lastHitDirection\ =\ \textcolor{keyword}{null};\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{private}\ (\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)?\ \_initialHit\ =\ \textcolor{keyword}{null};\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00021}00021\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00022}00022\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00023}00023\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00028}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_a4270ef1563ab93546e21b46996523d44}{00028}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_a4270ef1563ab93546e21b46996523d44}{BotLogic}}(\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}\ difficulty)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \_difficulty\ =\ difficulty;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00032}00032\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00033}00033\ \textcolor{preprocessor}{\ \ \ \ \#region\ Основные\ методы\ для\ работы\ ботов\ различной\ сложности}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00034}00034\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00041}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_ac0cbbe42472836534ff3b778be1ba88c}{00041}}\ \ \ \ \ \textcolor{keyword}{public}\ async\ Task<BotTurnResult>\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_ac0cbbe42472836534ff3b778be1ba88c}{MakeSimpleTurn}}(\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{GameBoard}}\ playerBoard,\ Action<int,\ int,\ bool,\ bool,\ bool>\ onAttack)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00042}00042\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ var\ possibleTargets\ =\ GetSmartTargets(playerBoard);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (possibleTargets.Count\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{BotTurnResult}}(\textcolor{keyword}{false},\ \textcolor{keyword}{false},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ randomIndex\ =\ \_random.Next(possibleTargets.Count);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ var\ (x,\ y)\ =\ possibleTargets[randomIndex];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ possibleTargets.RemoveAt(randomIndex);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ var\ (hit,\ sunk,\ gameOver)\ =\ playerBoard.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_aaf40204e6a1691b7fea33396706c3bc0}{Attack}}(x,\ y);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Вызываем\ колбэк\ для\ обработки\ результатов}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ onAttack?.Invoke(x,\ y,\ hit,\ sunk,\ gameOver);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Определяем,\ продолжать\ ли\ ход}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ continueTurn\ =\ hit\ \&\&\ !gameOver;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isPlayerTurn\ =\ !continueTurn\ \&\&\ !gameOver;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{BotTurnResult}}(continueTurn,\ isPlayerTurn,\ gameOver);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00070}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_aae2ca634cbb27cae0201444f589a3186}{00070}}\ \ \ \ \ \textcolor{keyword}{public}\ async\ Task<BotTurnResult>\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_aae2ca634cbb27cae0201444f589a3186}{MakeSmartTurn}}(\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{GameBoard}}\ playerBoard,\ Action<int,\ int,\ bool,\ bool,\ bool>\ onAttack)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ var\ possibleTargets\ =\ GetSmartTargets(playerBoard);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (possibleTargets.Count\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{BotTurnResult}}(\textcolor{keyword}{false},\ \textcolor{keyword}{false},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ var\ target\ =\ GetNextSmartShot(possibleTargets,\ playerBoard);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ possibleTargets.Remove((target.x,\ target.y));}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ var\ (hit,\ sunk,\ gameOver)\ =\ playerBoard.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_aaf40204e6a1691b7fea33396706c3bc0}{Attack}}(target.x,\ target.y);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сохраняем\ информацию\ о\ попадании\ для\ умного\ ИИ}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hit)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \_lastHits.Add((target.x,\ target.y));}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_lastHits.Count\ >\ 5)\ \_lastHits.RemoveAt(0);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \_initialHit\ ??=\ (target.x,\ target.y);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Определяем\ направление\ при\ втором\ попадании}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_lastHits.Count\ >=\ 2)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ last\ =\ \_lastHits[\string^1];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ prev\ =\ \_lastHits[\string^2];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_lastHitDirection\ =\ (last.x\ -\/\ prev.x,\ last.y\ -\/\ prev.y);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sunk)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сбрасываем\ информацию\ при\ потоплении}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_lastHits.Clear();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_lastHitDirection\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_initialHit\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Вызываем\ колбэк\ для\ обработки\ результатов}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ onAttack?.Invoke(target.x,\ target.y,\ hit,\ sunk,\ gameOver);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Определяем,\ продолжать\ ли\ ход}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ continueTurn\ =\ hit\ \&\&\ !gameOver;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isPlayerTurn\ =\ !continueTurn\ \&\&\ !gameOver;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{BotTurnResult}}(continueTurn,\ isPlayerTurn,\ gameOver);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00115}00115\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00116}00116\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00122}00122\ \ \ \ \ \textcolor{keyword}{private}\ List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ GetSmartTargets(\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{GameBoard}}\ board)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00123}00123\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ var\ targets\ =\ \textcolor{keyword}{new}\ List<(int\ x,\ int\ y)>();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ x\ =\ 0;\ x\ <\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1}{Size}};\ x++)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ y\ =\ 0;\ y\ <\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1}{Size}};\ y++)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9}{Grid}}[x,\ y]\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Empty\ ||\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9}{Grid}}[x,\ y]\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Ship)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets.Add((x,\ y));}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ targets;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00130}00130\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00139}00139\ \ \ \ \ \textcolor{keyword}{private}\ (\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ GetNextSmartShot(List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ possibleTargets,\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{GameBoard}}\ board)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00140}00140\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\_difficulty)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00142}00142\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ===\ СЛОЖНЫЙ\ ИИ:\ стреляем\ рядом\ с\ попаданиями\ ===}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}.Hard:}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetSmartTargetHard(possibleTargets,\ board);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ===\ СРЕДНИЙ:\ приоритет\ соседям\ попаданий\ ===}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}.Medium:}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetSmartTargetMedium(possibleTargets,\ board);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ===\ ЛЁГКИЙ:\ рандом\ ===\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{BotDifficulty}}.Easy:}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetRandomTarget(possibleTargets);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00155}00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00156}00156\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00157}00157\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00164}00164\ \ \ \ \ \textcolor{keyword}{private}\ (\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ GetSmartTargetHard(List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ possibleTargets,\ GameBoard\ board)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00165}00165\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_lastHits.Count\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetRandomTarget(possibleTargets);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00169}00169\ \ \ \ \ \ \ \ \ var\ lastHit\ =\ \_lastHits.Last();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1.\ Продолжаем\ в\ том\ же\ направлении}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_lastHitDirection.HasValue\ \&\&\ \_lastHits.Count\ >=\ 2)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00173}00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ var\ (dx,\ dy)\ =\ \_lastHitDirection.Value;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nextX\ =\ lastHit.x\ +\ dx;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nextY\ =\ lastHit.y\ +\ dy;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsValidAndAvailable(nextX,\ nextY,\ possibleTargets,\ board))}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (nextX,\ nextY);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00180}00180\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2.\ Пробуем\ противоположное\ направление}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_lastHitDirection.HasValue\ \&\&\ \_initialHit.HasValue)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00184}00184\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ var\ (dx,\ dy)\ =\ \_lastHitDirection.Value;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ oppositeX\ =\ \_initialHit.Value.x\ -\/\ dx;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ oppositeY\ =\ \_initialHit.Value.y\ -\/\ dy;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsValidAndAvailable(oppositeX,\ oppositeY,\ possibleTargets,\ board))}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (oppositeX,\ oppositeY);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00191}00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3.\ Стреляем\ по\ соседям\ последнего\ попадания}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00194}00194\ \ \ \ \ \ \ \ \ var\ neighbors\ =\ GetNeighbors(lastHit.x,\ lastHit.y,\ board)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ .Where(neighbor\ =>\ possibleTargets.Contains(neighbor))}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ .ToList();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (neighbors.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ neighbors[\_random.Next(neighbors.Count)];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetRandomTarget(possibleTargets);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00202}00202\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00203}00203\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00210}00210\ \ \ \ \ \textcolor{keyword}{private}\ (\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ GetSmartTargetMedium(List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ possibleTargets,\ GameBoard\ board)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00211}00211\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_lastHits.Count\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetRandomTarget(possibleTargets);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00215}00215\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Собираем\ всех\ соседей\ всех\ попаданий}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00216}00216\ \ \ \ \ \ \ \ \ var\ allNeighbors\ =\ \textcolor{keyword}{new}\ List<(int\ x,\ int\ y)>();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00217}00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ hit\ \textcolor{keywordflow}{in}\ \_lastHits)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ allNeighbors.AddRange(GetNeighbors(hit.x,\ hit.y,\ board));}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Убираем\ дубликаты\ и\ выбираем\ только\ доступные\ цели}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00221}00221\ \ \ \ \ \ \ \ \ var\ uniqueNeighbors\ =\ allNeighbors}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ .Distinct()}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ .Where(neighbor\ =>\ possibleTargets.Contains(neighbor))}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ .ToList();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (uniqueNeighbors.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ uniqueNeighbors[\_random.Next(uniqueNeighbors.Count)];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetRandomTarget(possibleTargets);}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00230}00230\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00231}00231\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00237}00237\ \ \ \ \ \textcolor{keyword}{private}\ (\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ GetRandomTarget(List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ possibleTargets)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00238}00238\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ possibleTargets[\_random.Next(possibleTargets.Count)];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00240}00240\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00241}00241\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00242}00242\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00243}00243\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00244}00244\ \textcolor{preprocessor}{\ \ \ \ \#region\ Вспомогательные\ методы}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00254}00254\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ IsValidAndAvailable(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ targets,\ GameBoard\ board)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00255}00255\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00256}00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x\ >=\ 0\ \&\&\ x\ <\ board.Size\ \&\&\ y\ >=\ 0\ \&\&\ y\ <\ board.Size\ \&\&}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9}{Grid}}[x,\ y]\ ==\ CellState.Empty\ ||\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_a5735210e2257d5bb8e4912e35d2511c9}{Grid}}[x,\ y]\ ==\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{CellState}}.Ship)\ \&\&}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets.Contains((x,\ y));}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00259}00259\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00268}00268\ \ \ \ \ \textcolor{keyword}{private}\ List<(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)>\ GetNeighbors(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ GameBoard\ board)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00269}00269\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00270}00270\ \ \ \ \ \ \ \ \ var\ neighbors\ =\ \textcolor{keyword}{new}\ List<(int\ x,\ int\ y)>();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00271}00271\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}[][]\ directions\ =\ \{\ [-\/1,\ 0],\ [1,\ 0],\ [0,\ -\/1],\ [0,\ 1]\ \};\ \textcolor{comment}{//\ 4\ стороны}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00273}00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ dir\ \textcolor{keywordflow}{in}\ directions)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00274}00274\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nx\ =\ x\ +\ dir[0];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ny\ =\ y\ +\ dir[1];}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nx\ >=\ 0\ \&\&\ nx\ <\ board.Size\ \&\&\ ny\ \ >=\ 0\ \&\&\ ny\ <\ board.\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board_ace9b0a30188edb3b121f6012c70b55d1}{Size}})}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighbors.Add((nx,\ ny));}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00279}00279\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00281}00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ neighbors;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00282}00282\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00283}00283\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00284}00284\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00289}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_afca5136a32749d5b289008e5555b1ef7}{00289}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_afca5136a32749d5b289008e5555b1ef7}{Reset}}()}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00290}00290\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00291}00291\ \ \ \ \ \ \ \ \ \_lastHits.Clear();}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00292}00292\ \ \ \ \ \ \ \ \ \_lastHitDirection\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00293}00293\ \ \ \ \ \ \ \ \ \_initialHit\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00294}00294\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00295}00295\ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00300}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{00300}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a3134d3d7ad8b6070d32f5f65dd6b00b6}{BotTurnResult}}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00301}00301\ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00302}00302\ \textcolor{preprocessor}{\ \ \ \ \#region\ Поля\ и\ свойства}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00304}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a911baa85fa893446159f6ba7a0d5cbd5}{00304}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a911baa85fa893446159f6ba7a0d5cbd5}{ContinueTurn}}\ \{\ \textcolor{keyword}{get};\ \}\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00306}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a273042ea37f20d7d2eb17ee14838f421}{00306}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a273042ea37f20d7d2eb17ee14838f421}{IsPlayerTurn}}\ \{\ \textcolor{keyword}{get};\ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00308}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a5103aa395d99b67e5519aa436e80534a}{00308}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a5103aa395d99b67e5519aa436e80534a}{GameOver}}\ \{\ \textcolor{keyword}{get};\ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00309}00309\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00317}\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a3134d3d7ad8b6070d32f5f65dd6b00b6}{00317}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a3134d3d7ad8b6070d32f5f65dd6b00b6}{BotTurnResult}}(\textcolor{keywordtype}{bool}\ continueTurn,\ \textcolor{keywordtype}{bool}\ isPlayerTurn,\ \textcolor{keywordtype}{bool}\ gameOver)}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00318}00318\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00319}00319\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a911baa85fa893446159f6ba7a0d5cbd5}{ContinueTurn}}\ =\ continueTurn;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00320}00320\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a273042ea37f20d7d2eb17ee14838f421}{IsPlayerTurn}}\ =\ isPlayerTurn;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00321}00321\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result_a5103aa395d99b67e5519aa436e80534a}{GameOver}}\ =\ gameOver;}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00322}00322\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bot_logic_8cs_source_l00323}00323\ \}}
+
+\end{DoxyCode}

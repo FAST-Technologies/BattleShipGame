@@ -1,0 +1,88 @@
+\doxysection{Battle\+Ship\+Game.\+Server\+Logic.\+Server\+Message Class Reference}
+\hypertarget{class_battle_ship_game_1_1_server_logic_1_1_server_message}{}\label{class_battle_ship_game_1_1_server_logic_1_1_server_message}\index{BattleShipGame.ServerLogic.ServerMessage@{BattleShipGame.ServerLogic.ServerMessage}}
+
+
+Представляет сообщение, отправляемое клиенту.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override string \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_a9027403ef873f7029936f884b216b974}{To\+String}} ()
+\begin{DoxyCompactList}\small\item\em Сериализует сообщение в строковый формат протокола. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+required string \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_ac4dae1358cd1d205491ddea8ef5b1512}{Type}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Тип сообщения (команда). \end{DoxyCompactList}\item 
+Dictionary$<$ string, string $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_a20d5927927cd84d7e926269ffb5971a1}{Data}} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Данные сообщения в формате ключ-\/значение. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Представляет сообщение, отправляемое клиенту. 
+
+Сериализуется в строковый формат\+: "{}\+TYPE\+:key1=value1;key2=value2\textbackslash{}n"{}. 
+
+Definition at line \mbox{\hyperlink{_server_message_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_server_message_8cs_source}{Server\+Message.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_server_message_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_server_message_a9027403ef873f7029936f884b216b974}\index{BattleShipGame.ServerLogic.ServerMessage@{BattleShipGame.ServerLogic.ServerMessage}!ToString@{ToString}}
+\index{ToString@{ToString}!BattleShipGame.ServerLogic.ServerMessage@{BattleShipGame.ServerLogic.ServerMessage}}
+\doxysubsubsection{\texorpdfstring{ToString()}{ToString()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_server_message_a9027403ef873f7029936f884b216b974} 
+override string Battle\+Ship\+Game.\+Server\+Logic.\+Server\+Message.\+To\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Сериализует сообщение в строковый формат протокола. 
+
+\begin{DoxyReturn}{Returns}
+Строка в формате "{}\+TYPE\+:key1=value1;key2=value2\textbackslash{}n"{}.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_server_message_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_server_message_8cs_source}{Server\+Message.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_server_message_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_server_message_a20d5927927cd84d7e926269ffb5971a1}\index{BattleShipGame.ServerLogic.ServerMessage@{BattleShipGame.ServerLogic.ServerMessage}!Data@{Data}}
+\index{Data@{Data}!BattleShipGame.ServerLogic.ServerMessage@{BattleShipGame.ServerLogic.ServerMessage}}
+\doxysubsubsection{\texorpdfstring{Data}{Data}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_server_message_a20d5927927cd84d7e926269ffb5971a1} 
+Dictionary$<$string, string$>$ Battle\+Ship\+Game.\+Server\+Logic.\+Server\+Message.\+Data = new()\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Данные сообщения в формате ключ-\/значение. 
+
+
+
+Definition at line \mbox{\hyperlink{_server_message_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_server_message_8cs_source}{Server\+Message.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_server_message_ac4dae1358cd1d205491ddea8ef5b1512}\index{BattleShipGame.ServerLogic.ServerMessage@{BattleShipGame.ServerLogic.ServerMessage}!Type@{Type}}
+\index{Type@{Type}!BattleShipGame.ServerLogic.ServerMessage@{BattleShipGame.ServerLogic.ServerMessage}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_server_message_ac4dae1358cd1d205491ddea8ef5b1512} 
+required string Battle\+Ship\+Game.\+Server\+Logic.\+Server\+Message.\+Type\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Тип сообщения (команда). 
+
+
+
+Definition at line \mbox{\hyperlink{_server_message_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_server_message_8cs_source}{Server\+Message.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Logic/\mbox{\hyperlink{_server_message_8cs}{Server\+Message.\+cs}}\end{DoxyCompactItemize}

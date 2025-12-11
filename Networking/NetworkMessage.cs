@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BattleShipGame2.Networking;
+namespace BattleShipGame.Networking;
 
 /// <summary>
 /// Представляет сетевое сообщение, передаваемое между клиентом и сервером.

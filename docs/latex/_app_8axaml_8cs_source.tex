@@ -1,0 +1,89 @@
+\doxysection{App.\+axaml.\+cs}
+\hypertarget{_app_8axaml_8cs_source}{}\label{_app_8axaml_8cs_source}\mbox{\hyperlink{_app_8axaml_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }Avalonia;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }Avalonia.Controls.ApplicationLifetimes;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }Avalonia.Data.Core.Plugins;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }Avalonia.Markup.Xaml;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_views}{BattleShipGame.Views}};}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00008}00008\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_server_logic}{BattleShipGame.ServerLogic}};}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00009}00009\ \textcolor{keyword}{using\ }Avalonia.Controls;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00010}00010\ \textcolor{keyword}{using\ }Avalonia.Platform;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00011}00011\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_view_models}{BattleShipGame.ViewModels}};}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00012}00012\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00013}00013\ \textcolor{keyword}{using\ }Avalonia.Threading;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00015}\mbox{\hyperlink{namespace_battle_ship_game}{00015}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game}{BattleShipGame}};}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00021}\mbox{\hyperlink{class_battle_ship_game_1_1_app}{00021}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{partial\ class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_app}{App}}\ :\ Application}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00022}00022\ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{private}\ GameServer?\ \_gameServer;\ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00024}00024\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00028}\mbox{\hyperlink{class_battle_ship_game_1_1_app_ac43db17a2c9ad92cd17018ae2a812025}{00028}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_app_ac43db17a2c9ad92cd17018ae2a812025}{Initialize}}()}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ AvaloniaXamlLoader.Load(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00037}\mbox{\hyperlink{class_battle_ship_game_1_1_app_aeba774db64f587db4966f1115895e6b9}{00037}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ async\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_app_aeba774db64f587db4966f1115895e6b9}{OnFrameworkInitializationCompleted}}()}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00038}00038\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Запуск\ игрового\ сервера\ на\ порту\ 8889}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \_gameServer\ =\ \textcolor{keyword}{new}\ GameServer(8889);}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \_\ =\ \_gameServer.StartAsync();\ \textcolor{comment}{//\ Запуск\ в\ фоновом\ режиме}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ApplicationLifetime\ is\ IClassicDesktopStyleApplicationLifetime\ desktop)}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ desktop.ShutdownRequested\ +=\ OnShutdownRequested;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ DisableAvaloniaDataAnnotationValidation();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Важно:\ Сначала\ показываем\ окно\ пустым}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ var\ mainWindow\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_main_window}{MainWindow}}();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ desktop.MainWindow\ =\ mainWindow;}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ desktop.MainWindow.Icon\ =\ \textcolor{keyword}{new}\ WindowIcon(}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AssetLoader.Open(\textcolor{keyword}{new}\ Uri(\textcolor{stringliteral}{"{}avares://BattleShipGame/Assets/BattleShipGame.ico"{}}))}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Показываем\ окно\ (но\ оно\ будет\ пустым)}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ desktop.MainWindow.Show();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Даем\ время\ окну\ инициализироваться}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ await\ Task.Delay(100);}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Только\ теперь\ устанавливаем\ DataContext\ и\ запускаем\ загрузку}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ mainWindow.DataContext\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_battle_ship_game_1_1_view_models_1_1_main_window_view_model}{MainWindowViewModel}}();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ждем\ пока\ ViewModel\ установится}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ await\ Task.Delay(50);}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Запускаем\ загрузочный\ экран\ через\ ViewModel}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mainWindow.DataContext\ is\ \mbox{\hyperlink{class_battle_ship_game_1_1_view_models_1_1_main_window_view_model}{MainWindowViewModel}}\ viewModel)}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ viewModel.ShowLoadingScreen();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Запускаем\ асинхронную\ загрузку\ в\ фоне}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\ =\ viewModel.SimulateLoadingAsync().ContinueWith(t\ =>}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ После\ загрузки\ показываем\ главное\ меню}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dispatcher.UIThread.Post(()\ =>\ viewModel.ShowMainMenu());}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ TaskScheduler.FromCurrentSynchronizationContext());}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ base.OnFrameworkInitializationCompleted();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00080}00080\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00088}00088\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ DisableAvaloniaDataAnnotationValidation()}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00089}00089\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ an\ array\ of\ plugins\ to\ remove}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ var\ dataValidationPluginsToRemove\ =}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ plugin\ \textcolor{keywordflow}{in}\ dataValidationPluginsToRemove)}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ BindingPlugins.DataValidators.Remove(plugin);}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00095}00095\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00096}00096\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00103}00103\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ OnShutdownRequested(\textcolor{keywordtype}{object}\ sender,\ ShutdownRequestedEventArgs\ e)}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00104}00104\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \_gameServer?.Stop();}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_app_8axaml_8cs_source_l00107}00107\ \}}
+
+\end{DoxyCode}

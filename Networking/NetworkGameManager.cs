@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using BattleShipGame2.Models;
+using BattleShipGame.Models2;
 
-namespace BattleShipGame2.Networking;
+namespace BattleShipGame.Networking;
 
 public class NetworkGameManager
 {
@@ -75,7 +75,6 @@ public class NetworkGameManager
     public async Task<(bool success, string errorMessage)> ConnectToServer(string hostname, int port, string playerName)
     {
         _playerName = playerName;
-        // _chatManager = new ChatManager(_networkClient, _playerName);
         
         try
         {
@@ -102,6 +101,10 @@ public class NetworkGameManager
         }
     }
     
+    /// <summary>
+    /// Уствановка чатового менеджера.
+    /// </summary>
+    /// <param name="chatManager">Текущий менеджер.</param>
     public void SetChatManager(ChatManager chatManager)
     {
         _chatManager = chatManager;

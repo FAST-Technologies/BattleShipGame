@@ -1,0 +1,51 @@
+\doxysection{Network\+Game\+Over\+Window.\+axaml.\+cs}
+\hypertarget{_network_game_over_window_8axaml_8cs_source}{}\label{_network_game_over_window_8axaml_8cs_source}\index{Views/NetworkGameOverWindow.axaml.cs@{Views/NetworkGameOverWindow.axaml.cs}}
+\mbox{\hyperlink{_network_game_over_window_8axaml_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }Avalonia.Controls;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00003}00003\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_views}{BattleShipGame.Views}};}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00008}\mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50b}{00008}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50b}{NetworkGameOverResult}}}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00011}\mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50bae9912f52f90e87b352d3e0790a669e68}{00011}}\ \ \ \ \ \mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50bae9912f52f90e87b352d3e0790a669e68}{NewOnlineGame}},}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00013}\mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50baad1111b48f98329333237912fc3b371b}{00013}}\ \ \ \ \ \mbox{\hyperlink{namespace_battle_ship_game_1_1_views_aaab1d074da5572553e0895eb5c6bbea2aad1111b48f98329333237912fc3b371b}{MainMenu}}}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00014}00014\ \}}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00023}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window}{00023}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{partial\ class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a3f84fc695e18b3d2d157614957b65a96}{NetworkGameOverWindow}}\ :\ Window}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00024}00024\ \{}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00028}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_ab98dd0e5db4476c6ba7612af310b9706}{00028}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50b}{NetworkGameOverResult}}?\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_ab98dd0e5db4476c6ba7612af310b9706}{Result}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{private}\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00029}00029\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00033}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a662bf772684108c04d44b401569a3bcd}{00033}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a662bf772684108c04d44b401569a3bcd}{IsWin}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00034}00034\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00038}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a5645b51a86c40829cf9bb710c1827cad}{00038}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a5645b51a86c40829cf9bb710c1827cad}{WinnerName}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}\ =\ \textcolor{keywordtype}{string}.Empty;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00039}00039\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00044}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a3f84fc695e18b3d2d157614957b65a96}{00044}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a3f84fc695e18b3d2d157614957b65a96}{NetworkGameOverWindow}}()}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ InitializeComponent();}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ var\ resultText\ =\ NetworkGameOverResultText;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ var\ winnerText\ =\ NetworkGameOverWinnerText;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ var\ newGameButton\ =\ NetworkGameOverNewGameButton;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ var\ menuButton\ =\ NetworkGameOverMenuButton;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ Opened\ +=\ (s,\ e)\ =>}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ resultText.Text\ =\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a662bf772684108c04d44b401569a3bcd}{IsWin}}\ ?\ \textcolor{stringliteral}{"{}🎉\ ПОБЕДА!\ 🎉"{}}\ :\ \textcolor{stringliteral}{"{}💀\ ПОРАЖЕНИЕ\ 💀"{}};}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ winnerText.Text\ =\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_a662bf772684108c04d44b401569a3bcd}{IsWin}}\ ?\ \textcolor{stringliteral}{"{}Вы\ потопили\ весь\ флот\ противника!"{}}\ :\ \$\textcolor{stringliteral}{"{}Победитель:\ \{WinnerName\}"{}};}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Обработчики\ кнопок}}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ newGameButton.Click\ +=\ (s,\ e)\ =>\ }
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_ab98dd0e5db4476c6ba7612af310b9706}{Result}}\ =\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50b}{NetworkGameOverResult}}.NewOnlineGame;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ Close();}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ menuButton.Click\ +=\ (s,\ e)\ =>\ \{}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_game_over_window_ab98dd0e5db4476c6ba7612af310b9706}{Result}}\ =\ \mbox{\hyperlink{namespace_battle_ship_game_1_1_views_a3b1f96c0d10cbd39062cc70564aad50b}{NetworkGameOverResult}}.MainMenu;}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ Close();}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_game_over_window_8axaml_8cs_source_l00070}00070\ \}}
+
+\end{DoxyCode}

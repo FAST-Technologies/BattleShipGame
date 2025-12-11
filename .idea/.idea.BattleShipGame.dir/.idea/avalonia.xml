@@ -3,10 +3,13 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
-        <entry key="App.axaml" value="BattleShipGame2.csproj" />
-        <entry key="MainWindow.axaml" value="BattleShipGame2.csproj" />
-        <entry key="Styles/GameStyles.axaml" value="BattleShipGame2.csproj" />
-        <entry key="Views/MainWindow.axaml" value="BattleShipGame2.csproj" />
+        <entry key="App.axaml" value="BattleShipGame.csproj" />
+        <entry key="Styles/GameStyles.axaml" value="BattleShipGame.csproj" />
+        <entry key="Views/ConfirmDialogWindow.axaml" value="BattleShipGame.csproj" />
+        <entry key="Views/DifficultyWindow.axaml" value="BattleShipGame.csproj" />
+        <entry key="Views/GameOverWindow.axaml" value="BattleShipGame.csproj" />
+        <entry key="Views/MainWindow.axaml" value="BattleShipGame.csproj" />
+        <entry key="Views/NetworkConnectWindow.axaml" value="BattleShipGame.csproj" />
       </map>
     </option>
   </component>

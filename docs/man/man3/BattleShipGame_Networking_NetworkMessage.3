@@ -1,0 +1,46 @@
+.TH "BattleShipGame.Networking.NetworkMessage" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Networking.NetworkMessage \- Представляет сетевое сообщение, передаваемое между клиентом и сервером\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "required string \fBType\fP\fR [get, set]\fP"
+.br
+.RI "Тип сообщения (команда)\&. Должен соответствовать NetworkProtocol\&.Commands\&. "
+.ti -1c
+.RI "Dictionary< string, string > \fBData\fP = new()\fR [get, set]\fP"
+.br
+.RI "Словарь данных сообщения\&. Содержит дополнительные параметры команды\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Представляет сетевое сообщение, передаваемое между клиентом и сервером\&. 
+
+Сообщение состоит из типа (команды) и набора ключ-значение пар данных\&. Формат сериализации: "Type:key1=value1;key2=value2"\&. 
+.PP
+Definition at line \fB12\fP of file \fBNetworkMessage\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "Dictionary<string, string> BattleShipGame\&.Networking\&.NetworkMessage\&.Data = new()\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Словарь данных сообщения\&. Содержит дополнительные параметры команды\&. Для сообщения "ATTACK" может содержать: {"x": "5", "y": "3"}\&. 
+.PP
+Definition at line \fB25\fP of file \fBNetworkMessage\&.cs\fP\&.
+.SS "required string BattleShipGame\&.Networking\&.NetworkMessage\&.Type\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Тип сообщения (команда)\&. Должен соответствовать NetworkProtocol\&.Commands\&. "ATTACK", "GAME_START", "CHAT_MESSAGE"\&.
+.PP
+Definition at line \fB18\fP of file \fBNetworkMessage\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

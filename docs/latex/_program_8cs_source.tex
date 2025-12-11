@@ -1,0 +1,26 @@
+\doxysection{Program.\+cs}
+\hypertarget{_program_8cs_source}{}\label{_program_8cs_source}\mbox{\hyperlink{_program_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }Avalonia;}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00004}00004\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game}{BattleShipGame}};}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00010}\mbox{\hyperlink{class_battle_ship_game_1_1_program}{00010}}\ \textcolor{keyword}{sealed}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_program}{Program}}}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00018}00018\ \ \ \ \ [STAThread]}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00019}\mbox{\hyperlink{class_battle_ship_game_1_1_program_a6dad752beb4ef337a3f1ad03d3e4f744}{00019}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_ship_game_1_1_program_a6dad752beb4ef337a3f1ad03d3e4f744}{Main}}(\textcolor{keywordtype}{string}[]\ args)}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00020}00020\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Запуск\ с\ поддержкой\ сплеш-\/скрина}}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_program_ab8b0c9c402d694247b88fffcb41ffd37}{BuildAvaloniaApp}}()}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ .StartWithClassicDesktopLifetime(args);}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00030}\mbox{\hyperlink{class_battle_ship_game_1_1_program_ab8b0c9c402d694247b88fffcb41ffd37}{00030}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ AppBuilder\ \mbox{\hyperlink{class_battle_ship_game_1_1_program_ab8b0c9c402d694247b88fffcb41ffd37}{BuildAvaloniaApp}}()}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ =>\ AppBuilder.Configure<\mbox{\hyperlink{class_battle_ship_game_1_1_app}{App}}>()}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ .UsePlatformDetect()}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ .WithInterFont()}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ .LogToTrace();}
+\DoxyCodeLine{\Hypertarget{_program_8cs_source_l00035}00035\ \}}
+
+\end{DoxyCode}

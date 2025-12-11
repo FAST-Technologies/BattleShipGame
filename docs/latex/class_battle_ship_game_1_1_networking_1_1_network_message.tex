@@ -1,0 +1,61 @@
+\doxysection{Battle\+Ship\+Game.\+Networking.\+Network\+Message Class Reference}
+\hypertarget{class_battle_ship_game_1_1_networking_1_1_network_message}{}\label{class_battle_ship_game_1_1_networking_1_1_network_message}\index{BattleShipGame.Networking.NetworkMessage@{BattleShipGame.Networking.NetworkMessage}}
+
+
+Представляет сетевое сообщение, передаваемое между клиентом и сервером.  
+
+
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+required string \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message_a540ac466e953af8d67f81daaba01a112}{Type}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Тип сообщения (команда). Должен соответствовать Network\+Protocol.\+Commands. \end{DoxyCompactList}\item 
+Dictionary$<$ string, string $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message_ac664758a9becc494838f9c63694a09c0}{Data}} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Словарь данных сообщения. Содержит дополнительные параметры команды. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Представляет сетевое сообщение, передаваемое между клиентом и сервером. 
+
+Сообщение состоит из типа (команды) и набора ключ-\/значение пар данных. Формат сериализации\+: "{}\+Type\+:key1=value1;key2=value2"{}. 
+
+Definition at line \mbox{\hyperlink{_network_message_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_network_message_8cs_source}{Network\+Message.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_message_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_message_ac664758a9becc494838f9c63694a09c0}\index{BattleShipGame.Networking.NetworkMessage@{BattleShipGame.Networking.NetworkMessage}!Data@{Data}}
+\index{Data@{Data}!BattleShipGame.Networking.NetworkMessage@{BattleShipGame.Networking.NetworkMessage}}
+\doxysubsubsection{\texorpdfstring{Data}{Data}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_message_ac664758a9becc494838f9c63694a09c0} 
+Dictionary$<$string, string$>$ Battle\+Ship\+Game.\+Networking.\+Network\+Message.\+Data = new()\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Словарь данных сообщения. Содержит дополнительные параметры команды. 
+
+Для сообщения "{}\+ATTACK"{} может содержать\+: \{"{}x"{}\+: "{}5"{}, "{}y"{}\+: "{}3"{}\}. 
+
+Definition at line \mbox{\hyperlink{_network_message_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_network_message_8cs_source}{Network\+Message.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_message_a540ac466e953af8d67f81daaba01a112}\index{BattleShipGame.Networking.NetworkMessage@{BattleShipGame.Networking.NetworkMessage}!Type@{Type}}
+\index{Type@{Type}!BattleShipGame.Networking.NetworkMessage@{BattleShipGame.Networking.NetworkMessage}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_message_a540ac466e953af8d67f81daaba01a112} 
+required string Battle\+Ship\+Game.\+Networking.\+Network\+Message.\+Type\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Тип сообщения (команда). Должен соответствовать Network\+Protocol.\+Commands. 
+
+"{}\+ATTACK"{}, "{}\+GAME\+\_\+\+START"{}, "{}\+CHAT\+\_\+\+MESSAGE"{}.
+
+Definition at line \mbox{\hyperlink{_network_message_8cs_source_l00018}{18}} of file \mbox{\hyperlink{_network_message_8cs_source}{Network\+Message.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Networking/\mbox{\hyperlink{_network_message_8cs}{Network\+Message.\+cs}}\end{DoxyCompactItemize}

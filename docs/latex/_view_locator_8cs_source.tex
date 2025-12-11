@@ -1,0 +1,39 @@
+\doxysection{View\+Locator.\+cs}
+\hypertarget{_view_locator_8cs_source}{}\label{_view_locator_8cs_source}\mbox{\hyperlink{_view_locator_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Diagnostics.CodeAnalysis;}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }Avalonia.Controls;}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }Avalonia.Controls.Templates;}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_view_models}{BattleShipGame.ViewModels}};}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game}{BattleShipGame}};}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00017}00017\ [RequiresUnreferencedCode(}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00018}00018\ \ \ \ \ \textcolor{stringliteral}{"{}Default\ implementation\ of\ ViewLocator\ involves\ reflection\ which\ may\ be\ trimmed\ away."{}},}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00019}00019\ \ \ \ \ Url\ =\ \textcolor{stringliteral}{"{}https://docs.avaloniaui.net/docs/concepts/view-\/locator"{}})]}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00020}\mbox{\hyperlink{class_battle_ship_game_1_1_view_locator}{00020}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_view_locator}{ViewLocator}}\ :\ IDataTemplate}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00021}00021\ \{}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00027}\mbox{\hyperlink{class_battle_ship_game_1_1_view_locator_ade2af4495a7e8611cd666bee9d717dfa}{00027}}\ \ \ \ \ \textcolor{keyword}{public}\ Control?\ \mbox{\hyperlink{class_battle_ship_game_1_1_view_locator_ade2af4495a7e8611cd666bee9d717dfa}{Build}}(\textcolor{keywordtype}{object}?\ param)}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00028}00028\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (param\ is\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ var\ name\ =\ param.GetType().FullName!.Replace(\textcolor{stringliteral}{"{}ViewModel"{}},\ \textcolor{stringliteral}{"{}View"{}},\ StringComparison.Ordinal);}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ var\ type\ =\ Type.GetType(name);}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (Control)Activator.CreateInstance(type)!;}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ View\ не\ найден,\ возвращаем\ текстовый\ блок\ с\ сообщением}}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ TextBlock\ \{\ Text\ =\ \textcolor{stringliteral}{"{}Not\ Found:\ "{}}\ +\ name\ \};}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00048}\mbox{\hyperlink{class_battle_ship_game_1_1_view_locator_a4d4d240d4657b2b4c109accedf969d98}{00048}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_view_locator_a4d4d240d4657b2b4c109accedf969d98}{Match}}(\textcolor{keywordtype}{object}?\ data)}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00049}00049\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data\ is\ \mbox{\hyperlink{class_battle_ship_game_1_1_view_models_1_1_view_model_base}{ViewModelBase}};}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_view_locator_8cs_source_l00052}00052\ \}}
+
+\end{DoxyCode}

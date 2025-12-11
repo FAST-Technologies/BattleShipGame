@@ -1,0 +1,83 @@
+\doxysection{Battle\+Ship\+Game.\+View\+Locator Class Reference}
+\hypertarget{class_battle_ship_game_1_1_view_locator}{}\label{class_battle_ship_game_1_1_view_locator}\index{BattleShipGame.ViewLocator@{BattleShipGame.ViewLocator}}
+
+
+Локатор представлений (View Locator) для паттерна MVVM. Преобразует View\+Model в соответствующий View на основе соглашения об именовании.  
+
+
+Inheritance diagram for Battle\+Ship\+Game.\+View\+Locator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_battle_ship_game_1_1_view_locator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Control? \mbox{\hyperlink{class_battle_ship_game_1_1_view_locator_ade2af4495a7e8611cd666bee9d717dfa}{Build}} (object? param)
+\begin{DoxyCompactList}\small\item\em Создает Control (View) на основе переданного View\+Model. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_view_locator_a4d4d240d4657b2b4c109accedf969d98}{Match}} (object? data)
+\begin{DoxyCompactList}\small\item\em Проверяет, может ли данный Data\+Template обработать переданные данные. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Локатор представлений (View Locator) для паттерна MVVM. Преобразует View\+Model в соответствующий View на основе соглашения об именовании. 
+
+По умолчанию ищет View с тем же именем, что и View\+Model, но с заменой "{}\+View\+Model"{} на "{}\+View"{}. Например\+: \doxylink{class_battle_ship_game_1_1_view_models_1_1_main_window_view_model}{Main\+Window\+View\+Model} → Main\+Window\+View 
+
+Definition at line \mbox{\hyperlink{_view_locator_8cs_source_l00020}{20}} of file \mbox{\hyperlink{_view_locator_8cs_source}{View\+Locator.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_view_locator_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_view_locator_ade2af4495a7e8611cd666bee9d717dfa}\index{BattleShipGame.ViewLocator@{BattleShipGame.ViewLocator}!Build@{Build}}
+\index{Build@{Build}!BattleShipGame.ViewLocator@{BattleShipGame.ViewLocator}}
+\doxysubsubsection{\texorpdfstring{Build()}{Build()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_view_locator_ade2af4495a7e8611cd666bee9d717dfa} 
+Control? Battle\+Ship\+Game.\+View\+Locator.\+Build (\begin{DoxyParamCaption}\item[{object?}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Создает Control (View) на основе переданного View\+Model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & View\+Model, для которого нужно создать View.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Созданный Control или Text\+Block с сообщением об ошибке.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_view_locator_8cs_source_l00027}{27}} of file \mbox{\hyperlink{_view_locator_8cs_source}{View\+Locator.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_view_locator_a4d4d240d4657b2b4c109accedf969d98}\index{BattleShipGame.ViewLocator@{BattleShipGame.ViewLocator}!Match@{Match}}
+\index{Match@{Match}!BattleShipGame.ViewLocator@{BattleShipGame.ViewLocator}}
+\doxysubsubsection{\texorpdfstring{Match()}{Match()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_view_locator_a4d4d240d4657b2b4c109accedf969d98} 
+bool Battle\+Ship\+Game.\+View\+Locator.\+Match (\begin{DoxyParamCaption}\item[{object?}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Проверяет, может ли данный Data\+Template обработать переданные данные. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Данные для проверки (обычно View\+Model).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если данные являются производными от \doxylink{class_battle_ship_game_1_1_view_models_1_1_view_model_base}{View\+Model\+Base}; иначе false.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_view_locator_8cs_source_l00048}{48}} of file \mbox{\hyperlink{_view_locator_8cs_source}{View\+Locator.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_view_locator_8cs}{View\+Locator.\+cs}}\end{DoxyCompactItemize}

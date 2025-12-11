@@ -1,0 +1,69 @@
+.TH "BattleShipGame.ServerLogic.ServerMessage" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.ServerLogic.ServerMessage \- Представляет сообщение, отправляемое клиенту\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "override string \fBToString\fP ()"
+.br
+.RI "Сериализует сообщение в строковый формат протокола\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "required string \fBType\fP\fR [get, set]\fP"
+.br
+.RI "Тип сообщения (команда)\&. "
+.ti -1c
+.RI "Dictionary< string, string > \fBData\fP = new()\fR [get, set]\fP"
+.br
+.RI "Данные сообщения в формате ключ-значение\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Представляет сообщение, отправляемое клиенту\&. 
+
+Сериализуется в строковый формат: "TYPE:key1=value1;key2=value2\\n"\&. 
+.PP
+Definition at line \fB12\fP of file \fBServerMessage\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "override string BattleShipGame\&.ServerLogic\&.ServerMessage\&.ToString ()"
+
+.PP
+Сериализует сообщение в строковый формат протокола\&. 
+.PP
+\fBReturns\fP
+.RS 4
+Строка в формате "TYPE:key1=value1;key2=value2\\n"\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB28\fP of file \fBServerMessage\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "Dictionary<string, string> BattleShipGame\&.ServerLogic\&.ServerMessage\&.Data = new()\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Данные сообщения в формате ключ-значение\&. 
+.PP
+Definition at line \fB22\fP of file \fBServerMessage\&.cs\fP\&.
+.SS "required string BattleShipGame\&.ServerLogic\&.ServerMessage\&.Type\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Тип сообщения (команда)\&. 
+.PP
+Definition at line \fB17\fP of file \fBServerMessage\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

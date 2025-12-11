@@ -1,143 +1,90 @@
-/*// App.axaml.cs - ИСПРАВЛЕННАЯ версия
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core.Plugins;
-using Avalonia.Markup.Xaml;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using BattleShipGame2.Services;
-using BattleShipGame2.ViewModels;
-
-namespace BattleShipGame2;
-
-public partial class App : Application
-{
-    private IServiceProvider? _serviceProvider;
-
-    public override void Initialize()
-    {
-        Console.WriteLine("App.Initialize() called");
-        AvaloniaXamlLoader.Load(this);
-    }
-
-    public override void OnFrameworkInitializationCompleted()
-    {
-        Console.WriteLine("App.OnFrameworkInitializationCompleted() called");
-
-        try
-        {
-            // Настройка Dependency Injection
-            var services = new ServiceCollection();
-            ConfigureServices(services);
-            _serviceProvider = services.BuildServiceProvider();
-            Console.WriteLine("ServiceProvider built successfully");
-
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                Console.WriteLine("Desktop lifetime detected");
-
-                DisableAvaloniaDataAnnotationValidation();
-
-                // Создаем главное окно
-                Console.WriteLine("Creating MainWindow...");
-                var mainWindow = new Views.MainWindow();
-                Console.WriteLine($"MainWindow created: {mainWindow}");
-
-                // Устанавливаем DataContext
-                var mainWindowViewModel = _serviceProvider.GetRequiredService<ViewModels.MainWindowViewModel>();
-                mainWindow.DataContext = mainWindowViewModel;
-                Console.WriteLine($"DataContext set: {mainWindow.DataContext}");
-
-                desktop.MainWindow = mainWindow;
-                Console.WriteLine("MainWindow assigned to desktop");
-
-                // Подписываемся на события для отладки
-                mainWindow.Opened += (s, e) => Console.WriteLine("MainWindow opened successfully!");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Fatal error: {ex}");
-            Console.WriteLine($"Stack trace: {ex.StackTrace}");
-            throw;
-        }
-
-        base.OnFrameworkInitializationCompleted();
-        Console.WriteLine("Base.OnFrameworkInitializationCompleted() called");
-    }
-
-    private void ConfigureServices(IServiceCollection services)
-    {
-        Console.WriteLine("Configuring services...");
-
-        // Регистрируем сервисы
-        services.AddSingleton<IGameService, GameService>();
-        Console.WriteLine("GameService registered");
-
-        // NavigationService должен быть Singleton
-        services.AddSingleton<INavigationService, NavigationService>();
-        Console.WriteLine("NavigationService registered");
-
-        // ViewModels (Transient или Scoped)
-        services.AddTransient<MenuViewModel>();
-        services.AddTransient<DifficultySelectionViewModel>();
-        services.AddTransient<NetworkConnectionViewModel>();
-        services.AddTransient<ShipPlacementViewModel>();
-        services.AddTransient<GameViewModel>();
-
-        // MainWindowViewModel должен быть Singleton
-        services.AddSingleton<MainWindowViewModel>();
-
-        Console.WriteLine("All services configured");
-    }
-
-    private void DisableAvaloniaDataAnnotationValidation()
-    {
-        var dataValidationPluginsToRemove =
-            BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
-
-        foreach (var plugin in dataValidationPluginsToRemove)
-        {
-            BindingPlugins.DataValidators.Remove(plugin);
-        }
-    }
-}*/
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
-using BattleShipGame2.Views;
-using BattleShipGame2.ServerLogic;
+using BattleShipGame.Views;
+using BattleShipGame.ServerLogic;
 using Avalonia.Controls;
 using Avalonia.Platform;
-using System;
+using BattleShipGame.ViewModels;
+using System.Threading.Tasks;
+using Avalonia.Threading;
 
-namespace BattleShipGame2;
+namespace BattleShipGame;
 
+/// <summary>
+/// Основной класс приложения Avalonia.
+/// Отвечает за инициализацию приложения, создание главного окна и управление жизненным циклом.
+/// </summary>
 public partial class App : Application
 {
-    private GameServer? _gameServer;
+    private GameServer? _gameServer; /// <summary>Инициализация игрового сервера.</summary>
+    
+    /// <summary>
+    /// Инициализирует приложение, загружая XAML-ресурсы.
+    /// </summary>
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    /// <summary>
+    /// Вызывается после завершения инициализации фреймворка Avalonia.
+    /// Создает и запускает игровой сервер, настраивает главное окно.
+    /// </summary>
+    public override async void OnFrameworkInitializationCompleted()
     {
-        _gameServer = new GameServer(8889); // Используем порт 8889 по умолчанию
-        _ = _gameServer.StartAsync(); // Запускаем в фоне
+        // Запуск игрового сервера на порту 8889
+        _gameServer = new GameServer(8889);
+        _ = _gameServer.StartAsync(); // Запуск в фоновом режиме
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.ShutdownRequested += OnShutdownRequested;
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow();
-            desktop.MainWindow.Icon = new WindowIcon(AssetLoader.Open(new Uri("avares://BattleShipGame2/Assets/BattleShipGame.ico")));
+            
+            // Важно: Сначала показываем окно пустым
+            var mainWindow = new MainWindow();
+            desktop.MainWindow = mainWindow;
+            desktop.MainWindow.Icon = new WindowIcon(
+                AssetLoader.Open(new Uri("avares://BattleShipGame/Assets/BattleShipGame.ico"))
+            );
+            
+            // Показываем окно (но оно будет пустым)
+            desktop.MainWindow.Show();
+            
+            // Даем время окну инициализироваться
+            await Task.Delay(100);
+            
+            // Только теперь устанавливаем DataContext и запускаем загрузку
+            mainWindow.DataContext = new MainWindowViewModel();
+            
+            // Ждем пока ViewModel установится
+            await Task.Delay(50);
+            
+            // Запускаем загрузочный экран через ViewModel
+            if (mainWindow.DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.ShowLoadingScreen();
+                // Запускаем асинхронную загрузку в фоне
+                _ = viewModel.SimulateLoadingAsync().ContinueWith(t =>
+                {
+                    // После загрузки показываем главное меню
+                    Dispatcher.UIThread.Post(() => viewModel.ShowMainMenu());
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
         }
         base.OnFrameworkInitializationCompleted();
     }
 
+    /// <summary>
+    /// Отключает валидацию DataAnnotations в Avalonia для совместимости.
+    /// </summary>
+    /// <remarks>
+    /// Это необходимо для предотвращения конфликтов с CommunityToolkit.Mvvm.
+    /// </remarks>
     private void DisableAvaloniaDataAnnotationValidation()
     {
         // Get an array of plugins to remove
@@ -147,6 +94,12 @@ public partial class App : Application
             BindingPlugins.DataValidators.Remove(plugin);
     }
     
+    /// <summary>
+    /// Обработчик события запроса завершения работы приложения.
+    /// Останавливает игровой сервер перед завершением.
+    /// </summary>
+    /// <param name="sender">Источник события.</param>
+    /// <param name="e">Аргументы события завершения работы.</param>
     private void OnShutdownRequested(object sender, ShutdownRequestedEventArgs e)
     {
         _gameServer?.Stop();

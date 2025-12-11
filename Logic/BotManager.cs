@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BattleShipGame2.Models;
+using BattleShipGame.Models2;
 
-namespace BattleShipGame2.Logic;
+namespace BattleShipGame.Logic;
 
 /// <summary>
 /// Представляет класс для управления ботами.

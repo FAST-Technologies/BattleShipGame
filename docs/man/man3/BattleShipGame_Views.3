@@ -1,0 +1,91 @@
+.TH "BattleShipGame.Views" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Views
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBChatControl\fP"
+.br
+.RI "Пользовательский контрол для отображения и управления чатом в сетевой игре\&. Обеспечивает отправку и получение сообщений, форматирование времени и управление UI чата\&. "
+.ti -1c
+.RI "class \fBConfirmDialogWindow\fP"
+.br
+.RI "Диалоговое окно подтверждения действия с выбором Да/Нет\&. Используется для подтверждения критических действий (выход из игры, новая игра и т\&.д\&.)\&. "
+.ti -1c
+.RI "class \fBDifficultyWindow\fP"
+.br
+.RI "Окно выбора уровня сложности бота для режима игры против компьютера\&. Предоставляет выбор между тремя уровнями сложности: Легкий, Средний, Сложный\&. "
+.ti -1c
+.RI "class \fBGameOverWindow\fP"
+.br
+.RI "Диалоговое окно, отображаемое при завершении игры в локальном режиме\&. Показывает результат игры и предоставляет опции для дальнейших действий\&. "
+.ti -1c
+.RI "class \fBMainWindow\fP"
+.br
+.RI "Главное окно игры «Морской бой»\&. Поддерживает три режима: • против компьютера (с тремя уровнями сложности), • локальная игра на двоих, • сетевая игра через собственный сервер\&. "
+.ti -1c
+.RI "class \fBNetworkConnectWindow\fP"
+.br
+.RI "Окно подключения к сетевой игре\&. Позволяет пользователю ввести имя, адрес сервера и порт для подключения\&. "
+.ti -1c
+.RI "class \fBNetworkGameOverWindow\fP"
+.br
+.RI "Диалоговое окно, отображаемое при завершении сетевой игры\&. Показывает результат игры и предоставляет опции для дальнейших действий\&. "
+.ti -1c
+.RI "class \fBOpponentDisconnectWindow\fP"
+.br
+.RI "Диалоговое окно уведомления о потере соединения с соперником\&. Используется для информирования игрока о разрыве сетевого соединения\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBGameOverResult\fP { \fBNewGame\fP, \fBMainMenu\fP }"
+.br
+.RI "Перечисление возможных результатов после завершения игры в локальном режиме\&. "
+.ti -1c
+.RI "enum \fBNetworkGameOverResult\fP { \fBNewOnlineGame\fP, \fBMainMenu\fP }"
+.br
+.RI "Перечисление возможных результатов после завершения сетевой игры\&. "
+.in -1c
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBBattleShipGame\&.Views\&.GameOverResult\fP"
+
+.PP
+Перечисление возможных результатов после завершения игры в локальном режиме\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BINewGame \fP
+Начать новую игру\&. 
+.TP
+\f(BIMainMenu \fP
+Вернуться в главное меню\&. 
+.PP
+Definition at line \fB8\fP of file \fBGameOverWindow\&.axaml\&.cs\fP\&.
+.SS "enum \fBBattleShipGame\&.Views\&.NetworkGameOverResult\fP"
+
+.PP
+Перечисление возможных результатов после завершения сетевой игры\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BINewOnlineGame \fP
+Начать новую сетевую игру\&. 
+.TP
+\f(BIMainMenu \fP
+Вернуться в главное меню\&. 
+.PP
+Definition at line \fB8\fP of file \fBNetworkGameOverWindow\&.axaml\&.cs\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

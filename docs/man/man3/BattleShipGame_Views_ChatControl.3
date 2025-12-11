@@ -1,0 +1,69 @@
+.TH "BattleShipGame.Views.ChatControl" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Views.ChatControl \- Пользовательский контрол для отображения и управления чатом в сетевой игре\&. Обеспечивает отправку и получение сообщений, форматирование времени и управление UI чата\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits UserControl\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBChatControl\fP ()"
+.br
+.RI "Инициализация менеджера чатов\&. "
+.ti -1c
+.RI "void \fBSetChatManager\fP (\fBChatManager\fP chatManager)"
+.br
+.RI "Устанавливает \fBChatManager\fP для взаимодействия с сетью\&. Подписывается на события добавления сообщений\&. "
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.RI "Очищает историю сообщений чата\&. Удаляет все сообщения из коллекции и очищает UI\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Пользовательский контрол для отображения и управления чатом в сетевой игре\&. Обеспечивает отправку и получение сообщений, форматирование времени и управление UI чата\&. 
+
+Контрол используется только в сетевом режиме игры для общения между игроками\&. Автоматически подключается к \fBChatManager\fP для обработки сетевых сообщений\&. 
+.PP
+Definition at line \fB18\fP of file \fBChatControl\&.axaml\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.Views\&.ChatControl\&.ChatControl ()"
+
+.PP
+Инициализация менеджера чатов\&. Инициализирует новый экземпляр класса \fBChatControl\fP\&. 
+.PP
+Definition at line \fB26\fP of file \fBChatControl\&.axaml\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void BattleShipGame\&.Views\&.ChatControl\&.Clear ()"
+
+.PP
+Очищает историю сообщений чата\&. Удаляет все сообщения из коллекции и очищает UI\&. 
+.PP
+Definition at line \fB204\fP of file \fBChatControl\&.axaml\&.cs\fP\&.
+.SS "void BattleShipGame\&.Views\&.ChatControl\&.SetChatManager (\fBChatManager\fP chatManager)"
+
+.PP
+Устанавливает \fBChatManager\fP для взаимодействия с сетью\&. Подписывается на события добавления сообщений\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIchatManager\fP Менеджер чата для установки соединения\&.
+.RE
+.PP
+
+.PP
+Должен быть вызван перед использованием контрола для работы с сетевым чатом\&. 
+.PP
+Definition at line \fB53\fP of file \fBChatControl\&.axaml\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

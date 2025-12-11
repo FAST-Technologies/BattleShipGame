@@ -1,0 +1,111 @@
+.TH "BattleShipGame.Models2" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Models2
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBGameBoard\fP"
+.br
+.RI "Игровое поле для Морского Боя\&. "
+.ti -1c
+.RI "class \fBShip\fP"
+.br
+.RI "Представляет корабль в игре Морской Бой\&. "
+.ti -1c
+.RI "class \fBSoundManager\fP"
+.br
+.RI "Класс \fRSoundManager\fP предоставляет методы для воспроизведения звуковых эффектов в игре "Морской бой"\&. Звуки генерируются программно как синусоидальные тона и воспроизводятся через библиотеку NAudio\&. Все методы являются статическими и потокобезопасными благодаря асинхронному воспроизведению в отдельных задачах\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBBotDifficulty\fP { \fBEasy\fP, \fBMedium\fP, \fBHard\fP }"
+.br
+.RI "Уровни сложности компьютерного противника\&. "
+.ti -1c
+.RI "enum \fBCellState\fP { \fBEmpty\fP, \fBShip\fP, \fBMiss\fP, \fBHit\fP, \fBSunk\fP, \fBBlocked\fP }"
+.br
+.RI "Состояния клетки игрового поля\&. "
+.ti -1c
+.RI "enum \fBGameMode\fP { \fBMenu\fP, \fBPlacingShips\fP, \fBVsComputer\fP, \fBVsPlayer\fP }"
+.br
+.RI "Режимы игры\&. "
+.in -1c
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBBattleShipGame\&.Models2\&.BotDifficulty\fP"
+
+.PP
+Уровни сложности компьютерного противника\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIEasy \fP
+Случайные выстрелы\&. 
+.TP
+\f(BIMedium \fP
+Случайные выстрелы + приоритет соседним клеткам после попадания\&. 
+.TP
+\f(BIHard \fP
+Продвинутый алгоритм с анализом вероятностей\&. 
+.PP
+Definition at line \fB6\fP of file \fBBotDifficulty\&.cs\fP\&.
+.SS "enum \fBBattleShipGame\&.Models2\&.CellState\fP"
+
+.PP
+Состояния клетки игрового поля\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIEmpty \fP
+Пустая клетка\&. 
+.TP
+\f(BIShip \fP
+Клетка с кораблем\&. 
+.TP
+\f(BIMiss \fP
+Промах\&. 
+.TP
+\f(BIHit \fP
+Попадание\&. 
+.TP
+\f(BISunk \fP
+Уничтоженный корабль\&. 
+.TP
+\f(BIBlocked \fP
+Заблокированная клетка (вокруг уничтоженного корабля)\&. 
+.PP
+Definition at line \fB6\fP of file \fBCellState\&.cs\fP\&.
+.SS "enum \fBBattleShipGame\&.Models2\&.GameMode\fP"
+
+.PP
+Режимы игры\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIMenu \fP
+Главное меню\&. 
+.TP
+\f(BIPlacingShips \fP
+Расстановка кораблей\&. 
+.TP
+\f(BIVsComputer \fP
+Игра против компьютера\&. 
+.TP
+\f(BIVsPlayer \fP
+Игра против другого игрока\&. 
+.PP
+Definition at line \fB6\fP of file \fBGameMode\&.cs\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

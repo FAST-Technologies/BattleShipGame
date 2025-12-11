@@ -1,13 +1,32 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 
-namespace BattleShipGame2.Views;
+namespace BattleShipGame.Views;
 
+/// <summary>
+/// Окно подключения к сетевой игре.
+/// Позволяет пользователю ввести имя, адрес сервера и порт для подключения.
+/// </summary>
 public partial class NetworkConnectWindow : Window
 {
+    /// <summary>
+    /// Получает флаг успешного подключения.
+    /// </summary>
     public bool Success { get; private set; }
+    
+    /// <summary>
+    /// Получает введенное имя хоста сервера.
+    /// </summary>
     public string Hostname { get; private set; } = string.Empty;
+    
+    /// <summary>
+    /// Получает введенный порт сервера.
+    /// </summary>
     public int Port { get; private set; }
+    
+    /// <summary>
+    /// Получает введенное имя игрока.
+    /// </summary>
     public string PlayerName { get; private set; } = string.Empty;
     
     private TextBox _playerNameInput;
@@ -15,11 +34,14 @@ public partial class NetworkConnectWindow : Window
     private TextBox _serverPortInput;
     private TextBlock _errorText;
     
+    /// <summary>
+    /// Инициализирует новый экземпляр класса NetworkConnectWindow.
+    /// Настраивает обработчики событий для кнопок подключения и возврата.
+    /// </summary>
     public NetworkConnectWindow()
     {
         InitializeComponent();
         
-        // Находим элементы
         _playerNameInput = PlayerNameInput;
         _serverHostInput = ServerHostInput;
         _serverPortInput = ServerPortInput;
@@ -32,6 +54,12 @@ public partial class NetworkConnectWindow : Window
         backButton.Click += (s, e) => Close();
     }
     
+    /// <summary>
+    /// Обработчик клика по кнопке "Подключиться".
+    /// Проверяет введенные данные и закрывает окно с результатом.
+    /// </summary>
+    /// <param name="sender">Источник события.</param>
+    /// <param name="e">Аргументы события маршрутизации.</param>
     private async void OnConnectClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (ValidateInput())
@@ -44,6 +72,10 @@ public partial class NetworkConnectWindow : Window
         }
     }
     
+    /// <summary>
+    /// Проверяет корректность введенных пользователем данных.
+    /// </summary>
+    /// <returns>true, если данные корректны; иначе false.</returns>
     private bool ValidateInput()
     {
         _errorText.IsVisible = false;

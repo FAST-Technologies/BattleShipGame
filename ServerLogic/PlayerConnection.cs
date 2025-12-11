@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Net.Sockets;
-using BattleShipGame2.Models;
+using BattleShipGame.Models2;
 
-namespace BattleShipGame2.ServerLogic;
+namespace BattleShipGame.ServerLogic;
 
 /// <summary>
 /// Представляет подключение игрока к серверу.

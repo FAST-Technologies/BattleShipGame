@@ -1,0 +1,46 @@
+.TH "BattleShipGame.ServerLogic.ClientMessage" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.ServerLogic.ClientMessage \- Представляет сообщение, полученное от клиента\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "required string \fBType\fP\fR [get, set]\fP"
+.br
+.RI "Тип сообщения (команда)\&. "
+.ti -1c
+.RI "Dictionary< string, string > \fBData\fP = new()\fR [get, set]\fP"
+.br
+.RI "Данные сообщения в формате ключ-значение\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Представляет сообщение, полученное от клиента\&. 
+
+Используется для десериализации входящих сообщений от клиентов\&. Соответствует формату \fBNetworkMessage\fP на стороне клиента\&. 
+.PP
+Definition at line \fB12\fP of file \fBClientMessage\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "Dictionary<string, string> BattleShipGame\&.ServerLogic\&.ClientMessage\&.Data = new()\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Данные сообщения в формате ключ-значение\&. 
+.PP
+Definition at line \fB21\fP of file \fBClientMessage\&.cs\fP\&.
+.SS "required string BattleShipGame\&.ServerLogic\&.ClientMessage\&.Type\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Тип сообщения (команда)\&. 
+.PP
+Definition at line \fB17\fP of file \fBClientMessage\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

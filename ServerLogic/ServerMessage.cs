@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BattleShipGame2.ServerLogic;
+namespace BattleShipGame.ServerLogic;
 
 /// <summary>
 /// Представляет сообщение, отправляемое клиенту.

@@ -1,0 +1,111 @@
+.TH "BattleShipGame.Logic.BotManager" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Logic.BotManager \- Представляет класс для управления ботами\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBBotManager\fP ()"
+.br
+.RI "Текущий выбранный бот\&. "
+.ti -1c
+.RI "void \fBSetDifficulty\fP (\fBBotDifficulty\fP difficulty)"
+.br
+.RI "Установить сложность текущего бота\&. "
+.ti -1c
+.RI "async Task< \fBBotTurnResult\fP > \fBMakeSimpleTurn\fP (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+.br
+.RI "Выполнить простой ход (для Easy)\&. "
+.ti -1c
+.RI "async Task< \fBBotTurnResult\fP > \fBMakeSmartTurn\fP (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+.br
+.RI "Выполнить умный ход (для Medium/Hard)\&. "
+.ti -1c
+.RI "void \fBResetAll\fP ()"
+.br
+.RI "Сбросить состояние всех ботов\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Представляет класс для управления ботами\&. 
+.PP
+Definition at line \fB11\fP of file \fBBotManager\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.Logic\&.BotManager\&.BotManager ()"
+
+.PP
+Текущий выбранный бот\&. Инициализация менеджера ботов\&. 
+.PP
+Definition at line \fB19\fP of file \fBBotManager\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "async Task< \fBBotTurnResult\fP > BattleShipGame\&.Logic\&.BotManager\&.MakeSimpleTurn (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+
+.PP
+Выполнить простой ход (для Easy)\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIplayerBoard\fP Текущая игровая доска\&.
+.br
+\fIonAttack\fP Callback-действие для отработки результата атаки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Результат хода и нужно ли продолжать ход\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB40\fP of file \fBBotManager\&.cs\fP\&.
+.SS "async Task< \fBBotTurnResult\fP > BattleShipGame\&.Logic\&.BotManager\&.MakeSmartTurn (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+
+.PP
+Выполнить умный ход (для Medium/Hard)\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIplayerBoard\fP Текущая игровая доска\&.
+.br
+\fIonAttack\fP Callback-действие для отработки результата атаки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Результат хода и нужно ли продолжать ход\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB55\fP of file \fBBotManager\&.cs\fP\&.
+.SS "void BattleShipGame\&.Logic\&.BotManager\&.ResetAll ()"
+
+.PP
+Сбросить состояние всех ботов\&. 
+.PP
+Definition at line \fB67\fP of file \fBBotManager\&.cs\fP\&.
+.SS "void BattleShipGame\&.Logic\&.BotManager\&.SetDifficulty (\fBBotDifficulty\fP difficulty)"
+
+.PP
+Установить сложность текущего бота\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdifficulty\fP Устанавливаемая сложность бота\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB29\fP of file \fBBotManager\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

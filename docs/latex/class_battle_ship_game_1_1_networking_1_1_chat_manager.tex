@@ -1,0 +1,207 @@
+\doxysection{Battle\+Ship\+Game.\+Networking.\+Chat\+Manager Class Reference}
+\hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager}{}\label{class_battle_ship_game_1_1_networking_1_1_chat_manager}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+
+
+Класс {\ttfamily \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}} управляет обменом текстовыми сообщениями между игроками в сетевой игре. Он интегрируется с сетевым клиентом и UI-\/компонентом чата ({\ttfamily \doxylink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}}).  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a634676d2b4b477b30390208f9e2def35}{Chat\+Manager}} (\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client}{Network\+Client}} network\+Client, string player\+Name)
+\begin{DoxyCompactList}\small\item\em Инициализирует новый экземпляр \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}} \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_aae3e50746d8ea01f2c846b0005b758cb}{Create\+Chat\+Control}} ()
+\begin{DoxyCompactList}\small\item\em Создаёт и инициализирует UI-\/компонент чата. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_ae935cf45ca70354366dc0193ef8ff06e}{Add\+Message}} (string sender, string text, Date\+Time timestamp)
+\begin{DoxyCompactList}\small\item\em Добавляет сообщение в локальную историю чата и уведомляет подписчиков. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_af6ec196e44f0dac739c77233114ad316}{Handle\+Chat\+Message}} (Dictionary$<$ string, string $>$ data)
+\begin{DoxyCompactList}\small\item\em Обрабатывает входящее сетевое сообщение чата. \end{DoxyCompactList}\item 
+async Task \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a1fbe13d9bda4198cbc04c307b9f49dec}{Send\+Chat\+Message\+Async}} (string text)
+\begin{DoxyCompactList}\small\item\em Асинхронно отправляет текстовое сообщение сопернику через сетевой клиент. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a393d09686420de6d59394ca1d714f75a}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Очищает историю сообщений в связанном UI-\/контроле. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+Action$<$ string, string, Date\+Time $>$? \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager_a807d22682f0c5b11878fc7446b28466c}{Message\+Added}}
+\begin{DoxyCompactList}\small\item\em Событие, вызываемое при добавлении нового сообщения в чат. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Класс {\ttfamily \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}} управляет обменом текстовыми сообщениями между игроками в сетевой игре. Он интегрируется с сетевым клиентом и UI-\/компонентом чата ({\ttfamily \doxylink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}}). 
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_a634676d2b4b477b30390208f9e2def35}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}!ChatManager@{ChatManager}}
+\index{ChatManager@{ChatManager}!BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+\doxysubsubsection{\texorpdfstring{ChatManager()}{ChatManager()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_chat_manager_a634676d2b4b477b30390208f9e2def35} 
+Battle\+Ship\+Game.\+Networking.\+Chat\+Manager.\+Chat\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client}{Network\+Client}}}]{network\+Client}{, }\item[{string}]{player\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Инициализирует новый экземпляр \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em network\+Client} & Сетевой клиент для отправки сообщений.\\
+\hline
+{\em player\+Name} & Имя текущего игрока (отображается как "{}Вы"{} при отправке).\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Argument\+Null\+Exception} & Если {\itshape network\+Client}  или {\itshape player\+Name}  равны {\ttfamily null} или пусты.\\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00039}{39}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_ae935cf45ca70354366dc0193ef8ff06e}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}!AddMessage@{AddMessage}}
+\index{AddMessage@{AddMessage}!BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+\doxysubsubsection{\texorpdfstring{AddMessage()}{AddMessage()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_chat_manager_ae935cf45ca70354366dc0193ef8ff06e} 
+void Battle\+Ship\+Game.\+Networking.\+Chat\+Manager.\+Add\+Message (\begin{DoxyParamCaption}\item[{string}]{sender}{, }\item[{string}]{text}{, }\item[{Date\+Time}]{timestamp}{}\end{DoxyParamCaption})}
+
+
+
+Добавляет сообщение в локальную историю чата и уведомляет подписчиков. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & Имя отправителя сообщения.\\
+\hline
+{\em text} & Текст сообщения.\\
+\hline
+{\em timestamp} & Время отправки/получения сообщения.\\
+\hline
+\end{DoxyParams}
+
+
+Не отправляет сообщение по сети — только обновляет локальный чат. Используется как для входящих, так и для исходящих сообщений. 
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00073}{73}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_a393d09686420de6d59394ca1d714f75a}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}!Clear@{Clear}}
+\index{Clear@{Clear}!BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_chat_manager_a393d09686420de6d59394ca1d714f75a} 
+void Battle\+Ship\+Game.\+Networking.\+Chat\+Manager.\+Clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Очищает историю сообщений в связанном UI-\/контроле. 
+
+Безопасно вызывать даже если {\ttfamily \doxylink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}} не создан. 
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00131}{131}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_aae3e50746d8ea01f2c846b0005b758cb}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}!CreateChatControl@{CreateChatControl}}
+\index{CreateChatControl@{CreateChatControl}!BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+\doxysubsubsection{\texorpdfstring{CreateChatControl()}{CreateChatControl()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_chat_manager_aae3e50746d8ea01f2c846b0005b758cb} 
+\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}} Battle\+Ship\+Game.\+Networking.\+Chat\+Manager.\+Create\+Chat\+Control (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Создаёт и инициализирует UI-\/компонент чата. 
+
+\begin{DoxyReturn}{Returns}
+Экземпляр \doxylink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}, привязанный к этому менеджеру.
+\end{DoxyReturn}
+
+
+Метод должен вызываться один раз при инициализации UI. 
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00056}{56}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_af6ec196e44f0dac739c77233114ad316}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}!HandleChatMessage@{HandleChatMessage}}
+\index{HandleChatMessage@{HandleChatMessage}!BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+\doxysubsubsection{\texorpdfstring{HandleChatMessage()}{HandleChatMessage()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_chat_manager_af6ec196e44f0dac739c77233114ad316} 
+void Battle\+Ship\+Game.\+Networking.\+Chat\+Manager.\+Handle\+Chat\+Message (\begin{DoxyParamCaption}\item[{Dictionary$<$ string, string $>$}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Обрабатывает входящее сетевое сообщение чата. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Словарь с данными сообщения, содержащий ключи из Network\+Protocol.\+Keys.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Argument\+Null\+Exception} & Если {\itshape data}  равен {\ttfamily null}.\\
+\hline
+\end{DoxyExceptions}
+
+
+Извлекает поля {\ttfamily Sender} и {\ttfamily Chat\+Text} из входящего пакета. Если отправитель не указан, используется "{}\+Opponent"{}. 
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00088}{88}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_a1fbe13d9bda4198cbc04c307b9f49dec}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}!SendChatMessageAsync@{SendChatMessageAsync}}
+\index{SendChatMessageAsync@{SendChatMessageAsync}!BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+\doxysubsubsection{\texorpdfstring{SendChatMessageAsync()}{SendChatMessageAsync()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_chat_manager_a1fbe13d9bda4198cbc04c307b9f49dec} 
+async Task Battle\+Ship\+Game.\+Networking.\+Chat\+Manager.\+Send\+Chat\+Message\+Async (\begin{DoxyParamCaption}\item[{string}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Асинхронно отправляет текстовое сообщение сопернику через сетевой клиент. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & Текст сообщения для отправки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Задача, представляющая асинхронную операцию отправки.
+\end{DoxyReturn}
+
+
+Если текст пуст или игрок не подключён — метод возвращает управление без действия. После успешной отправки сообщение также добавляется в локальный чат с пометкой "{}Вы"{}. 
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00110}{110}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+
+
+\label{doc-event-members}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_doc-event-members}
+\doxysubsection{Event Documentation}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_chat_manager_a807d22682f0c5b11878fc7446b28466c}\index{BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}!MessageAdded@{MessageAdded}}
+\index{MessageAdded@{MessageAdded}!BattleShipGame.Networking.ChatManager@{BattleShipGame.Networking.ChatManager}}
+\doxysubsubsection{\texorpdfstring{MessageAdded}{MessageAdded}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_chat_manager_a807d22682f0c5b11878fc7446b28466c} 
+Action$<$string, string, Date\+Time$>$? Battle\+Ship\+Game.\+Networking.\+Chat\+Manager.\+Message\+Added}
+
+
+
+Событие, вызываемое при добавлении нового сообщения в чат. 
+
+Параметры делегата\+: 
+\begin{DoxyItemize}
+\item {\ttfamily sender} — имя отправителя. 
+\item {\ttfamily text} — текст сообщения. 
+\item {\ttfamily timestamp} — время получения/отправки. 
+\end{DoxyItemize}Подписчики (обычно {\ttfamily \doxylink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}}) обновляют UI. 
+
+Definition at line \mbox{\hyperlink{_chat_manager_8cs_source_l00031}{31}} of file \mbox{\hyperlink{_chat_manager_8cs_source}{Chat\+Manager.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Networking/\mbox{\hyperlink{_chat_manager_8cs}{Chat\+Manager.\+cs}}\end{DoxyCompactItemize}

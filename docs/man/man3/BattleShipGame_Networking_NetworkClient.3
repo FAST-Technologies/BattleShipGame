@@ -1,0 +1,134 @@
+.TH "BattleShipGame.Networking.NetworkClient" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Networking.NetworkClient \- TCP-клиент для сетевой игры Морской Бой  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "async Task< bool > \fBConnectAsync\fP (string hostname, int port)"
+.br
+.RI "Устанавливает асинхронное подключение к игровому серверу\&. "
+.ti -1c
+.RI "async Task \fBSendMessageAsync\fP (\fBNetworkMessage\fP message)"
+.br
+.RI "Отправляет сообщение асинхронно на сервер\&. "
+.ti -1c
+.RI "void \fBDisconnect\fP ()"
+.br
+.RI "Отключает клиента от сервера и освобождает ресурсы\&. "
+.ti -1c
+.RI "void \fBDispose\fP ()"
+.br
+.RI "Освобождает ресурсы сетевого клиента\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "bool \fBIsConnected\fP\fR [get]\fP"
+.br
+.RI "Флаг, указывающий установлено ли соединение с сервером\&. "
+.in -1c
+.SS "Events"
+
+.in +1c
+.ti -1c
+.RI "Action< \fBNetworkMessage\fP >? \fBOnMessageReceived\fP"
+.br
+.RI "Фоновая задача для прослушки сообщений\&. "
+.ti -1c
+.RI "Action? \fBOnDisconnected\fP"
+.br
+.RI "Событие, возникающее при разрыве соединения с сервером\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+TCP-клиент для сетевой игры Морской Бой 
+
+Обеспечивает подключение к игровому серверу, отправку и получение сообщений\&. Все операции выполняются асинхронно и не блокируют UI поток\&. 
+.PP
+Definition at line \fB17\fP of file \fBNetworkClient\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "async Task< bool > BattleShipGame\&.Networking\&.NetworkClient\&.ConnectAsync (string hostname, int port)"
+
+.PP
+Устанавливает асинхронное подключение к игровому серверу\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIhostname\fP Хост или IP-адрес сервера\&.
+.br
+\fIport\fP Порт сервера\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+True если подключение установлено успешно\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB49\fP of file \fBNetworkClient\&.cs\fP\&.
+.SS "void BattleShipGame\&.Networking\&.NetworkClient\&.Disconnect ()"
+
+.PP
+Отключает клиента от сервера и освобождает ресурсы\&. 
+.PP
+Definition at line \fB184\fP of file \fBNetworkClient\&.cs\fP\&.
+.SS "void BattleShipGame\&.Networking\&.NetworkClient\&.Dispose ()"
+
+.PP
+Освобождает ресурсы сетевого клиента\&. 
+.PP
+Definition at line \fB207\fP of file \fBNetworkClient\&.cs\fP\&.
+.SS "async Task BattleShipGame\&.Networking\&.NetworkClient\&.SendMessageAsync (\fBNetworkMessage\fP message)"
+
+.PP
+Отправляет сообщение асинхронно на сервер\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fImessage\fP Сообщение для отправки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Задача, представляющая асинхронную операцию отправки\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB75\fP of file \fBNetworkClient\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "bool BattleShipGame\&.Networking\&.NetworkClient\&.IsConnected\fR [get]\fP"
+
+.PP
+Флаг, указывающий установлено ли соединение с сервером\&. 
+.PP
+Definition at line \fB39\fP of file \fBNetworkClient\&.cs\fP\&.
+.SH "Event Documentation"
+.PP 
+.SS "Action? BattleShipGame\&.Networking\&.NetworkClient\&.OnDisconnected"
+
+.PP
+Событие, возникающее при разрыве соединения с сервером\&. 
+.PP
+Definition at line \fB34\fP of file \fBNetworkClient\&.cs\fP\&.
+.SS "Action<\fBNetworkMessage\fP>? BattleShipGame\&.Networking\&.NetworkClient\&.OnMessageReceived"
+
+.PP
+Фоновая задача для прослушки сообщений\&. Событие, возникающее при получении сообщения от сервера\&. 
+.PP
+Definition at line \fB29\fP of file \fBNetworkClient\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

@@ -1,0 +1,110 @@
+\doxysection{Battle\+Ship\+Game.\+Server\+Logic.\+Network\+Client Class Reference}
+\hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client}{}\label{class_battle_ship_game_1_1_server_logic_1_1_network_client}\index{BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_client_ac8dd7ae8696d8657cce852d214bb60f6}{Connect\+Async}} (string hostname, int port)
+\item 
+async Task \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_client_a730837bbceacf1f24c753a622be4ff03}{Send\+Message\+Async}} (\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_message}{Network\+Message}} message)
+\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_client_aca382b5d83c317f70d087508f45e590f}{Disconnect}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_client_a5e80f899a8b6198c91254a64ae84f9e9}{Is\+Connected}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+Action$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_message}{Network\+Message}} $>$? \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_client_a20218cb9eef6adeff8ca67fcc9609686}{On\+Message\+Received}}
+\item 
+Action? \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_client_a344ace7041814dbda79825eb5c923dcf}{On\+Disconnected}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_networking_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_networking_8cs_source}{Networking.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_ac8dd7ae8696d8657cce852d214bb60f6}\index{BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}!ConnectAsync@{ConnectAsync}}
+\index{ConnectAsync@{ConnectAsync}!BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{ConnectAsync()}{ConnectAsync()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_network_client_ac8dd7ae8696d8657cce852d214bb60f6} 
+async Task$<$ bool $>$ Battle\+Ship\+Game.\+Server\+Logic.\+Network\+Client.\+Connect\+Async (\begin{DoxyParamCaption}\item[{string}]{hostname}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_networking_8cs_source_l00029}{29}} of file \mbox{\hyperlink{_networking_8cs_source}{Networking.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_aca382b5d83c317f70d087508f45e590f}\index{BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}!Disconnect@{Disconnect}}
+\index{Disconnect@{Disconnect}!BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{Disconnect()}{Disconnect()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_network_client_aca382b5d83c317f70d087508f45e590f} 
+void Battle\+Ship\+Game.\+Server\+Logic.\+Network\+Client.\+Disconnect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_networking_8cs_source_l00121}{121}} of file \mbox{\hyperlink{_networking_8cs_source}{Networking.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_a730837bbceacf1f24c753a622be4ff03}\index{BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}!SendMessageAsync@{SendMessageAsync}}
+\index{SendMessageAsync@{SendMessageAsync}!BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{SendMessageAsync()}{SendMessageAsync()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_network_client_a730837bbceacf1f24c753a622be4ff03} 
+async Task Battle\+Ship\+Game.\+Server\+Logic.\+Network\+Client.\+Send\+Message\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_message}{Network\+Message}}}]{message}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_networking_8cs_source_l00051}{51}} of file \mbox{\hyperlink{_networking_8cs_source}{Networking.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_a5e80f899a8b6198c91254a64ae84f9e9}\index{BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}!IsConnected@{IsConnected}}
+\index{IsConnected@{IsConnected}!BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{IsConnected}{IsConnected}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_network_client_a5e80f899a8b6198c91254a64ae84f9e9} 
+bool Battle\+Ship\+Game.\+Server\+Logic.\+Network\+Client.\+Is\+Connected\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line \mbox{\hyperlink{_networking_8cs_source_l00027}{27}} of file \mbox{\hyperlink{_networking_8cs_source}{Networking.\+cs}}.
+
+
+
+\label{doc-event-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_doc-event-members}
+\doxysubsection{Event Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_a344ace7041814dbda79825eb5c923dcf}\index{BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}!OnDisconnected@{OnDisconnected}}
+\index{OnDisconnected@{OnDisconnected}!BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{OnDisconnected}{OnDisconnected}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_network_client_a344ace7041814dbda79825eb5c923dcf} 
+Action? Battle\+Ship\+Game.\+Server\+Logic.\+Network\+Client.\+On\+Disconnected}
+
+
+
+Definition at line \mbox{\hyperlink{_networking_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_networking_8cs_source}{Networking.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_network_client_a20218cb9eef6adeff8ca67fcc9609686}\index{BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}!OnMessageReceived@{OnMessageReceived}}
+\index{OnMessageReceived@{OnMessageReceived}!BattleShipGame.ServerLogic.NetworkClient@{BattleShipGame.ServerLogic.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{OnMessageReceived}{OnMessageReceived}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_network_client_a20218cb9eef6adeff8ca67fcc9609686} 
+Action$<$\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_network_message}{Network\+Message}}$>$? Battle\+Ship\+Game.\+Server\+Logic.\+Network\+Client.\+On\+Message\+Received}
+
+
+
+Definition at line \mbox{\hyperlink{_networking_8cs_source_l00024}{24}} of file \mbox{\hyperlink{_networking_8cs_source}{Networking.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Logic/\mbox{\hyperlink{_networking_8cs}{Networking.\+cs}}\end{DoxyCompactItemize}

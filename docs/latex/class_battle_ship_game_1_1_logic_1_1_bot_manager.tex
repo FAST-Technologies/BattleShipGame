@@ -1,0 +1,137 @@
+\doxysection{Battle\+Ship\+Game.\+Logic.\+Bot\+Manager Class Reference}
+\hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager}{}\label{class_battle_ship_game_1_1_logic_1_1_bot_manager}\index{BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}}
+
+
+Представляет класс для управления ботами.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_a5e7079000a1130d41a9c7e4c9e66f05f}{Bot\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Текущий выбранный бот. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_a4bf4f6635b9f731a8457797b5a866e6a}{Set\+Difficulty}} (\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{Bot\+Difficulty}} difficulty)
+\begin{DoxyCompactList}\small\item\em Установить сложность текущего бота. \end{DoxyCompactList}\item 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_aa53b1c10367bbca15db263292c79afdc}{Make\+Simple\+Turn}} (\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}} player\+Board, Action$<$ int, int, bool, bool, bool $>$ on\+Attack)
+\begin{DoxyCompactList}\small\item\em Выполнить простой ход (для Easy). \end{DoxyCompactList}\item 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_ac5bd252446fb953f0c296aa42a22831c}{Make\+Smart\+Turn}} (\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}} player\+Board, Action$<$ int, int, bool, bool, bool $>$ on\+Attack)
+\begin{DoxyCompactList}\small\item\em Выполнить умный ход (для Medium/\+Hard). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_manager_aaab91e6622526726510017a14a44a3e0}{Reset\+All}} ()
+\begin{DoxyCompactList}\small\item\em Сбросить состояние всех ботов. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Представляет класс для управления ботами. 
+
+Definition at line \mbox{\hyperlink{_bot_manager_8cs_source_l00011}{11}} of file \mbox{\hyperlink{_bot_manager_8cs_source}{Bot\+Manager.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager_a5e7079000a1130d41a9c7e4c9e66f05f}\index{BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}!BotManager@{BotManager}}
+\index{BotManager@{BotManager}!BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}}
+\doxysubsubsection{\texorpdfstring{BotManager()}{BotManager()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_manager_a5e7079000a1130d41a9c7e4c9e66f05f} 
+Battle\+Ship\+Game.\+Logic.\+Bot\+Manager.\+Bot\+Manager (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Текущий выбранный бот. 
+
+Инициализация менеджера ботов. 
+
+Definition at line \mbox{\hyperlink{_bot_manager_8cs_source_l00019}{19}} of file \mbox{\hyperlink{_bot_manager_8cs_source}{Bot\+Manager.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager_aa53b1c10367bbca15db263292c79afdc}\index{BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}!MakeSimpleTurn@{MakeSimpleTurn}}
+\index{MakeSimpleTurn@{MakeSimpleTurn}!BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}}
+\doxysubsubsection{\texorpdfstring{MakeSimpleTurn()}{MakeSimpleTurn()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_manager_aa53b1c10367bbca15db263292c79afdc} 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ Battle\+Ship\+Game.\+Logic.\+Bot\+Manager.\+Make\+Simple\+Turn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}}}]{player\+Board}{, }\item[{Action$<$ int, int, bool, bool, bool $>$}]{on\+Attack}{}\end{DoxyParamCaption})}
+
+
+
+Выполнить простой ход (для Easy). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Board} & Текущая игровая доска.\\
+\hline
+{\em on\+Attack} & Callback-\/действие для отработки результата атаки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Результат хода и нужно ли продолжать ход.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_bot_manager_8cs_source_l00040}{40}} of file \mbox{\hyperlink{_bot_manager_8cs_source}{Bot\+Manager.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager_ac5bd252446fb953f0c296aa42a22831c}\index{BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}!MakeSmartTurn@{MakeSmartTurn}}
+\index{MakeSmartTurn@{MakeSmartTurn}!BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}}
+\doxysubsubsection{\texorpdfstring{MakeSmartTurn()}{MakeSmartTurn()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_manager_ac5bd252446fb953f0c296aa42a22831c} 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ Battle\+Ship\+Game.\+Logic.\+Bot\+Manager.\+Make\+Smart\+Turn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}}}]{player\+Board}{, }\item[{Action$<$ int, int, bool, bool, bool $>$}]{on\+Attack}{}\end{DoxyParamCaption})}
+
+
+
+Выполнить умный ход (для Medium/\+Hard). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Board} & Текущая игровая доска.\\
+\hline
+{\em on\+Attack} & Callback-\/действие для отработки результата атаки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Результат хода и нужно ли продолжать ход.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_bot_manager_8cs_source_l00055}{55}} of file \mbox{\hyperlink{_bot_manager_8cs_source}{Bot\+Manager.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager_aaab91e6622526726510017a14a44a3e0}\index{BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}!ResetAll@{ResetAll}}
+\index{ResetAll@{ResetAll}!BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}}
+\doxysubsubsection{\texorpdfstring{ResetAll()}{ResetAll()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_manager_aaab91e6622526726510017a14a44a3e0} 
+void Battle\+Ship\+Game.\+Logic.\+Bot\+Manager.\+Reset\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Сбросить состояние всех ботов. 
+
+
+
+Definition at line \mbox{\hyperlink{_bot_manager_8cs_source_l00067}{67}} of file \mbox{\hyperlink{_bot_manager_8cs_source}{Bot\+Manager.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_manager_a4bf4f6635b9f731a8457797b5a866e6a}\index{BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}!SetDifficulty@{SetDifficulty}}
+\index{SetDifficulty@{SetDifficulty}!BattleShipGame.Logic.BotManager@{BattleShipGame.Logic.BotManager}}
+\doxysubsubsection{\texorpdfstring{SetDifficulty()}{SetDifficulty()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_manager_a4bf4f6635b9f731a8457797b5a866e6a} 
+void Battle\+Ship\+Game.\+Logic.\+Bot\+Manager.\+Set\+Difficulty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{Bot\+Difficulty}}}]{difficulty}{}\end{DoxyParamCaption})}
+
+
+
+Установить сложность текущего бота. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em difficulty} & Устанавливаемая сложность бота.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_bot_manager_8cs_source_l00029}{29}} of file \mbox{\hyperlink{_bot_manager_8cs_source}{Bot\+Manager.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Logic/\mbox{\hyperlink{_bot_manager_8cs}{Bot\+Manager.\+cs}}\end{DoxyCompactItemize}

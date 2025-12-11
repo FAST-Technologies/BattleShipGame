@@ -1,0 +1,175 @@
+\doxysection{Battle\+Ship\+Game.\+Networking.\+Network\+Client Class Reference}
+\hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client}{}\label{class_battle_ship_game_1_1_networking_1_1_network_client}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+
+
+TCP-\/клиент для сетевой игры Морской Бой  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client_abdaa6d24be8c3568f4cbdc85aa4cbb40}{Connect\+Async}} (string hostname, int port)
+\begin{DoxyCompactList}\small\item\em Устанавливает асинхронное подключение к игровому серверу. \end{DoxyCompactList}\item 
+async Task \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client_a3640e475114da4adf176fd6fe06c3680}{Send\+Message\+Async}} (\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message}{Network\+Message}} message)
+\begin{DoxyCompactList}\small\item\em Отправляет сообщение асинхронно на сервер. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client_add4594f1d0439a90f2f4009357e7a065}{Disconnect}} ()
+\begin{DoxyCompactList}\small\item\em Отключает клиента от сервера и освобождает ресурсы. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client_a4ca0a880b3f84354e1d3b1e2a928027a}{Dispose}} ()
+\begin{DoxyCompactList}\small\item\em Освобождает ресурсы сетевого клиента. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client_ae33a351e6faa523ad88e571027084ddf}{Is\+Connected}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Флаг, указывающий установлено ли соединение с сервером. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+Action$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message}{Network\+Message}} $>$? \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client_ac03faf143dfbd3f18b92832fe34deded}{On\+Message\+Received}}
+\begin{DoxyCompactList}\small\item\em Фоновая задача для прослушки сообщений. \end{DoxyCompactList}\item 
+Action? \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client_ae98d9fd79d741052956725f3d94a83e3}{On\+Disconnected}}
+\begin{DoxyCompactList}\small\item\em Событие, возникающее при разрыве соединения с сервером. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+TCP-\/клиент для сетевой игры Морской Бой 
+
+Обеспечивает подключение к игровому серверу, отправку и получение сообщений. Все операции выполняются асинхронно и не блокируют UI поток. 
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_abdaa6d24be8c3568f4cbdc85aa4cbb40}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}!ConnectAsync@{ConnectAsync}}
+\index{ConnectAsync@{ConnectAsync}!BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{ConnectAsync()}{ConnectAsync()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_client_abdaa6d24be8c3568f4cbdc85aa4cbb40} 
+async Task$<$ bool $>$ Battle\+Ship\+Game.\+Networking.\+Network\+Client.\+Connect\+Async (\begin{DoxyParamCaption}\item[{string}]{hostname}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Устанавливает асинхронное подключение к игровому серверу. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hostname} & Хост или IP-\/адрес сервера.\\
+\hline
+{\em port} & Порт сервера.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True если подключение установлено успешно.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00049}{49}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_add4594f1d0439a90f2f4009357e7a065}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}!Disconnect@{Disconnect}}
+\index{Disconnect@{Disconnect}!BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{Disconnect()}{Disconnect()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_client_add4594f1d0439a90f2f4009357e7a065} 
+void Battle\+Ship\+Game.\+Networking.\+Network\+Client.\+Disconnect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Отключает клиента от сервера и освобождает ресурсы. 
+
+
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00184}{184}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_a4ca0a880b3f84354e1d3b1e2a928027a}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_client_a4ca0a880b3f84354e1d3b1e2a928027a} 
+void Battle\+Ship\+Game.\+Networking.\+Network\+Client.\+Dispose (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Освобождает ресурсы сетевого клиента. 
+
+
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00207}{207}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_a3640e475114da4adf176fd6fe06c3680}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}!SendMessageAsync@{SendMessageAsync}}
+\index{SendMessageAsync@{SendMessageAsync}!BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{SendMessageAsync()}{SendMessageAsync()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_client_a3640e475114da4adf176fd6fe06c3680} 
+async Task Battle\+Ship\+Game.\+Networking.\+Network\+Client.\+Send\+Message\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message}{Network\+Message}}}]{message}{}\end{DoxyParamCaption})}
+
+
+
+Отправляет сообщение асинхронно на сервер. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Сообщение для отправки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Задача, представляющая асинхронную операцию отправки.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00075}{75}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_ae33a351e6faa523ad88e571027084ddf}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}!IsConnected@{IsConnected}}
+\index{IsConnected@{IsConnected}!BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{IsConnected}{IsConnected}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_client_ae33a351e6faa523ad88e571027084ddf} 
+bool Battle\+Ship\+Game.\+Networking.\+Network\+Client.\+Is\+Connected\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Флаг, указывающий установлено ли соединение с сервером. 
+
+
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00039}{39}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+
+
+\label{doc-event-members}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_doc-event-members}
+\doxysubsection{Event Documentation}
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_ae98d9fd79d741052956725f3d94a83e3}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}!OnDisconnected@{OnDisconnected}}
+\index{OnDisconnected@{OnDisconnected}!BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{OnDisconnected}{OnDisconnected}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_client_ae98d9fd79d741052956725f3d94a83e3} 
+Action? Battle\+Ship\+Game.\+Networking.\+Network\+Client.\+On\+Disconnected}
+
+
+
+Событие, возникающее при разрыве соединения с сервером. 
+
+
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00034}{34}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_networking_1_1_network_client_ac03faf143dfbd3f18b92832fe34deded}\index{BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}!OnMessageReceived@{OnMessageReceived}}
+\index{OnMessageReceived@{OnMessageReceived}!BattleShipGame.Networking.NetworkClient@{BattleShipGame.Networking.NetworkClient}}
+\doxysubsubsection{\texorpdfstring{OnMessageReceived}{OnMessageReceived}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_networking_1_1_network_client_ac03faf143dfbd3f18b92832fe34deded} 
+Action$<$\mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message}{Network\+Message}}$>$? Battle\+Ship\+Game.\+Networking.\+Network\+Client.\+On\+Message\+Received}
+
+
+
+Фоновая задача для прослушки сообщений. 
+
+Событие, возникающее при получении сообщения от сервера. 
+
+Definition at line \mbox{\hyperlink{_network_client_8cs_source_l00029}{29}} of file \mbox{\hyperlink{_network_client_8cs_source}{Network\+Client.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Networking/\mbox{\hyperlink{_network_client_8cs}{Network\+Client.\+cs}}\end{DoxyCompactItemize}

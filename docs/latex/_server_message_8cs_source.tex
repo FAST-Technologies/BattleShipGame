@@ -1,0 +1,25 @@
+\doxysection{Server\+Message.\+cs}
+\hypertarget{_server_message_8cs_source}{}\label{_server_message_8cs_source}\index{ServerLogic/ServerMessage.cs@{ServerLogic/ServerMessage.cs}}
+\mbox{\hyperlink{_server_message_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00004}00004\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_server_logic}{BattleShipGame.ServerLogic}};}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00012}\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message}{00012}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message}{ServerMessage}}}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00017}\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_ac4dae1358cd1d205491ddea8ef5b1512}{00017}}\ \ \ \ \ \textcolor{keyword}{public}\ required\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_ac4dae1358cd1d205491ddea8ef5b1512}{Type}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00018}00018\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00022}\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_a20d5927927cd84d7e926269ffb5971a1}{00022}}\ \ \ \ \ \textcolor{keyword}{public}\ Dictionary<string,\ string>\ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_a20d5927927cd84d7e926269ffb5971a1}{Data}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}\ =\ \textcolor{keyword}{new}();}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00028}\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_a9027403ef873f7029936f884b216b974}{00028}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_a9027403ef873f7029936f884b216b974}{ToString}}()}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ var\ parts\ =\ \textcolor{keyword}{new}\ List<string>\ \{\ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_ac4dae1358cd1d205491ddea8ef5b1512}{Type}}\ \};}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ var\ dataParts\ =\ \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_server_message_a20d5927927cd84d7e926269ffb5971a1}{Data}}.Select(kvp\ =>\ \$\textcolor{stringliteral}{"{}\{kvp.Key\}=\{kvp.Value\}"{}});}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ parts.AddRange(dataParts);}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{string}.Join(\textcolor{stringliteral}{"{}:"{}},\ parts[0],\ \textcolor{keywordtype}{string}.Join(\textcolor{stringliteral}{"{};"{}},\ parts.Skip(1)))\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00034}00034\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_server_message_8cs_source_l00035}00035\ \}}
+
+\end{DoxyCode}

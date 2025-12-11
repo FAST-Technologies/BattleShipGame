@@ -1,0 +1,145 @@
+.TH "BattleShipGame.ServerLogic.GameRoom" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.ServerLogic.GameRoom \- Представляет игровую комнату для двух игроков\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGameRoom\fP (\fBPlayerConnection\fP p1, \fBPlayerConnection\fP p2)"
+.br
+.RI "Создает новую игровую комнату для двух игроков\&. "
+.ti -1c
+.RI "\fBPlayerConnection\fP? \fBGetOpponent\fP (\fBPlayerConnection\fP player)"
+.br
+.RI "Получает противника для указанного игрока\&. "
+.ti -1c
+.RI "bool \fBContainsPlayer\fP (\fBPlayerConnection\fP player)"
+.br
+.RI "Проверяет, находится ли игрок в этой комнате\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "string \fBId\fP\fR [get]\fP"
+.br
+.RI "Уникальный идентификатор комнаты\&. "
+.ti -1c
+.RI "\fBPlayerConnection\fP \fBPlayer1\fP\fR [get]\fP"
+.br
+.RI "Первый игрок в комнате\&. "
+.ti -1c
+.RI "\fBPlayerConnection\fP \fBPlayer2\fP\fR [get]\fP"
+.br
+.RI "Второй игрок в комнате\&. "
+.ti -1c
+.RI "bool \fBGameStarted\fP = false\fR [get, set]\fP"
+.br
+.RI "Флаг, указывающий началась ли игра\&. "
+.ti -1c
+.RI "bool \fBGameOver\fP = false\fR [get, set]\fP"
+.br
+.RI "Флаг, указывающий завершилась ли игра\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Представляет игровую комнату для двух игроков\&. 
+.PP
+Definition at line \fB8\fP of file \fBGameRoom\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.ServerLogic\&.GameRoom\&.GameRoom (\fBPlayerConnection\fP p1, \fBPlayerConnection\fP p2)"
+
+.PP
+Создает новую игровую комнату для двух игроков\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIp1\fP Первый игрок\&.
+.br
+\fIp2\fP Второй игрок\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB36\fP of file \fBGameRoom\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "bool BattleShipGame\&.ServerLogic\&.GameRoom\&.ContainsPlayer (\fBPlayerConnection\fP player)"
+
+.PP
+Проверяет, находится ли игрок в этой комнате\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIplayer\fP Игрок для проверки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+True если игрок находится в комнате\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB60\fP of file \fBGameRoom\&.cs\fP\&.
+.SS "\fBPlayerConnection\fP? BattleShipGame\&.ServerLogic\&.GameRoom\&.GetOpponent (\fBPlayerConnection\fP player)"
+
+.PP
+Получает противника для указанного игрока\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIplayer\fP Игрок, для которого нужно найти противника\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Подключение противника или null если игрок не найден в комнате\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB48\fP of file \fBGameRoom\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "bool BattleShipGame\&.ServerLogic\&.GameRoom\&.GameOver = false\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Флаг, указывающий завершилась ли игра\&. 
+.PP
+Definition at line \fB29\fP of file \fBGameRoom\&.cs\fP\&.
+.SS "bool BattleShipGame\&.ServerLogic\&.GameRoom\&.GameStarted = false\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Флаг, указывающий началась ли игра\&. 
+.PP
+Definition at line \fB25\fP of file \fBGameRoom\&.cs\fP\&.
+.SS "string BattleShipGame\&.ServerLogic\&.GameRoom\&.Id\fR [get]\fP"
+
+.PP
+Уникальный идентификатор комнаты\&. 
+.PP
+Definition at line \fB13\fP of file \fBGameRoom\&.cs\fP\&.
+.SS "\fBPlayerConnection\fP BattleShipGame\&.ServerLogic\&.GameRoom\&.Player1\fR [get]\fP"
+
+.PP
+Первый игрок в комнате\&. 
+.PP
+Definition at line \fB17\fP of file \fBGameRoom\&.cs\fP\&.
+.SS "\fBPlayerConnection\fP BattleShipGame\&.ServerLogic\&.GameRoom\&.Player2\fR [get]\fP"
+
+.PP
+Второй игрок в комнате\&. 
+.PP
+Definition at line \fB21\fP of file \fBGameRoom\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

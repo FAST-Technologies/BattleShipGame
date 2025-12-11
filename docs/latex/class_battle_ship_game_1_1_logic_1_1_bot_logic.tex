@@ -1,0 +1,123 @@
+\doxysection{Battle\+Ship\+Game.\+Logic.\+Bot\+Logic Class Reference}
+\hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_logic}{}\label{class_battle_ship_game_1_1_logic_1_1_bot_logic}\index{BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}}
+
+
+Представляет основную логику бота.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_a4270ef1563ab93546e21b46996523d44}{Bot\+Logic}} (\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{Bot\+Difficulty}} difficulty)
+\begin{DoxyCompactList}\small\item\em Координаты первого попадания в текущий корабль. \end{DoxyCompactList}\item 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_ac0cbbe42472836534ff3b778be1ba88c}{Make\+Simple\+Turn}} (\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}} player\+Board, Action$<$ int, int, bool, bool, bool $>$ on\+Attack)
+\begin{DoxyCompactList}\small\item\em Простой ход бота (только рандом). \end{DoxyCompactList}\item 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_aae2ca634cbb27cae0201444f589a3186}{Make\+Smart\+Turn}} (\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}} player\+Board, Action$<$ int, int, bool, bool, bool $>$ on\+Attack)
+\begin{DoxyCompactList}\small\item\em Умный ход бота (с анализом попаданий). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_logic_afca5136a32749d5b289008e5555b1ef7}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Сброс состояния бота (например, при новой игре). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Представляет основную логику бота. 
+
+Definition at line \mbox{\hyperlink{_bot_logic_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_bot_logic_8cs_source}{Bot\+Logic.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_logic_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_logic_a4270ef1563ab93546e21b46996523d44}\index{BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}!BotLogic@{BotLogic}}
+\index{BotLogic@{BotLogic}!BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}}
+\doxysubsubsection{\texorpdfstring{BotLogic()}{BotLogic()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_logic_a4270ef1563ab93546e21b46996523d44} 
+Battle\+Ship\+Game.\+Logic.\+Bot\+Logic.\+Bot\+Logic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{Bot\+Difficulty}}}]{difficulty}{}\end{DoxyParamCaption})}
+
+
+
+Координаты первого попадания в текущий корабль. 
+
+Инициализация бота с некоторой сложностью.
+
+
+\begin{DoxyParams}{Parameters}
+{\em difficulty} & Выбранная сложность бота.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_bot_logic_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_bot_logic_8cs_source}{Bot\+Logic.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_logic_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_logic_ac0cbbe42472836534ff3b778be1ba88c}\index{BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}!MakeSimpleTurn@{MakeSimpleTurn}}
+\index{MakeSimpleTurn@{MakeSimpleTurn}!BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}}
+\doxysubsubsection{\texorpdfstring{MakeSimpleTurn()}{MakeSimpleTurn()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_logic_ac0cbbe42472836534ff3b778be1ba88c} 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ Battle\+Ship\+Game.\+Logic.\+Bot\+Logic.\+Make\+Simple\+Turn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}}}]{player\+Board}{, }\item[{Action$<$ int, int, bool, bool, bool $>$}]{on\+Attack}{}\end{DoxyParamCaption})}
+
+
+
+Простой ход бота (только рандом). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Board} & Доска игрока, по которой бот стреляет.\\
+\hline
+{\em on\+Attack} & Callback-\/действие для отработки результата атаки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Результат хода и нужно ли продолжать ход.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_bot_logic_8cs_source_l00041}{41}} of file \mbox{\hyperlink{_bot_logic_8cs_source}{Bot\+Logic.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_logic_aae2ca634cbb27cae0201444f589a3186}\index{BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}!MakeSmartTurn@{MakeSmartTurn}}
+\index{MakeSmartTurn@{MakeSmartTurn}!BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}}
+\doxysubsubsection{\texorpdfstring{MakeSmartTurn()}{MakeSmartTurn()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_logic_aae2ca634cbb27cae0201444f589a3186} 
+async Task$<$ \mbox{\hyperlink{class_battle_ship_game_1_1_logic_1_1_bot_turn_result}{Bot\+Turn\+Result}} $>$ Battle\+Ship\+Game.\+Logic.\+Bot\+Logic.\+Make\+Smart\+Turn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}}}]{player\+Board}{, }\item[{Action$<$ int, int, bool, bool, bool $>$}]{on\+Attack}{}\end{DoxyParamCaption})}
+
+
+
+Умный ход бота (с анализом попаданий). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Board} & Доска игрока, по которой бот стреляет.\\
+\hline
+{\em on\+Attack} & Callback-\/действие для отработки результата атаки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Результат хода и нужно ли продолжать ход.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_bot_logic_8cs_source_l00070}{70}} of file \mbox{\hyperlink{_bot_logic_8cs_source}{Bot\+Logic.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_logic_1_1_bot_logic_afca5136a32749d5b289008e5555b1ef7}\index{BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}!Reset@{Reset}}
+\index{Reset@{Reset}!BattleShipGame.Logic.BotLogic@{BattleShipGame.Logic.BotLogic}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_logic_1_1_bot_logic_afca5136a32749d5b289008e5555b1ef7} 
+void Battle\+Ship\+Game.\+Logic.\+Bot\+Logic.\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Сброс состояния бота (например, при новой игре). 
+
+
+
+Definition at line \mbox{\hyperlink{_bot_logic_8cs_source_l00289}{289}} of file \mbox{\hyperlink{_bot_logic_8cs_source}{Bot\+Logic.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Logic/\mbox{\hyperlink{_bot_logic_8cs}{Bot\+Logic.\+cs}}\end{DoxyCompactItemize}

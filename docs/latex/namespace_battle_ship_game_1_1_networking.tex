@@ -1,0 +1,54 @@
+\doxysection{Battle\+Ship\+Game.\+Networking Namespace Reference}
+\hypertarget{namespace_battle_ship_game_1_1_networking}{}\label{namespace_battle_ship_game_1_1_networking}\index{BattleShipGame.Networking@{BattleShipGame.Networking}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}}
+\begin{DoxyCompactList}\small\item\em Класс {\ttfamily \doxylink{class_battle_ship_game_1_1_networking_1_1_chat_manager}{Chat\+Manager}} управляет обменом текстовыми сообщениями между игроками в сетевой игре. Он интегрируется с сетевым клиентом и UI-\/компонентом чата ({\ttfamily \doxylink{class_battle_ship_game_1_1_views_1_1_chat_control}{Chat\+Control}}). \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_client}{Network\+Client}}
+\begin{DoxyCompactList}\small\item\em TCP-\/клиент для сетевой игры Морской Бой \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battle_ship_game_1_1_networking_1_1_network_message}{Network\+Message}}
+\begin{DoxyCompactList}\small\item\em Представляет сетевое сообщение, передаваемое между клиентом и сервером. \end{DoxyCompactList}\item 
+class {\bfseries Network\+Protocol}
+\begin{DoxyCompactList}\small\item\em Статический класс, определяющий протокол обмена сообщениями между клиентом и сервером. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2}{Network\+Game\+Mode}} \{ \mbox{\hyperlink{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a6adf97f83acf6453d4a6a4b1070f3754}{None}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a843627586c62e389041a4d8800143974}{Searching}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a7f3d370e94c8b1fea09838572013d8ec}{In\+Game}}
+ \}
+\begin{DoxyCompactList}\small\item\em Режимы сетевой игры. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{namespace_battle_ship_game_1_1_networking_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2}\index{BattleShipGame.Networking@{BattleShipGame.Networking}!NetworkGameMode@{NetworkGameMode}}
+\index{NetworkGameMode@{NetworkGameMode}!BattleShipGame.Networking@{BattleShipGame.Networking}}
+\doxysubsubsection{\texorpdfstring{NetworkGameMode}{NetworkGameMode}}
+{\footnotesize\ttfamily \label{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2} 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2}{Battle\+Ship\+Game.\+Networking.\+Network\+Game\+Mode}}}
+
+
+
+Режимы сетевой игры. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{None@{None}!BattleShipGame.Networking@{BattleShipGame.Networking}}\index{BattleShipGame.Networking@{BattleShipGame.Networking}!None@{None}}}\Hypertarget{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a6adf97f83acf6453d4a6a4b1070f3754}\label{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a6adf97f83acf6453d4a6a4b1070f3754} 
+None&Не в сетевой игре. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Searching@{Searching}!BattleShipGame.Networking@{BattleShipGame.Networking}}\index{BattleShipGame.Networking@{BattleShipGame.Networking}!Searching@{Searching}}}\Hypertarget{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a843627586c62e389041a4d8800143974}\label{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a843627586c62e389041a4d8800143974} 
+Searching&Поиск соперника. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{InGame@{InGame}!BattleShipGame.Networking@{BattleShipGame.Networking}}\index{BattleShipGame.Networking@{BattleShipGame.Networking}!InGame@{InGame}}}\Hypertarget{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a7f3d370e94c8b1fea09838572013d8ec}\label{namespace_battle_ship_game_1_1_networking_a62e0d1cda88a2c4c59827557c01db8a2a7f3d370e94c8b1fea09838572013d8ec} 
+In\+Game&Активная сетевая игра. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_network_game_mode_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_network_game_mode_8cs_source}{Network\+Game\+Mode.\+cs}}.
+

@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['searching_0',['Searching',['../namespace_battle_ship_game_1_1_networking.html#a62e0d1cda88a2c4c59827557c01db8a2a843627586c62e389041a4d8800143974',1,'BattleShipGame::Networking']]],
+  ['selecteddifficulty_1',['SelectedDifficulty',['../class_battle_ship_game_1_1_views_1_1_difficulty_window.html#ae0a104edfac77da32ae10fc29c9142a5',1,'BattleShipGame::Views::DifficultyWindow']]],
+  ['sendchatmessageasync_2',['SendChatMessageAsync',['../class_battle_ship_game_1_1_networking_1_1_chat_manager.html#a1fbe13d9bda4198cbc04c307b9f49dec',1,'BattleShipGame::Networking::ChatManager']]],
+  ['sendmessageasync_3',['SendMessageAsync',['../class_battle_ship_game_1_1_networking_1_1_network_client.html#a3640e475114da4adf176fd6fe06c3680',1,'BattleShipGame.Networking.NetworkClient.SendMessageAsync()'],['../class_battle_ship_game_1_1_server_logic_1_1_network_client.html#a730837bbceacf1f24c753a622be4ff03',1,'BattleShipGame.ServerLogic.NetworkClient.SendMessageAsync()']]],
+  ['servermessage_4',['ServerMessage',['../class_battle_ship_game_1_1_server_logic_1_1_server_message.html',1,'BattleShipGame::ServerLogic']]],
+  ['servermessage_2ecs_5',['ServerMessage.cs',['../_server_message_8cs.html',1,'']]],
+  ['setchatmanager_6',['SetChatManager',['../class_battle_ship_game_1_1_views_1_1_chat_control.html#a0d8eb329c2ccaaed36c29106880062f7',1,'BattleShipGame::Views::ChatControl']]],
+  ['setdifficulty_7',['SetDifficulty',['../class_battle_ship_game_1_1_logic_1_1_bot_manager.html#a4bf4f6635b9f731a8457797b5a866e6a',1,'BattleShipGame::Logic::BotManager']]],
+  ['ship_8',['Ship',['../class_battle_ship_game_1_1_models2_1_1_ship.html',1,'BattleShipGame.Models2.Ship'],['../class_battle_ship_game_1_1_models2_1_1_ship.html#a4f708d210db2c369b9f0be2eb100e6b1',1,'BattleShipGame.Models2.Ship.Ship()'],['../namespace_battle_ship_game_1_1_models2.html#ad321fe65bc52f5457d5c23abb9a274d2a0387832795db3eb2e05f4365fba5ddac',1,'BattleShipGame.Models2.Ship']]],
+  ['ship_2ecs_9',['Ship.cs',['../_ship_8cs.html',1,'']]],
+  ['ships_10',['Ships',['../class_battle_ship_game_1_1_models2_1_1_game_board.html#ade7c89ea487c5ca833c6454fbf3421c1',1,'BattleShipGame::Models2::GameBoard']]],
+  ['showgamescreen_11',['ShowGameScreen',['../class_battle_ship_game_1_1_view_models_1_1_main_window_view_model.html#acf9fbbb982e5f1b187f7a23dfc305a6a',1,'BattleShipGame::ViewModels::MainWindowViewModel']]],
+  ['showloadingscreen_12',['ShowLoadingScreen',['../class_battle_ship_game_1_1_view_models_1_1_main_window_view_model.html#ad9df00a6d0596ec01de1ec1ac6a960e3',1,'BattleShipGame::ViewModels::MainWindowViewModel']]],
+  ['showmainmenu_13',['ShowMainMenu',['../class_battle_ship_game_1_1_view_models_1_1_main_window_view_model.html#ae3caffa7ae579c0bb3eade6bcbea2358',1,'BattleShipGame::ViewModels::MainWindowViewModel']]],
+  ['showplacementscreen_14',['ShowPlacementScreen',['../class_battle_ship_game_1_1_view_models_1_1_main_window_view_model.html#a2b85ec9d338267809a4a620542f1a857',1,'BattleShipGame::ViewModels::MainWindowViewModel']]],
+  ['simulateloadingasync_15',['SimulateLoadingAsync',['../class_battle_ship_game_1_1_view_models_1_1_main_window_view_model.html#a1f0f235df578d766a6ae9196a6ac1bff',1,'BattleShipGame::ViewModels::MainWindowViewModel']]],
+  ['size_16',['Size',['../class_battle_ship_game_1_1_models2_1_1_game_board.html#ace9b0a30188edb3b121f6012c70b55d1',1,'BattleShipGame.Models2.GameBoard.Size'],['../class_battle_ship_game_1_1_models2_1_1_ship.html#ae19fd5cd1942972fd701b131c6ca77ce',1,'BattleShipGame.Models2.Ship.Size']]],
+  ['soundmanager_2ecs_17',['SoundManager.cs',['../_sound_manager_8cs.html',1,'']]],
+  ['success_18',['Success',['../class_battle_ship_game_1_1_views_1_1_network_connect_window.html#a686837c8db4d63f1fbe94a443b3916c5',1,'BattleShipGame::Views::NetworkConnectWindow']]],
+  ['sunk_19',['Sunk',['../namespace_battle_ship_game_1_1_models2.html#ad321fe65bc52f5457d5c23abb9a274d2a330f3fe94a5e2232ccc621404eca3211',1,'BattleShipGame::Models2']]],
+  ['sunk_20',['sunk',['../class_battle_ship_game_1_1_models2_1_1_game_board.html#adfadd423b003e887f18b64b1cd25bdea',1,'BattleShipGame::Models2::GameBoard']]]
+];

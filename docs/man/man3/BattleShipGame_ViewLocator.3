@@ -1,0 +1,72 @@
+.TH "BattleShipGame.ViewLocator" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.ViewLocator \- Локатор представлений (View Locator) для паттерна MVVM\&. Преобразует ViewModel в соответствующий View на основе соглашения об именовании\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits IDataTemplate\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "Control? \fBBuild\fP (object? param)"
+.br
+.RI "Создает Control (View) на основе переданного ViewModel\&. "
+.ti -1c
+.RI "bool \fBMatch\fP (object? data)"
+.br
+.RI "Проверяет, может ли данный DataTemplate обработать переданные данные\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Локатор представлений (View Locator) для паттерна MVVM\&. Преобразует ViewModel в соответствующий View на основе соглашения об именовании\&. 
+
+По умолчанию ищет View с тем же именем, что и ViewModel, но с заменой "ViewModel" на "View"\&. Например: \fBMainWindowViewModel\fP → MainWindowView 
+.PP
+Definition at line \fB20\fP of file \fBViewLocator\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "Control? BattleShipGame\&.ViewLocator\&.Build (object? param)"
+
+.PP
+Создает Control (View) на основе переданного ViewModel\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIparam\fP ViewModel, для которого нужно создать View\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Созданный Control или TextBlock с сообщением об ошибке\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB27\fP of file \fBViewLocator\&.cs\fP\&.
+.SS "bool BattleShipGame\&.ViewLocator\&.Match (object? data)"
+
+.PP
+Проверяет, может ли данный DataTemplate обработать переданные данные\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata\fP Данные для проверки (обычно ViewModel)\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true, если данные являются производными от \fBViewModelBase\fP; иначе false\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB48\fP of file \fBViewLocator\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

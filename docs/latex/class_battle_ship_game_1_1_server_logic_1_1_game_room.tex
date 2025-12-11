@@ -1,0 +1,191 @@
+\doxysection{Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room Class Reference}
+\hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room}{}\label{class_battle_ship_game_1_1_server_logic_1_1_game_room}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+
+
+Представляет игровую комнату для двух игроков.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_a6fc6b8a5af164c94391fc8d4584f729c}{Game\+Room}} (\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} p1, \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} p2)
+\begin{DoxyCompactList}\small\item\em Создает новую игровую комнату для двух игроков. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}}? \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_a097afef603fca7d53bacaab019f6c62b}{Get\+Opponent}} (\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} player)
+\begin{DoxyCompactList}\small\item\em Получает противника для указанного игрока. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_a85630f6849ea9fa6799b4c3c3167b060}{Contains\+Player}} (\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} player)
+\begin{DoxyCompactList}\small\item\em Проверяет, находится ли игрок в этой комнате. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_aada9f51e4bf727539742b5c44aee64f2}{Id}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Уникальный идентификатор комнаты. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_a17860c830eeba7b3a6a0870976cdc46d}{Player1}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Первый игрок в комнате. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_af5669d64cbc98b7abf61eae1e2f54bbe}{Player2}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Второй игрок в комнате. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_aec3e77e42750bbf2ff86779bed65963a}{Game\+Started}} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Флаг, указывающий началась ли игра. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_game_room_a860ed7f8c6531e03f25861fb8cc9c3f5}{Game\+Over}} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Флаг, указывающий завершилась ли игра. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Представляет игровую комнату для двух игроков. 
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_a6fc6b8a5af164c94391fc8d4584f729c}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!GameRoom@{GameRoom}}
+\index{GameRoom@{GameRoom}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{GameRoom()}{GameRoom()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_a6fc6b8a5af164c94391fc8d4584f729c} 
+Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Game\+Room (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}}}]{p1}{, }\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}}}]{p2}{}\end{DoxyParamCaption})}
+
+
+
+Создает новую игровую комнату для двух игроков. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p1} & Первый игрок.\\
+\hline
+{\em p2} & Второй игрок.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00036}{36}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_a85630f6849ea9fa6799b4c3c3167b060}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!ContainsPlayer@{ContainsPlayer}}
+\index{ContainsPlayer@{ContainsPlayer}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{ContainsPlayer()}{ContainsPlayer()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_a85630f6849ea9fa6799b4c3c3167b060} 
+bool Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Contains\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}}}]{player}{}\end{DoxyParamCaption})}
+
+
+
+Проверяет, находится ли игрок в этой комнате. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & Игрок для проверки.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True если игрок находится в комнате.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00060}{60}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_a097afef603fca7d53bacaab019f6c62b}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!GetOpponent@{GetOpponent}}
+\index{GetOpponent@{GetOpponent}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{GetOpponent()}{GetOpponent()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_a097afef603fca7d53bacaab019f6c62b} 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}}? Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Get\+Opponent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}}}]{player}{}\end{DoxyParamCaption})}
+
+
+
+Получает противника для указанного игрока. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & Игрок, для которого нужно найти противника.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Подключение противника или null если игрок не найден в комнате.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00048}{48}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_a860ed7f8c6531e03f25861fb8cc9c3f5}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!GameOver@{GameOver}}
+\index{GameOver@{GameOver}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{GameOver}{GameOver}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_a860ed7f8c6531e03f25861fb8cc9c3f5} 
+bool Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Game\+Over = false\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Флаг, указывающий завершилась ли игра. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00029}{29}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_aec3e77e42750bbf2ff86779bed65963a}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!GameStarted@{GameStarted}}
+\index{GameStarted@{GameStarted}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{GameStarted}{GameStarted}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_aec3e77e42750bbf2ff86779bed65963a} 
+bool Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Game\+Started = false\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Флаг, указывающий началась ли игра. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_aada9f51e4bf727539742b5c44aee64f2}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!Id@{Id}}
+\index{Id@{Id}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{Id}{Id}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_aada9f51e4bf727539742b5c44aee64f2} 
+string Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Id\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Уникальный идентификатор комнаты. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_a17860c830eeba7b3a6a0870976cdc46d}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!Player1@{Player1}}
+\index{Player1@{Player1}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{Player1}{Player1}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_a17860c830eeba7b3a6a0870976cdc46d} 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Player1\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Первый игрок в комнате. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_game_room_af5669d64cbc98b7abf61eae1e2f54bbe}\index{BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}!Player2@{Player2}}
+\index{Player2@{Player2}!BattleShipGame.ServerLogic.GameRoom@{BattleShipGame.ServerLogic.GameRoom}}
+\doxysubsubsection{\texorpdfstring{Player2}{Player2}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_game_room_af5669d64cbc98b7abf61eae1e2f54bbe} 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{Player\+Connection}} Battle\+Ship\+Game.\+Server\+Logic.\+Game\+Room.\+Player2\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Второй игрок в комнате. 
+
+
+
+Definition at line \mbox{\hyperlink{_game_room_8cs_source_l00021}{21}} of file \mbox{\hyperlink{_game_room_8cs_source}{Game\+Room.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Logic/\mbox{\hyperlink{_game_room_8cs}{Game\+Room.\+cs}}\end{DoxyCompactItemize}

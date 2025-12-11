@@ -1,0 +1,93 @@
+.TH "BattleShipGame.ViewModels.MainWindowViewModel" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.ViewModels.MainWindowViewModel \- ViewModel для главного окна игры "Морской бой"\&. Управляет состоянием UI, видимостью экранов и игровой логикой\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBBattleShipGame\&.ViewModels\&.ViewModelBase\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBShowMainMenu\fP ()"
+.br
+.RI "Команда для показа главного меню\&. Скрывает все экраны и показывает главное меню\&. "
+.ti -1c
+.RI "void \fBShowLoadingScreen\fP ()"
+.br
+.RI "Команда для показа экрана загрузки\&. Скрывает все экраны и показывает экран загрузки\&. "
+.ti -1c
+.RI "void \fBShowPlacementScreen\fP ()"
+.br
+.RI "Команда для показа экрана расстановки кораблей\&. Скрывает все экраны и показывает экран расстановки\&. "
+.ti -1c
+.RI "void \fBShowGameScreen\fP ()"
+.br
+.RI "Команда для показа игрового экрана\&. Скрывает все экраны и показывает игровой экран\&. "
+.ti -1c
+.RI "void \fBHideAllScreens\fP ()"
+.br
+.RI "Скрывает все экраны\&. Используется для переключения между состояниями UI\&. "
+.ti -1c
+.RI "async Task \fBSimulateLoadingAsync\fP ()"
+.br
+.RI "Имитирует процесс загрузки приложения\&. Обновляет статус и прогресс загрузки с анимацией\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+ViewModel для главного окна игры "Морской бой"\&. Управляет состоянием UI, видимостью экранов и игровой логикой\&. 
+.PP
+Definition at line \fB11\fP of file \fBMainWindowViewModel\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void BattleShipGame\&.ViewModels\&.MainWindowViewModel\&.HideAllScreens ()"
+
+.PP
+Скрывает все экраны\&. Используется для переключения между состояниями UI\&. 
+.PP
+Definition at line \fB144\fP of file \fBMainWindowViewModel\&.cs\fP\&.
+.SS "void BattleShipGame\&.ViewModels\&.MainWindowViewModel\&.ShowGameScreen ()"
+
+.PP
+Команда для показа игрового экрана\&. Скрывает все экраны и показывает игровой экран\&. 
+.PP
+Definition at line \fB130\fP of file \fBMainWindowViewModel\&.cs\fP\&.
+.SS "void BattleShipGame\&.ViewModels\&.MainWindowViewModel\&.ShowLoadingScreen ()"
+
+.PP
+Команда для показа экрана загрузки\&. Скрывает все экраны и показывает экран загрузки\&. 
+.PP
+Definition at line \fB107\fP of file \fBMainWindowViewModel\&.cs\fP\&.
+.SS "void BattleShipGame\&.ViewModels\&.MainWindowViewModel\&.ShowMainMenu ()"
+
+.PP
+Команда для показа главного меню\&. Скрывает все экраны и показывает главное меню\&. 
+.PP
+Definition at line \fB96\fP of file \fBMainWindowViewModel\&.cs\fP\&.
+.SS "void BattleShipGame\&.ViewModels\&.MainWindowViewModel\&.ShowPlacementScreen ()"
+
+.PP
+Команда для показа экрана расстановки кораблей\&. Скрывает все экраны и показывает экран расстановки\&. 
+.PP
+Definition at line \fB118\fP of file \fBMainWindowViewModel\&.cs\fP\&.
+.SS "async Task BattleShipGame\&.ViewModels\&.MainWindowViewModel\&.SimulateLoadingAsync ()"
+
+.PP
+Имитирует процесс загрузки приложения\&. Обновляет статус и прогресс загрузки с анимацией\&. 
+.PP
+\fBReturns\fP
+.RS 4
+Задача, представляющая асинхронную операцию\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB157\fP of file \fBMainWindowViewModel\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

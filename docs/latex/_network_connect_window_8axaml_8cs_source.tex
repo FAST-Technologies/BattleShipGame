@@ -1,0 +1,82 @@
+\doxysection{Network\+Connect\+Window.\+axaml.\+cs}
+\hypertarget{_network_connect_window_8axaml_8cs_source}{}\label{_network_connect_window_8axaml_8cs_source}\index{Views/NetworkConnectWindow.axaml.cs@{Views/NetworkConnectWindow.axaml.cs}}
+\mbox{\hyperlink{_network_connect_window_8axaml_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }Avalonia;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }Avalonia.Controls;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00004}00004\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_views}{BattleShipGame.Views}};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00010}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window}{00010}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{partial\ class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_acd4679ee16e2834d893cad826b527b9f}{NetworkConnectWindow}}\ :\ Window}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00015}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a686837c8db4d63f1fbe94a443b3916c5}{00015}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a686837c8db4d63f1fbe94a443b3916c5}{Success}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{private}\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00016}00016\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00020}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a7874b7878fb7d651962c375feb13b46c}{00020}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a7874b7878fb7d651962c375feb13b46c}{Hostname}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{private}\ \textcolor{keyword}{set};\ \}\ =\ \textcolor{keywordtype}{string}.Empty;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00021}00021\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00025}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a00a8926a86ec1988bd4cf4b69e7dcee6}{00025}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a00a8926a86ec1988bd4cf4b69e7dcee6}{Port}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{private}\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00026}00026\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00030}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_af9d1207f70c9bf98b02b1f843c67b76c}{00030}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_af9d1207f70c9bf98b02b1f843c67b76c}{PlayerName}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{private}\ \textcolor{keyword}{set};\ \}\ =\ \textcolor{keywordtype}{string}.Empty;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00031}00031\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{private}\ TextBox\ \_playerNameInput;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{private}\ TextBox\ \_serverHostInput;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{private}\ TextBox\ \_serverPortInput;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{private}\ TextBlock\ \_errorText;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00036}00036\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00041}\mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_acd4679ee16e2834d893cad826b527b9f}{00041}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_acd4679ee16e2834d893cad826b527b9f}{NetworkConnectWindow}}()}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00042}00042\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ InitializeComponent();}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \_playerNameInput\ =\ PlayerNameInput;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \_serverHostInput\ =\ ServerHostInput;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \_serverPortInput\ =\ ServerPortInput;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ var\ connectButton\ =\ ConnectButton;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ var\ backButton\ =\ NetworkBackButton;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \_errorText\ =\ ConnectionErrorTextBlock;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Обработчики\ событий}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ connectButton.Click\ +=\ OnConnectClick;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ backButton.Click\ +=\ (s,\ e)\ =>\ Close();}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00055}00055\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00056}00056\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00063}00063\ \ \ \ \ \textcolor{keyword}{private}\ async\ \textcolor{keywordtype}{void}\ OnConnectClick(\textcolor{keywordtype}{object}\ sender,\ Avalonia.Interactivity.RoutedEventArgs\ e)}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00064}00064\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ValidateInput())}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a686837c8db4d63f1fbe94a443b3916c5}{Success}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_af9d1207f70c9bf98b02b1f843c67b76c}{PlayerName}}\ =\ \_playerNameInput.Text\ ??\ \textcolor{keywordtype}{string}.Empty;}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a7874b7878fb7d651962c375feb13b46c}{Hostname}}\ =\ \_serverHostInput.Text\ ??\ \textcolor{stringliteral}{"{}127.0.0.1"{}};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_views_1_1_network_connect_window_a00a8926a86ec1988bd4cf4b69e7dcee6}{Port}}\ =\ \textcolor{keywordtype}{int}.Parse(\_serverPortInput.Text);}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ Close();}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00074}00074\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00079}00079\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ ValidateInput()}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00080}00080\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \_errorText.IsVisible\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{string}.IsNullOrWhiteSpace(\_playerNameInput.Text))}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \_errorText.Text\ =\ \textcolor{stringliteral}{"{}Введите\ имя\ игрока"{}};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \_errorText.IsVisible\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{string}.IsNullOrWhiteSpace(\_serverHostInput.Text))}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \_errorText.Text\ =\ \textcolor{stringliteral}{"{}Введите\ адрес\ сервера"{}};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \_errorText.IsVisible\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\textcolor{keywordtype}{int}.TryParse(\_serverPortInput.Text,\ out\ \textcolor{keywordtype}{int}\ portNumber)\ ||\ portNumber\ <=\ 0\ ||\ portNumber\ >\ 65535)}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \_errorText.Text\ =\ \textcolor{stringliteral}{"{}Неверный\ порт.\ Допустимый\ диапазон:\ 1-\/65535"{}};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \_errorText.IsVisible\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_network_connect_window_8axaml_8cs_source_l00106}00106\ \}}
+
+\end{DoxyCode}

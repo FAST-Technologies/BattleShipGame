@@ -1,0 +1,223 @@
+\doxysection{Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection Class Reference}
+\hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection}{}\label{class_battle_ship_game_1_1_server_logic_1_1_player_connection}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+
+
+Представляет подключение игрока к серверу.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_adcfae9e832ea1c519e877ef040f8e111}{Player\+Connection}} (\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a50974b4fdeb4673b494242625636a8cb}{Tcp\+Client}} tcp\+Client)
+\begin{DoxyCompactList}\small\item\em Создает новое подключение игрока. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_acccdcb56eba3d93475525c4ce54fe31d}{Close}} ()
+\begin{DoxyCompactList}\small\item\em Закрывает подключение и освобождает ресурсы. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_ad1576571ae32b833dbd03bb78e94db92}{Dispose}} ()
+\begin{DoxyCompactList}\small\item\em Освобождает ресурсы подключения. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_ac3755ea34af3ad9df71779ee0b594746}{Id}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Уникальный идентификатор игрока. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a9a033429bbc85d4e24bdaa883c4ae5fe}{Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Имя игрока. \end{DoxyCompactList}\item 
+Tcp\+Client \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a50974b4fdeb4673b494242625636a8cb}{Tcp\+Client}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em TCP-\/клиент для связи с игроком. \end{DoxyCompactList}\item 
+Stream\+Writer \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_acf732e45fb519ad2602de6922cb77489}{Writer}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Писатель для отправки сообщений игроку. \end{DoxyCompactList}\item 
+Stream\+Reader \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a5983e7adbfef69a248d1875b2c7f1df6}{Reader}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Читатель для получения сообщений от игрока. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_afe924c10c558469a908c909c4935c3c2}{Is\+Ready}} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Флаг готовности игрока (все корабли расставлены). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a3abe01e82e6d931d3d708970c7aa134c}{Is\+My\+Turn}} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Флаг, указывающий является ли текущий ход игрока. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}} \mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a8fccea809a02cf841debba5e5c7f9c76}{Board}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Игровая доска игрока. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Представляет подключение игрока к серверу. 
+
+Содержит всю информацию о подключенном игроке\+: сетевые потоки, игровое состояние и доску. 
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00014}{14}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_adcfae9e832ea1c519e877ef040f8e111}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!PlayerConnection@{PlayerConnection}}
+\index{PlayerConnection@{PlayerConnection}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{PlayerConnection()}{PlayerConnection()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_adcfae9e832ea1c519e877ef040f8e111} 
+Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Player\+Connection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a50974b4fdeb4673b494242625636a8cb}{Tcp\+Client}}}]{tcp\+Client}{}\end{DoxyParamCaption})}
+
+
+
+Создает новое подключение игрока. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tcp\+Client} & TCP-\/клиент подключения.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00053}{53}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_acccdcb56eba3d93475525c4ce54fe31d}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!Close@{Close}}
+\index{Close@{Close}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_acccdcb56eba3d93475525c4ce54fe31d} 
+void Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Close (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Закрывает подключение и освобождает ресурсы. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00066}{66}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_ad1576571ae32b833dbd03bb78e94db92}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_ad1576571ae32b833dbd03bb78e94db92} 
+void Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Dispose (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Освобождает ресурсы подключения. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00076}{76}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a8fccea809a02cf841debba5e5c7f9c76}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!Board@{Board}}
+\index{Board@{Board}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{Board}{Board}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a8fccea809a02cf841debba5e5c7f9c76} 
+\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}} Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Board\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Игровая доска игрока. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00047}{47}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_ac3755ea34af3ad9df71779ee0b594746}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!Id@{Id}}
+\index{Id@{Id}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{Id}{Id}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_ac3755ea34af3ad9df71779ee0b594746} 
+string Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Id\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Уникальный идентификатор игрока. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00019}{19}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a3abe01e82e6d931d3d708970c7aa134c}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!IsMyTurn@{IsMyTurn}}
+\index{IsMyTurn@{IsMyTurn}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{IsMyTurn}{IsMyTurn}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a3abe01e82e6d931d3d708970c7aa134c} 
+bool Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Is\+My\+Turn = false\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Флаг, указывающий является ли текущий ход игрока. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00043}{43}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_afe924c10c558469a908c909c4935c3c2}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!IsReady@{IsReady}}
+\index{IsReady@{IsReady}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{IsReady}{IsReady}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_afe924c10c558469a908c909c4935c3c2} 
+bool Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Is\+Ready = false\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Флаг готовности игрока (все корабли расставлены). 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00039}{39}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a9a033429bbc85d4e24bdaa883c4ae5fe}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!Name@{Name}}
+\index{Name@{Name}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{Name}{Name}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a9a033429bbc85d4e24bdaa883c4ae5fe} 
+string Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Name\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Имя игрока. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00023}{23}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a5983e7adbfef69a248d1875b2c7f1df6}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!Reader@{Reader}}
+\index{Reader@{Reader}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{Reader}{Reader}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a5983e7adbfef69a248d1875b2c7f1df6} 
+Stream\+Reader Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Reader\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Читатель для получения сообщений от игрока. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00035}{35}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a50974b4fdeb4673b494242625636a8cb}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!TcpClient@{TcpClient}}
+\index{TcpClient@{TcpClient}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{TcpClient}{TcpClient}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_a50974b4fdeb4673b494242625636a8cb} 
+Tcp\+Client Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Tcp\+Client\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+TCP-\/клиент для связи с игроком. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00027}{27}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+\Hypertarget{class_battle_ship_game_1_1_server_logic_1_1_player_connection_acf732e45fb519ad2602de6922cb77489}\index{BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}!Writer@{Writer}}
+\index{Writer@{Writer}!BattleShipGame.ServerLogic.PlayerConnection@{BattleShipGame.ServerLogic.PlayerConnection}}
+\doxysubsubsection{\texorpdfstring{Writer}{Writer}}
+{\footnotesize\ttfamily \label{class_battle_ship_game_1_1_server_logic_1_1_player_connection_acf732e45fb519ad2602de6922cb77489} 
+Stream\+Writer Battle\+Ship\+Game.\+Server\+Logic.\+Player\+Connection.\+Writer\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Писатель для отправки сообщений игроку. 
+
+
+
+Definition at line \mbox{\hyperlink{_player_connection_8cs_source_l00031}{31}} of file \mbox{\hyperlink{_player_connection_8cs_source}{Player\+Connection.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Logic/\mbox{\hyperlink{_player_connection_8cs}{Player\+Connection.\+cs}}\end{DoxyCompactItemize}

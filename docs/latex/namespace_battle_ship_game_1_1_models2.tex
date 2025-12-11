@@ -1,0 +1,140 @@
+\doxysection{Battle\+Ship\+Game.\+Models2 Namespace Reference}
+\hypertarget{namespace_battle_ship_game_1_1_models2}{}\label{namespace_battle_ship_game_1_1_models2}\index{BattleShipGame.Models2@{BattleShipGame.Models2}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_game_board}{Game\+Board}}
+\begin{DoxyCompactList}\small\item\em Игровое поле для Морского Боя. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship}{Ship}}
+\begin{DoxyCompactList}\small\item\em Представляет корабль в игре Морской Бой. \end{DoxyCompactList}\item 
+class {\bfseries Sound\+Manager}
+\begin{DoxyCompactList}\small\item\em Класс {\ttfamily Sound\+Manager} предоставляет методы для воспроизведения звуковых эффектов в игре "{}Морской бой"{}. Звуки генерируются программно как синусоидальные тона и воспроизводятся через библиотеку NAudio. Все методы являются статическими и потокобезопасными благодаря асинхронному воспроизведению в отдельных задачах. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{Bot\+Difficulty}} \{ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa7f943921724d63dc0ac9c6febf99fa88}{Easy}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa87f8a6ab85c9ced3702b4ea641ad4bb5}{Medium}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa3656183169810334a96b91129dc9d881}{Hard}}
+ \}
+\begin{DoxyCompactList}\small\item\em Уровни сложности компьютерного противника. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{Cell\+State}} \{ \newline
+\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2ace2c8aed9c2fa0cfbed56cbda4d8bf07}{Empty}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a0387832795db3eb2e05f4365fba5ddac}{Ship}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2ae7ddb7cd777b59610b220bcfa80bd95f}{Miss}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2aebfe5e1791db03c4cd6ab95801e0977d}{Hit}}
+, \newline
+\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a330f3fe94a5e2232ccc621404eca3211}{Sunk}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a4ecc0d90eec1cea3e9db96583a1bb9c2}{Blocked}}
+ \}
+\begin{DoxyCompactList}\small\item\em Состояния клетки игрового поля. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7c}{Game\+Mode}} \{ \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7cab61541208db7fa7dba42c85224405911}{Menu}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7cac53d0b68260723023ab1fdd3653e0fee}{Placing\+Ships}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7ca29ecadc55244f9f68ac02dbd6ed41204}{Vs\+Computer}}
+, \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7ca1516b42f0cf39c935072f106f4bf4b85}{Vs\+Player}}
+ \}
+\begin{DoxyCompactList}\small\item\em Режимы игры. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{namespace_battle_ship_game_1_1_models2_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!BotDifficulty@{BotDifficulty}}
+\index{BotDifficulty@{BotDifficulty}!BattleShipGame.Models2@{BattleShipGame.Models2}}
+\doxysubsubsection{\texorpdfstring{BotDifficulty}{BotDifficulty}}
+{\footnotesize\ttfamily \label{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f} 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190f}{Battle\+Ship\+Game.\+Models2.\+Bot\+Difficulty}}}
+
+
+
+Уровни сложности компьютерного противника. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Easy@{Easy}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Easy@{Easy}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa7f943921724d63dc0ac9c6febf99fa88}\label{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa7f943921724d63dc0ac9c6febf99fa88} 
+Easy&Случайные выстрелы. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Medium@{Medium}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Medium@{Medium}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa87f8a6ab85c9ced3702b4ea641ad4bb5}\label{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa87f8a6ab85c9ced3702b4ea641ad4bb5} 
+Medium&Случайные выстрелы + приоритет соседним клеткам после попадания. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Hard@{Hard}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Hard@{Hard}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa3656183169810334a96b91129dc9d881}\label{namespace_battle_ship_game_1_1_models2_a6dddd02af2cc83570d055980b100190fa3656183169810334a96b91129dc9d881} 
+Hard&Продвинутый алгоритм с анализом вероятностей. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_bot_difficulty_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_bot_difficulty_8cs_source}{Bot\+Difficulty.\+cs}}.
+
+\Hypertarget{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!CellState@{CellState}}
+\index{CellState@{CellState}!BattleShipGame.Models2@{BattleShipGame.Models2}}
+\doxysubsubsection{\texorpdfstring{CellState}{CellState}}
+{\footnotesize\ttfamily \label{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2} 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2}{Battle\+Ship\+Game.\+Models2.\+Cell\+State}}}
+
+
+
+Состояния клетки игрового поля. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Empty@{Empty}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Empty@{Empty}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2ace2c8aed9c2fa0cfbed56cbda4d8bf07}\label{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2ace2c8aed9c2fa0cfbed56cbda4d8bf07} 
+Empty&Пустая клетка. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Ship@{Ship}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Ship@{Ship}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a0387832795db3eb2e05f4365fba5ddac}\label{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a0387832795db3eb2e05f4365fba5ddac} 
+Ship&Клетка с кораблем. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Miss@{Miss}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Miss@{Miss}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2ae7ddb7cd777b59610b220bcfa80bd95f}\label{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2ae7ddb7cd777b59610b220bcfa80bd95f} 
+Miss&Промах. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Hit@{Hit}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Hit@{Hit}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2aebfe5e1791db03c4cd6ab95801e0977d}\label{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2aebfe5e1791db03c4cd6ab95801e0977d} 
+Hit&Попадание. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sunk@{Sunk}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Sunk@{Sunk}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a330f3fe94a5e2232ccc621404eca3211}\label{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a330f3fe94a5e2232ccc621404eca3211} 
+Sunk&Уничтоженный корабль. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Blocked@{Blocked}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Blocked@{Blocked}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a4ecc0d90eec1cea3e9db96583a1bb9c2}\label{namespace_battle_ship_game_1_1_models2_ad321fe65bc52f5457d5c23abb9a274d2a4ecc0d90eec1cea3e9db96583a1bb9c2} 
+Blocked&Заблокированная клетка (вокруг уничтоженного корабля). \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_cell_state_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_cell_state_8cs_source}{Cell\+State.\+cs}}.
+
+\Hypertarget{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7c}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!GameMode@{GameMode}}
+\index{GameMode@{GameMode}!BattleShipGame.Models2@{BattleShipGame.Models2}}
+\doxysubsubsection{\texorpdfstring{GameMode}{GameMode}}
+{\footnotesize\ttfamily \label{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7c} 
+enum \mbox{\hyperlink{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7c}{Battle\+Ship\+Game.\+Models2.\+Game\+Mode}}}
+
+
+
+Режимы игры. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Menu@{Menu}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!Menu@{Menu}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7cab61541208db7fa7dba42c85224405911}\label{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7cab61541208db7fa7dba42c85224405911} 
+Menu&Главное меню. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PlacingShips@{PlacingShips}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!PlacingShips@{PlacingShips}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7cac53d0b68260723023ab1fdd3653e0fee}\label{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7cac53d0b68260723023ab1fdd3653e0fee} 
+Placing\+Ships&Расстановка кораблей. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VsComputer@{VsComputer}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!VsComputer@{VsComputer}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7ca29ecadc55244f9f68ac02dbd6ed41204}\label{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7ca29ecadc55244f9f68ac02dbd6ed41204} 
+Vs\+Computer&Игра против компьютера. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VsPlayer@{VsPlayer}!BattleShipGame.Models2@{BattleShipGame.Models2}}\index{BattleShipGame.Models2@{BattleShipGame.Models2}!VsPlayer@{VsPlayer}}}\Hypertarget{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7ca1516b42f0cf39c935072f106f4bf4b85}\label{namespace_battle_ship_game_1_1_models2_adb50ca7e8acd2607b51ffad369d93b7ca1516b42f0cf39c935072f106f4bf4b85} 
+Vs\+Player&Игра против другого игрока. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_game_mode_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_game_mode_8cs_source}{Game\+Mode.\+cs}}.
+

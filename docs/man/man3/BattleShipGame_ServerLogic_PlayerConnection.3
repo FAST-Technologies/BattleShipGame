@@ -1,0 +1,151 @@
+.TH "BattleShipGame.ServerLogic.PlayerConnection" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.ServerLogic.PlayerConnection \- Представляет подключение игрока к серверу\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBPlayerConnection\fP (\fBTcpClient\fP tcpClient)"
+.br
+.RI "Создает новое подключение игрока\&. "
+.ti -1c
+.RI "void \fBClose\fP ()"
+.br
+.RI "Закрывает подключение и освобождает ресурсы\&. "
+.ti -1c
+.RI "void \fBDispose\fP ()"
+.br
+.RI "Освобождает ресурсы подключения\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "string \fBId\fP\fR [get]\fP"
+.br
+.RI "Уникальный идентификатор игрока\&. "
+.ti -1c
+.RI "string \fBName\fP\fR [get, set]\fP"
+.br
+.RI "Имя игрока\&. "
+.ti -1c
+.RI "TcpClient \fBTcpClient\fP\fR [get]\fP"
+.br
+.RI "TCP-клиент для связи с игроком\&. "
+.ti -1c
+.RI "StreamWriter \fBWriter\fP\fR [get]\fP"
+.br
+.RI "Писатель для отправки сообщений игроку\&. "
+.ti -1c
+.RI "StreamReader \fBReader\fP\fR [get]\fP"
+.br
+.RI "Читатель для получения сообщений от игрока\&. "
+.ti -1c
+.RI "bool \fBIsReady\fP = false\fR [get, set]\fP"
+.br
+.RI "Флаг готовности игрока (все корабли расставлены)\&. "
+.ti -1c
+.RI "bool \fBIsMyTurn\fP = false\fR [get, set]\fP"
+.br
+.RI "Флаг, указывающий является ли текущий ход игрока\&. "
+.ti -1c
+.RI "\fBGameBoard\fP \fBBoard\fP\fR [get, set]\fP"
+.br
+.RI "Игровая доска игрока\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Представляет подключение игрока к серверу\&. 
+
+Содержит всю информацию о подключенном игроке: сетевые потоки, игровое состояние и доску\&. 
+.PP
+Definition at line \fB14\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.ServerLogic\&.PlayerConnection\&.PlayerConnection (\fBTcpClient\fP tcpClient)"
+
+.PP
+Создает новое подключение игрока\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fItcpClient\fP TCP-клиент подключения\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB53\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void BattleShipGame\&.ServerLogic\&.PlayerConnection\&.Close ()"
+
+.PP
+Закрывает подключение и освобождает ресурсы\&. 
+.PP
+Definition at line \fB66\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "void BattleShipGame\&.ServerLogic\&.PlayerConnection\&.Dispose ()"
+
+.PP
+Освобождает ресурсы подключения\&. 
+.PP
+Definition at line \fB76\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "\fBGameBoard\fP BattleShipGame\&.ServerLogic\&.PlayerConnection\&.Board\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Игровая доска игрока\&. 
+.PP
+Definition at line \fB47\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "string BattleShipGame\&.ServerLogic\&.PlayerConnection\&.Id\fR [get]\fP"
+
+.PP
+Уникальный идентификатор игрока\&. 
+.PP
+Definition at line \fB19\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "bool BattleShipGame\&.ServerLogic\&.PlayerConnection\&.IsMyTurn = false\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Флаг, указывающий является ли текущий ход игрока\&. 
+.PP
+Definition at line \fB43\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "bool BattleShipGame\&.ServerLogic\&.PlayerConnection\&.IsReady = false\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Флаг готовности игрока (все корабли расставлены)\&. 
+.PP
+Definition at line \fB39\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "string BattleShipGame\&.ServerLogic\&.PlayerConnection\&.Name\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Имя игрока\&. 
+.PP
+Definition at line \fB23\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "StreamReader BattleShipGame\&.ServerLogic\&.PlayerConnection\&.Reader\fR [get]\fP"
+
+.PP
+Читатель для получения сообщений от игрока\&. 
+.PP
+Definition at line \fB35\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "TcpClient BattleShipGame\&.ServerLogic\&.PlayerConnection\&.TcpClient\fR [get]\fP"
+
+.PP
+TCP-клиент для связи с игроком\&. 
+.PP
+Definition at line \fB27\fP of file \fBPlayerConnection\&.cs\fP\&.
+.SS "StreamWriter BattleShipGame\&.ServerLogic\&.PlayerConnection\&.Writer\fR [get]\fP"
+
+.PP
+Писатель для отправки сообщений игроку\&. 
+.PP
+Definition at line \fB31\fP of file \fBPlayerConnection\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

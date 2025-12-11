@@ -1,0 +1,74 @@
+.TH "BattleShipGame.Views.NetworkGameOverWindow" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Views.NetworkGameOverWindow \- Диалоговое окно, отображаемое при завершении сетевой игры\&. Показывает результат игры и предоставляет опции для дальнейших действий\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits Window\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNetworkGameOverWindow\fP ()"
+.br
+.RI "Инициализирует новый экземпляр класса \fBNetworkGameOverWindow\fP\&. Настраивает текст результата и обработчики событий кнопок\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "\fBNetworkGameOverResult\fP? \fBResult\fP\fR [get]\fP"
+.br
+.RI "Получает выбранный пользователем результат\&. "
+.ti -1c
+.RI "bool \fBIsWin\fP\fR [get, set]\fP"
+.br
+.RI "Получает или устанавливает флаг победы текущего игрока\&. "
+.ti -1c
+.RI "string \fBWinnerName\fP = string\&.Empty\fR [get, set]\fP"
+.br
+.RI "Получает или устанавливает имя победителя\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Диалоговое окно, отображаемое при завершении сетевой игры\&. Показывает результат игры и предоставляет опции для дальнейших действий\&. 
+
+Отличается от \fBGameOverWindow\fP наличием опции "Новая онлайн игра"\&. 
+.PP
+Definition at line \fB23\fP of file \fBNetworkGameOverWindow\&.axaml\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.Views\&.NetworkGameOverWindow\&.NetworkGameOverWindow ()"
+
+.PP
+Инициализирует новый экземпляр класса \fBNetworkGameOverWindow\fP\&. Настраивает текст результата и обработчики событий кнопок\&. 
+.PP
+Definition at line \fB44\fP of file \fBNetworkGameOverWindow\&.axaml\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "bool BattleShipGame\&.Views\&.NetworkGameOverWindow\&.IsWin\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Получает или устанавливает флаг победы текущего игрока\&. 
+.PP
+Definition at line \fB33\fP of file \fBNetworkGameOverWindow\&.axaml\&.cs\fP\&.
+.SS "\fBNetworkGameOverResult\fP? BattleShipGame\&.Views\&.NetworkGameOverWindow\&.Result\fR [get]\fP"
+
+.PP
+Получает выбранный пользователем результат\&. 
+.PP
+Definition at line \fB28\fP of file \fBNetworkGameOverWindow\&.axaml\&.cs\fP\&.
+.SS "string BattleShipGame\&.Views\&.NetworkGameOverWindow\&.WinnerName = string\&.Empty\fR [get]\fP, \fR [set]\fP"
+
+.PP
+Получает или устанавливает имя победителя\&. 
+.PP
+Definition at line \fB38\fP of file \fBNetworkGameOverWindow\&.axaml\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

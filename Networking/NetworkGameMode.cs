@@ -1,4 +1,4 @@
-﻿namespace BattleShipGame2.Networking;
+﻿namespace BattleShipGame.Networking;
 
 /// <summary>
 /// Режимы сетевой игры.

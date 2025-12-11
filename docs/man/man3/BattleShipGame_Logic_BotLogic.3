@@ -1,0 +1,102 @@
+.TH "BattleShipGame.Logic.BotLogic" 3 "BattleShipGame" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BattleShipGame.Logic.BotLogic \- Представляет основную логику бота\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBBotLogic\fP (\fBBotDifficulty\fP difficulty)"
+.br
+.RI "Координаты первого попадания в текущий корабль\&. "
+.ti -1c
+.RI "async Task< \fBBotTurnResult\fP > \fBMakeSimpleTurn\fP (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+.br
+.RI "Простой ход бота (только рандом)\&. "
+.ti -1c
+.RI "async Task< \fBBotTurnResult\fP > \fBMakeSmartTurn\fP (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+.br
+.RI "Умный ход бота (с анализом попаданий)\&. "
+.ti -1c
+.RI "void \fBReset\fP ()"
+.br
+.RI "Сброс состояния бота (например, при новой игре)\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Представляет основную логику бота\&. 
+.PP
+Definition at line \fB12\fP of file \fBBotLogic\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BattleShipGame\&.Logic\&.BotLogic\&.BotLogic (\fBBotDifficulty\fP difficulty)"
+
+.PP
+Координаты первого попадания в текущий корабль\&. Инициализация бота с некоторой сложностью\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIdifficulty\fP Выбранная сложность бота\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB28\fP of file \fBBotLogic\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "async Task< \fBBotTurnResult\fP > BattleShipGame\&.Logic\&.BotLogic\&.MakeSimpleTurn (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+
+.PP
+Простой ход бота (только рандом)\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIplayerBoard\fP Доска игрока, по которой бот стреляет\&.
+.br
+\fIonAttack\fP Callback-действие для отработки результата атаки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Результат хода и нужно ли продолжать ход\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB41\fP of file \fBBotLogic\&.cs\fP\&.
+.SS "async Task< \fBBotTurnResult\fP > BattleShipGame\&.Logic\&.BotLogic\&.MakeSmartTurn (\fBGameBoard\fP playerBoard, Action< int, int, bool, bool, bool > onAttack)"
+
+.PP
+Умный ход бота (с анализом попаданий)\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIplayerBoard\fP Доска игрока, по которой бот стреляет\&.
+.br
+\fIonAttack\fP Callback-действие для отработки результата атаки\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Результат хода и нужно ли продолжать ход\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB70\fP of file \fBBotLogic\&.cs\fP\&.
+.SS "void BattleShipGame\&.Logic\&.BotLogic\&.Reset ()"
+
+.PP
+Сброс состояния бота (например, при новой игре)\&. 
+.PP
+Definition at line \fB289\fP of file \fBBotLogic\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for BattleShipGame from the source code\&.

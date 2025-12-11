@@ -1,0 +1,28 @@
+\doxysection{Ship.\+cs}
+\hypertarget{_ship_8cs_source}{}\label{_ship_8cs_source}\index{Models2/Ship.cs@{Models2/Ship.cs}}
+\mbox{\hyperlink{_ship_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00003}00003\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_battle_ship_game_1_1_models2}{BattleShipGame.Models2}};}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00008}\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship}{00008}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a4f708d210db2c369b9f0be2eb100e6b1}{Ship}}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00010}00010\ \textcolor{preprocessor}{\ \ \ \ \#region\ Поля\ и\ свойства}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00014}\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_ae19fd5cd1942972fd701b131c6ca77ce}{00014}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_ae19fd5cd1942972fd701b131c6ca77ce}{Size}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00018}\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a141ff12569c958c146d7869738205780}{00018}}\ \ \ \ \ \textcolor{keyword}{public}\ List<(\textcolor{keywordtype}{int}\ X,\ \textcolor{keywordtype}{int}\ Y)>\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a141ff12569c958c146d7869738205780}{Positions}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00022}\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_af1d361f33ab12692f8b563238d8bac40}{00022}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_af1d361f33ab12692f8b563238d8bac40}{HitCount}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00026}\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_ad63569b068fa2ea00ac4d2790559e4da}{00026}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_ad63569b068fa2ea00ac4d2790559e4da}{IsHorizontal}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00030}\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a615d6a5f98c6e2aa8b91feacc73b1097}{00030}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a615d6a5f98c6e2aa8b91feacc73b1097}{IsSunk}}\ =>\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_af1d361f33ab12692f8b563238d8bac40}{HitCount}}\ >=\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_ae19fd5cd1942972fd701b131c6ca77ce}{Size}};}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00037}\mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a4f708d210db2c369b9f0be2eb100e6b1}{00037}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a4f708d210db2c369b9f0be2eb100e6b1}{Ship}}(\textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{bool}\ horizontal)}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00038}00038\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_ae19fd5cd1942972fd701b131c6ca77ce}{Size}}\ =\ size;}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_ad63569b068fa2ea00ac4d2790559e4da}{IsHorizontal}}\ =\ horizontal;}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_a141ff12569c958c146d7869738205780}{Positions}}\ =\ \textcolor{keyword}{new}\ List<(int,\ int)>();}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_battle_ship_game_1_1_models2_1_1_ship_af1d361f33ab12692f8b563238d8bac40}{HitCount}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00044}00044\ \textcolor{preprocessor}{\ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_ship_8cs_source_l00045}00045\ \}}
+
+\end{DoxyCode}
