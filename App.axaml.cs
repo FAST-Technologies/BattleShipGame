@@ -44,34 +44,25 @@ public partial class App : Application
         {
             desktop.ShutdownRequested += OnShutdownRequested;
             DisableAvaloniaDataAnnotationValidation();
-            
-            // Важно: Сначала показываем окно пустым
+        
             var mainWindow = new MainWindow();
             desktop.MainWindow = mainWindow;
+        
+            // НЕ создаем новый DataContext - он уже создан в конструкторе MainWindow
+            // mainWindow.DataContext = new MainWindowViewModel();
+        
             desktop.MainWindow.Icon = new WindowIcon(
                 AssetLoader.Open(new Uri("avares://BattleShipGame/Assets/BattleShipGame.ico"))
             );
-            
-            // Показываем окно (но оно будет пустым)
+        
             desktop.MainWindow.Show();
-            
-            // Даем время окну инициализироваться
-            await Task.Delay(100);
-            
-            // Только теперь устанавливаем DataContext и запускаем загрузку
-            mainWindow.DataContext = new MainWindowViewModel();
-            
-            // Ждем пока ViewModel установится
-            await Task.Delay(50);
-            
-            // Запускаем загрузочный экран через ViewModel
+        
+            // Получаем ViewModel из существующего DataContext
             if (mainWindow.DataContext is MainWindowViewModel viewModel)
             {
                 viewModel.ShowLoadingScreen();
-                // Запускаем асинхронную загрузку в фоне
                 _ = viewModel.SimulateLoadingAsync().ContinueWith(t =>
                 {
-                    // После загрузки показываем главное меню
                     Dispatcher.UIThread.Post(() => viewModel.ShowMainMenu());
                 }, TaskScheduler.FromCurrentSynchronizationContext());
             }

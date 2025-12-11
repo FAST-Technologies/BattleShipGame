@@ -21,21 +21,32 @@
         <Image Source="/Assets/ShipWar.jpg" 
                Stretch="UniformToFill" 
                Opacity="0.6"/>
+        
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Background="#80000000" IsVisible="True">
+            <TextBlock Text="{Binding IsMainMenuVisible, StringFormat='IsMainMenuVisible: {0}'}" 
+                       Foreground="Yellow" FontSize="12"/>
+            <TextBlock Text="{Binding IsGameScreenVisible, StringFormat='IsGameScreenVisible: {0}'}" 
+                       Foreground="Yellow" FontSize="12"/>
+            <TextBlock Text="{Binding IsPlacementScreenVisible, StringFormat='IsPlacementScreenVisible: {0}'}" 
+                       Foreground="Yellow" FontSize="12"/>
+            <TextBlock Text="{Binding IsLoadingScreenVisible, StringFormat='IsLoadingScreenVisible: {0}'}" 
+                       Foreground="Yellow" FontSize="12"/>
+        </StackPanel>
 
         <!-- ========================================== -->
         <!-- ЭКРАН ЗАГРУЗКИ -->
         <!-- ========================================== -->
-        <Grid Name="LoadingScreen" Classes="LoadingScreen" IsVisible="{Binding IsLoadingScreenVisible, Mode=OneWay}">
+        <Grid Name="LoadingScreen" Classes="LoadingScreen" IsVisible="{Binding IsLoadingScreenVisible}">
             <Border Classes="LoadingPanel">
                 <StackPanel Classes="LoadingContent">
                     <TextBlock Text="⚓️ МОРСКОЙ БОЙ ⚓️" Classes="LoadingTitle"/>
                     <TextBlock Text="Game by F.A.S.T DEVELOPMENT" Classes="LoadingSubtitle"/>
-                    <TextBlock Text="{Binding LoadingStatus, Mode=OneWay}" 
+                    <TextBlock Text="{Binding LoadingStatus}" 
                                Classes="LoadingStatus"/>
                     
                     <!-- Прогресс-бар -->
                     <Border Classes="ProgressBarContainer">
-                        <Border Width="{Binding LoadingProgress, Mode=OneWay}" 
+                        <Border Width="{Binding LoadingProgress}" 
                                 Classes="ProgressBarFill"/>
                     </Border>
                 </StackPanel>
@@ -45,7 +56,7 @@
         <!-- ========================================== -->
         <!-- ГЛАВНОЕ МЕНЮ -->
         <!-- ========================================== -->
-        <StackPanel Name="MainMenuScreen" Classes="MenuPanel" IsVisible="{Binding IsMainMenuVisible, Mode=OneWay}">
+        <StackPanel Name="MainMenuScreen" Classes="MenuPanel" IsVisible="{Binding IsMainMenuVisible}">
             <TextBlock Text="⚓️ МОРСКОЙ БОЙ ⚓️" Classes="Title"/>
             
             <Button Name="VsComputerButton" 
@@ -66,15 +77,15 @@
         <!-- ========================================== -->
         <!-- ЭКРАН РАССТАНОВКИ КОРАБЛЕЙ -->
         <!-- ========================================== -->
-        <StackPanel Name="PlacementScreen" Classes="PlacementPanel" IsVisible="{Binding IsPlacementScreenVisible, Mode=OneWay}">
+        <StackPanel Name="PlacementScreen" Classes="PlacementPanel" IsVisible="{Binding IsPlacementScreenVisible}">
             <!-- Заголовок -->
             <Border Classes="Panel" Margin="0,0,0,20">
-                <TextBlock Text="{Binding PlacementStatus, Mode=OneWay}" 
+                <TextBlock Text="{Binding PlacementStatus}" 
                            Classes="Status"/>
             </Border>
 
             <!-- Инструкции -->
-            <TextBlock Text="{Binding PlacementInstruction, Mode=OneWay}"
+            <TextBlock Text="{Binding PlacementInstruction}"
                        Classes="Instruction"
                        Margin="0,0,0,20"/>
 
@@ -94,17 +105,17 @@
                 <Button Name="StartGameButton"
                         Content="▶️ Начать игру"
                         Classes="GameButton StartButton"
-                        IsEnabled="{Binding IsStartGameButtonEnabled, Mode=OneWay}"/>
+                        IsEnabled="{Binding IsStartGameButtonEnabled}"/>
             </StackPanel>
         </StackPanel>
 
         <!-- ========================================== -->
         <!-- ИГРОВОЙ ЭКРАН -->
         <!-- ========================================== -->
-        <StackPanel Name="GameScreen" Classes="GameMainPanel" IsVisible="{Binding IsGameScreenVisible, Mode=OneWay}">
+        <StackPanel Name="GameScreen" Classes="GameMainPanel" IsVisible="{Binding IsGameScreenVisible}">
             <!-- Статус игры -->
             <Border Classes="Panel" Margin="0,0,0,20">
-                <TextBlock Text="{Binding GameStatus, Mode=OneWay}" 
+                <TextBlock Text="{Binding GameStatus}" 
                            Classes="Status"/>
             </Border>
 
@@ -115,22 +126,22 @@
                     <!-- Своя доска -->
                     <StackPanel Classes="BoardPanel">
                         <Border Classes="BoardHeader Player">
-                            <TextBlock Text="{Binding OwnBoardTitle, Mode=OneWay}" 
+                            <TextBlock Text="{Binding OwnBoardTitle}" 
                                        Classes="BoardLabel"/>
                         </Border>
                         <Canvas Name="OwnCanvas" Classes="GameBoard"/>
-                        <TextBlock Text="{Binding PlayerStats, Mode=OneWay}" 
+                        <TextBlock Text="{Binding PlayerStats}" 
                                    Classes="Stats"/>
                     </StackPanel>
 
                     <!-- Доска противника -->
                     <StackPanel Classes="BoardPanel">
                         <Border Classes="BoardHeader Enemy">
-                            <TextBlock Text="{Binding EnemyBoardTitle, Mode=OneWay}" 
+                            <TextBlock Text="{Binding EnemyBoardTitle}" 
                                        Classes="BoardLabel"/>
                         </Border>
                         <Canvas Name="EnemyCanvas" Classes="GameBoard"/>
-                        <TextBlock Text="{Binding OpponentStats, Mode=OneWay}" 
+                        <TextBlock Text="{Binding OpponentStats}" 
                                    Classes="Stats"/>
                     </StackPanel>
                 </StackPanel>

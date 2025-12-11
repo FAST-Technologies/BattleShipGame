@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -10,6 +11,8 @@ namespace BattleShipGame.ViewModels;
 /// </summary>
 public partial class MainWindowViewModel : ViewModelBase
 {
+    /// <summary>Действие для обнуления игрового состояния.</summary>
+    public event Action? RequestGameReset;
     #region Свойства видимости экранов
     
     /// <summary>Приветственное сообщение.</summary>
@@ -95,8 +98,27 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void ShowMainMenu()
     {
+        Console.WriteLine($"[DEBUG ViewModel] ShowMainMenu called");
+        Console.WriteLine($"[DEBUG ViewModel] Before: IsLoading={IsLoadingScreenVisible}, IsMainMenu={IsMainMenuVisible}, IsPlacement={IsPlacementScreenVisible}, IsGame={IsGameScreenVisible}");
+        RequestGameReset?.Invoke();
         HideAllScreens();
         IsMainMenuVisible = true;
+        ResetUIState();
+    
+        Console.WriteLine($"[DEBUG ViewModel] After: IsMainMenuVisible={IsMainMenuVisible}");
+    }
+    
+    /// <summary>
+    /// Команда для сброса игрового состояния.
+    /// Сбрасывает статусы на значения по умолчанию.
+    /// </summary>
+    private void ResetUIState()
+    {
+        GameStatus = "⚔️ ВАШ ХОД! Атакуйте поле противника";
+        PlacementStatus = "🚢 Расставьте корабли";
+        PlayerStats = "🎯 Ваши выстрелы: 0 попаданий, 0 промахов";
+        OpponentStats = "💣 Выстрелы противника: 0 попаданий, 0 промахов";
+        IsStartGameButtonEnabled = false;
     }
     
     /// <summary>
